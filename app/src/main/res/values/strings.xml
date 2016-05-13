@@ -13,7 +13,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="hello_world">hello world</string>
+
 
 
     <string name="action_settings">Settings</string>
@@ -33,5 +33,18 @@
 
     <!-- Search  -->
     <string name="search_hint">Search color..</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="number">Phone number</string>
+    <string name="email">E-mail</string>
+    <string name="all">sve</string>
+    <string name="make_order">make order</string>
+    <string name="split_order">split order</string>
+    <string name="number_of_table">broj stola</string>
+    <string name="is_it_paid">is it paid</string>
+    <string name="kategory_string">kategorija</string>
+    <string name="paid_string">placena</string>
+    <string name="new_item_string">nova stavka</string>
 
 </resources>

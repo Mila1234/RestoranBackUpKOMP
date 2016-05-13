@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.actionBar.LocationFound;
 import com.example.marijaradisavljevic.restoran.actionBar.SpinnerNavItem;
 import com.example.marijaradisavljevic.restoran.actionBar.TitleNavigationAdapter;
 
@@ -43,8 +44,7 @@ public class ActivityGUI extends FragmentActivity implements ActionBar.OnNavigat
         // Hide the action bar title
         actionBar.setDisplayShowTitleEnabled(false);
 
-        // Title navigation Spinner data
-        private ArrayList<SpinnerNavItem> navSpinner;
+
 
         // Enabling Spinner dropdown navigation
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);

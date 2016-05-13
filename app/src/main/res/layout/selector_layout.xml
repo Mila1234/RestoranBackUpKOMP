@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Spinner
+        android:id="@+id/numbreOfTable_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/number_of_table"/>
+    <Spinner
+        android:id="@+id/isItPaid_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/is_it_paid"/>
+    <Spinner
+        android:id="@+id/kategory_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/kategory_string"/>
+
+    <CheckedTextView android:id = "@+id/all_checkedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/all"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:checked="true"
+        android:shadowColor="#1132ec" />
+
+</LinearLayout>

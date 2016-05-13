@@ -9,9 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.marijaradisavljevic.restoran.R;
+
 import java.util.ArrayList;
 
-import info.androidhive.actionbar.R;
+
 
 public class TitleNavigationAdapter extends BaseAdapter {
 

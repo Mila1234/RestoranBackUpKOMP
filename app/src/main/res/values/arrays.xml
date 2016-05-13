@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="numbers">1,2,3,4,5,6,7,8,9</string-array>
+    <string-array name="paidNotpaid">placena, ne placena</string-array>
+    <string-array name="kategory_array">pice, kafa, turska kafa, topli napici, caj</string-array>
+</resources>
