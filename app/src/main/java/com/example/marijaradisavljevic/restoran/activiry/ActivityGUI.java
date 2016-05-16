@@ -141,9 +141,9 @@ public class ActivityGUI extends AppCompatActivity  {  //work with all fragments
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return FragmentSelection.getInstance();
+                    return new  FragmentSelection();
                 case 1:
-                    return FragmentList.getInstance();
+                    return new FragmentList();
                 default:
                     return PlaceholderFragment.newInstance(position);
             }

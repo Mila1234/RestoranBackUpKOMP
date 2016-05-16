@@ -54,5 +54,8 @@
 
 
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="action_user_info">user info</string>
+    <string name="action_logout">logout</string>
+    <string name="button_record">snimi</string>
 
 </resources>

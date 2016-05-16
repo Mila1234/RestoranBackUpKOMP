@@ -14,11 +14,14 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -52,16 +55,25 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "m@gmail.com:mmmmmmm", "m@gmail.com:mmmmmmm"
     };
+    private static FragmentLogin instance;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private LoginActivity.UserLoginTask mAuthTask = null;
+    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,7 +113,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             return;
         }
 
-        getLoaderManager().initLoader(0, null, this);
+        getActivity().getLoaderManager().initLoader(0, null, this);
     }
 
     private boolean mayRequestContacts() {
@@ -240,7 +252,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
+        return new CursorLoader(getActivity(),
                 // Retrieve data rows for the device user's 'profile' contact.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
@@ -275,7 +287,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
+                new ArrayAdapter<>(getActivity(),
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
@@ -337,10 +349,10 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             if (success) {
                 //  finish();
 
-                //  Intent intent = new Intent(getApplicationContext(), ActivityGUI.class);
-              /*  Intent intent = new Intent(getActivity().getApplicationContext(), ActivityUserInfoFirst.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getActivity().getApplicationContext().startActivity(intent);*/
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentUserInfo fragmentUserInfo = FragmentUserInfo.getInstance();
+                fm.beginTransaction().replace(R.id.container_menu, fragmentUserInfo).commit();
+
 
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -353,6 +365,24 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+
+    public static FragmentLogin getInstance() {
+
+
+        if(instance == null){
+            return new FragmentLogin();
+        }else return instance;
+
+    }
+
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_logout).setVisible(false);
+        menu.findItem(R.id.action_user_info).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
     }
 
 
