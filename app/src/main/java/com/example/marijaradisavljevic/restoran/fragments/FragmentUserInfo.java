@@ -21,7 +21,7 @@ public class FragmentUserInfo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mRoot = inflater.inflate(R.layout.user_info, container, false);
-        getActivity().setTitle(R.string.);
+        getActivity().setTitle(R.string.fragmentUserInfo);
 
         ///////////////////////////////////////////////////////////////////////
         EditText username = (EditText) mRoot.findViewById(R.id.username);
@@ -29,7 +29,7 @@ public class FragmentUserInfo extends Fragment {
         EditText surname = (EditText) mRoot.findViewById(R.id.surname);
         EditText number = (EditText) mRoot.findViewById(R.id.number);
         EditText email = (EditText) mRoot.findViewById(R.id.email);
-        Button button_ok = (Button) mRoot.findViewById(R.id.ok_button)
+        Button button_ok = (Button) mRoot.findViewById(R.id.ok_button);
 
         username.setText("MARIJARAD89");
         name.setText("Marija");
@@ -40,7 +40,7 @@ public class FragmentUserInfo extends Fragment {
         button_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(this, " Snimljeno ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), " Snimljeno ", Toast.LENGTH_LONG).show();
 
                 //go to main fragment
             }

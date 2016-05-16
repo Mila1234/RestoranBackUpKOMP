@@ -1,164 +1,174 @@
 package com.example.marijaradisavljevic.restoran.activiry;
 
-import android.app.ActionBar;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.actionBar.LocationFound;
-import com.example.marijaradisavljevic.restoran.actionBar.SpinnerNavItem;
-import com.example.marijaradisavljevic.restoran.actionBar.TitleNavigationAdapter;
+import com.example.marijaradisavljevic.restoran.fragments.FragmentList;
+import com.example.marijaradisavljevic.restoran.fragments.FragmentSelection;
 
-import java.util.ArrayList;
 
 /**
  * Created by marija.radisavljevic on 5/12/2016.
  */
-public class ActivityGUI extends FragmentActivity implements ActionBar.OnNavigationListener{  //work with all fragments in app
+public class ActivityGUI extends AppCompatActivity  {  //work with all fragments in app
 
-    // action bar
-    private ActionBar actionBar;
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * loaded fragment in memory. If this becomes too memory intensive, it
+     * may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private ViewPager mViewPager;
 
-    // Refresh menu item
-    private MenuItem refreshMenuItem;
-
-    // Title navigation Spinner data
-    private ArrayList<SpinnerNavItem> navSpinner;
-
-    // Navigation adapter
-    private TitleNavigationAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_gui);
 
-        actionBar = getActionBar();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.back);
+        toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
+        //toolbar.setLogo(R.drawable.help);
+        toolbar.setLogoDescription(getResources().getString(R.string.Logo_description));
 
-        // Hide the action bar title
-        actionBar.setDisplayShowTitleEnabled(false);
 
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-
-        // Enabling Spinner dropdown navigation
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-        // Spinner title navigation data
-        navSpinner = new ArrayList<SpinnerNavItem>();
-        navSpinner.add(new SpinnerNavItem("Local", R.drawable.ic_location));
-        navSpinner
-                .add(new SpinnerNavItem("My Places", R.drawable.ic_my_places));
-        navSpinner.add(new SpinnerNavItem("Checkins", R.drawable.ic_checkin));
-        navSpinner.add(new SpinnerNavItem("Latitude", R.drawable.ic_latitude));
-
-        // title drop down adapter
-        adapter = new TitleNavigationAdapter(getApplicationContext(),
-                navSpinner);
-
-        // assigning the spinner navigation
-        actionBar.setListNavigationCallbacks(adapter, this);
-
-        // Changing the action bar icon
-        // actionBar.setIcon(R.drawable.ico_actionbar);
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container_gui);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_main_actions, menu);
-
-
-        return super.onCreateOptionsMenu(menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.manu_gui, menu);
+        return true;
     }
 
-
-    /**
-     * On selecting action bar icons
-     * */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Take appropriate action for each action item click
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
         switch (item.getItemId()) {
-            case R.id.action_search:
-                // search action
+            case R.id.action_user_info:
+                //method();
                 return true;
-            case R.id.action_location_found:
-                // location found
-                LocationFound();
-                return true;
-            case R.id.action_refresh:
-                // refresh
-                refreshMenuItem = item;
-                // load the data from server
-                new SyncData().execute();
-                return true;
-            case R.id.action_help:
-                // help action
-                return true;
-            case R.id.action_check_updates:
-                // check for updates action
+            case R.id.action_logout:
+                //method();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
 
-    /*
-	 * Actionbar navigation item select listener
-	 */
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        // Action to be taken after selecting a spinner item
-        return false;
+
     }
 
 
     /**
-     * Launching new activity
-     * */
-    private void LocationFound() {
-        Intent i = new Intent(ActivityGUI.this, LocationFound.class);
-        startActivity(i);
-    }
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
 
+        public PlaceholderFragment() {
+        }
 
-    /**
-     * Async task to load the data from server
-     * **/
-    private class SyncData extends AsyncTask<String, Void, String> {
-        @Override
-        protected void onPreExecute() {
-            // set the progress bar view
-            refreshMenuItem.setActionView(R.layout.action_progressbar);
-
-            refreshMenuItem.expandActionView();
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            // not making real request in this demo
-            // for now we use a timer to wait for sometime
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;
+        }
+    }
+
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            switch (position) {
+                case 0:
+                    return FragmentSelection.getInstance();
+                case 1:
+                    return FragmentList.getInstance();
+                default:
+                    return PlaceholderFragment.newInstance(position);
+            }
+
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "SECTION 1";
+                case 1:
+                    return "SECTION 2";
+                case 2:
+                    return "SECTION 3";
             }
             return null;
         }
+    }
 
-        @Override
-        protected void onPostExecute(String result) {
-            refreshMenuItem.collapseActionView();
-            // remove the progress bar view
-            refreshMenuItem.setActionView(null);
-        }
-    };
 
 }

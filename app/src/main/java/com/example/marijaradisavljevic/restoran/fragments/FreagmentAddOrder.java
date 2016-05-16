@@ -17,6 +17,8 @@ public class FreagmentAddOrder extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mRoot = View.inflate(R.layout.order);
+        View mRoot = inflater.inflate(R.layout.order,container,false);
+
+        return mRoot;
     }
 }

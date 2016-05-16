@@ -1,6 +1,6 @@
 package com.example.marijaradisavljevic.restoran.fragments;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ArrayAdapter;
@@ -17,18 +17,18 @@ import com.example.marijaradisavljevic.restoran.R;
  */
 public class FragmentSelection extends Fragment {
 
-
+    private static Fragment instance ;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View mRoot = View.inflate(R.layout.selector_layout);
+        View mRoot = inflater.inflate(R.layout.selector_layout,container,false);
         Spinner number_of_table = (Spinner)  mRoot.findViewById(R.id.numbreOfTable_spinner);
         Spinner isItPaid = (Spinner)  mRoot.findViewById(R.id.isItPaid_spinner);
         Spinner kategory = (Spinner)  mRoot.findViewById(R.id.kategory_spinner);
 
 
-        ArrayAdapter<CharSequence> adapter_number_of_table = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter_number_of_table = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.numbers, android.R.layout.simple_spinner_item);
 
         // Specify the layout to use when the list of choices appears
@@ -37,7 +37,7 @@ public class FragmentSelection extends Fragment {
         number_of_table.setAdapter(adapter_number_of_table);
 
 
-        ArrayAdapter<CharSequence>  adapter_isItPaid = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence>  adapter_isItPaid = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.paidNotpaid, android.R.layout.simple_spinner_item);
 
         // Specify the layout to use when the list of choices appears
@@ -46,7 +46,7 @@ public class FragmentSelection extends Fragment {
         isItPaid.setAdapter(adapter_isItPaid);
 
 
-        ArrayAdapter<CharSequence> adapter_kategory = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter_kategory = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.kategory_array, android.R.layout.simple_spinner_item);
 
         // Specify the layout to use when the list of choices appears
@@ -58,13 +58,22 @@ public class FragmentSelection extends Fragment {
 
 
 
-        CheckedTextView all = mRoot.findViewById(R.id.all_checkedTextView);
+        CheckedTextView all =(CheckedTextView) mRoot.findViewById(R.id.all_checkedTextView);
         all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
+        return mRoot;
+    }
+
+    public static Fragment getInstance() {
+
+
+        if(instance == null){
+            return new FragmentList();
+        }else return instance;
 
     }
 }

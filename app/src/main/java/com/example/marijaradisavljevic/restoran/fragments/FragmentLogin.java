@@ -1,27 +1,26 @@
-package com.example.marijaradisavljevic.restoran.activiry;
+package com.example.marijaradisavljevic.restoran.fragments;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-
-import android.content.pm.PackageManager;
-
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
+import android.annotation.TargetApi;
+import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -30,6 +29,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.activiry.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +37,9 @@ import java.util.List;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
- * A login screen that offers login via email/password.
+ * Created by marija.radisavljevic on 5/16/2016.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-
+public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -56,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    private LoginActivity.UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -65,14 +64,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_frame);
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View mRoot = inflater.inflate(R.layout.fragmentlogin, container, false);
+        mEmailView = (AutoCompleteTextView) mRoot.findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = (EditText) mRoot.findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -84,17 +81,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mEmailSignInButton = (Button) mRoot.findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mLoginFormView = mRoot.findViewById(R.id.login_form);
+        mProgressView = mRoot.findViewById(R.id.login_progress);
+
+        return mRoot;
     }
+
+
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+        if (getActivity().checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
@@ -334,12 +335,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-              //  finish();
+                //  finish();
 
-              //  Intent intent = new Intent(getApplicationContext(), ActivityUserInfoFirst.class);
-                /*Intent intent = new Intent(getApplicationContext(), ActivityUserInfo.class);
+                //  Intent intent = new Intent(getApplicationContext(), ActivityGUI.class);
+              /*  Intent intent = new Intent(getActivity().getApplicationContext(), ActivityUserInfoFirst.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(intent);*/
+                getActivity().getApplicationContext().startActivity(intent);*/
 
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -356,4 +357,3 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 }
-
