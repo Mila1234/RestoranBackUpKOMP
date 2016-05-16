@@ -1,5 +1,6 @@
 package com.example.marijaradisavljevic.restoran.activiry;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentList;
+import com.example.marijaradisavljevic.restoran.fragments.FragmentLogin;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentSelection;
+import com.example.marijaradisavljevic.restoran.fragments.FragmentUserInfo;
 
 
 /**
@@ -79,10 +82,20 @@ public class ActivityGUI extends AppCompatActivity  {  //work with all fragments
 
         switch (item.getItemId()) {
             case R.id.action_user_info:
-                //method();
+                Intent intent = new Intent(getApplicationContext(), ActivityFirst.class);
+                intent.putExtra("name","FragmentUserInfo");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
                 return true;
             case R.id.action_logout:
-                //method();
+                //call popup win for logout
+                return true;
+            case R.id.action_add:
+
+                Intent intent2 = new Intent(getApplicationContext(), ActivityFirst.class);
+                intent2.putExtra("name","FreagmentAddOrder");
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent2);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

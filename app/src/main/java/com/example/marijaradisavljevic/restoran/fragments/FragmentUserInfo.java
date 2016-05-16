@@ -22,6 +22,12 @@ public class FragmentUserInfo extends Fragment {
 
     private static FragmentUserInfo instance;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,11 +63,7 @@ public class FragmentUserInfo extends Fragment {
         return mRoot;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+
 
 
     public static FragmentUserInfo getInstance() {
@@ -77,6 +79,7 @@ public class FragmentUserInfo extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_logout).setVisible(true);
         menu.findItem(R.id.action_user_info).setVisible(true);
+        menu.findItem(R.id.action_add).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 

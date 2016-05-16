@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -16,7 +17,12 @@ import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheLi
  * Created by marija.radisavljevic on 5/13/2016.
  */
 public class FragmentList extends Fragment {
-    private static Fragment instance ;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,14 +38,13 @@ public class FragmentList extends Fragment {
 
         return mRoot;
     }
-
-
-    public static Fragment getInstance() {
-
-
-        if(instance == null){
-            return new FragmentList();
-        }else return instance;
-
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_logout).setVisible(true);
+        menu.findItem(R.id.action_user_info).setVisible(true);
+        menu.findItem(R.id.action_add).setVisible(true);
+        super.onPrepareOptionsMenu(menu);
     }
+
+
 }

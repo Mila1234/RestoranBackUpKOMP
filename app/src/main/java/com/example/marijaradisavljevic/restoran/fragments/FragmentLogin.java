@@ -382,6 +382,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_logout).setVisible(false);
         menu.findItem(R.id.action_user_info).setVisible(false);
+        menu.findItem(R.id.action_add).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 

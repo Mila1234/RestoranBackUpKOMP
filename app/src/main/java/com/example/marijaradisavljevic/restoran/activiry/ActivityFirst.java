@@ -1,6 +1,7 @@
 package com.example.marijaradisavljevic.restoran.activiry;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +11,15 @@ import android.view.MenuItem;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentLogin;
-
+import com.example.marijaradisavljevic.restoran.fragments.FragmentUserInfo;
+import com.example.marijaradisavljevic.restoran.fragments.FreagmentAddOrder;
 
 
 /**
  * Created by marija.radisavljevic on 5/16/2016.
  */
 public class ActivityFirst extends AppCompatActivity {
-
+private static boolean firstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +33,30 @@ public class ActivityFirst extends AppCompatActivity {
         //toolbar.setLogo(R.drawable.help);
         toolbar.setLogoDescription(getResources().getString(R.string.Logo_description));
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentLogin fragmentLogin = FragmentLogin.getInstance();
-        fm.beginTransaction().replace(R.id.container_menu, fragmentLogin).commit();
+
+        Bundle extras = getIntent().getExtras();
+        String fragmetnName;
+
+        if (extras != null) {
+            fragmetnName = extras.getString("name");
+
+            if(fragmetnName.equals("FragmentUserInfo")) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentUserInfo fragmentUserInfo = FragmentUserInfo.getInstance();
+                fm.beginTransaction().replace(R.id.container_menu, fragmentUserInfo).commit();
+            }else if(fragmetnName.equals("FreagmentAddOrder")){
+                FragmentManager fm = getSupportFragmentManager();
+                FreagmentAddOrder freagmentAddOrder = FreagmentAddOrder.getInstance();
+                fm.beginTransaction().replace(R.id.container_menu, freagmentAddOrder).commit();
+            }
+        }else
+        {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentLogin fragmentLogin = FragmentLogin.getInstance();
+            fm.beginTransaction().replace(R.id.container_menu, fragmentLogin).commit();
+
+        }
+
 
 
     }
@@ -54,10 +77,20 @@ public class ActivityFirst extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_user_info:
-                //method();
+                Intent intent = new Intent(getApplicationContext(), ActivityFirst.class);
+                intent.putExtra("name","FragmentUserInfo");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
                 return true;
             case R.id.action_logout:
-                //method();
+                //call popup win for logout
+                return true;
+            case R.id.action_add:
+
+                Intent intent2 = new Intent(getApplicationContext(), ActivityFirst.class);
+                intent2.putExtra("name", "FreagmentAddOrder");
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent2);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -65,7 +98,6 @@ public class ActivityFirst extends AppCompatActivity {
 
 
     }
-
 
 
 
