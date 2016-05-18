@@ -57,5 +57,8 @@
     <string name="action_user_info">user info</string>
     <string name="action_logout">logout</string>
     <string name="button_record">snimi</string>
+    <string name="edit">izmeni</string>
+    <string name="remove">izbrisi</string>
+
 
 </resources>

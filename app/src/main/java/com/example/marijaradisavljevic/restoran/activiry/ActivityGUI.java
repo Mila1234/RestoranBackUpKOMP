@@ -16,10 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.fragments.FragmentList;
-import com.example.marijaradisavljevic.restoran.fragments.FragmentLogin;
+import com.example.marijaradisavljevic.restoran.fragments.FragmentListReservations;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentSelection;
-import com.example.marijaradisavljevic.restoran.fragments.FragmentUserInfo;
 
 
 /**
@@ -156,7 +154,7 @@ public class ActivityGUI extends AppCompatActivity  {  //work with all fragments
                 case 0:
                     return new  FragmentSelection();
                 case 1:
-                    return new FragmentList();
+                    return new FragmentListReservations();
                 default:
                     return PlaceholderFragment.newInstance(position);
             }

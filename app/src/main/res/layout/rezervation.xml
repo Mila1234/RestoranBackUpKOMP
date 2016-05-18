@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:id = "@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15.5.2016 8:53"
+      />
+
+    <TextView android:id = "@+id/name_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="konobar: marija radisavljevic"
+        android:layout_above="@+id/edit"
+        android:layout_centerHorizontal="true" />
+
+    <TextView android:id = "@+id/numberTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="broj stola 4"
+        android:layout_below="@+id/edit"
+        android:layout_alignLeft="@+id/price"
+        android:layout_alignStart="@+id/price" />
+
+    <TextView android:id = "@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cena 450 rsd"
+        android:layout_alignTop="@+id/edit"
+        android:layout_alignRight="@+id/time"
+        android:layout_alignEnd="@+id/time" />
+
+    <TextView android:id = "@+id/itemsOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bla 1, bla 2, bla 3"
+        android:layout_below="@+id/edit"
+        android:layout_toRightOf="@+id/price"
+        android:layout_toEndOf="@+id/price" />
+
+    <TextView android:id = "@+id/paidOrNot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="placeno"
+        android:layout_alignBottom="@+id/remove"
+        android:layout_alignLeft="@+id/numberTable"
+        android:layout_alignStart="@+id/numberTable" />
+
+
+
+    <Button  android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        android:layout_below="@+id/time"
+        android:layout_alignLeft="@+id/remove"
+        android:layout_alignStart="@+id/remove" />
+
+    <Button  android:id="@+id/remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remove"
+        android:layout_marginRight="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_below="@+id/edit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+
+</RelativeLayout>

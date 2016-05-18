@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,12 @@ import android.widget.CheckedTextView;
 import android.widget.Spinner;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.spiner.spinnerAdapter;
 
 /**
  * Created by marija.radisavljevic on 5/13/2016.
  */
-public class FragmentSelection extends Fragment {
+public class FragmentSelection extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private static Fragment instance ;
 
@@ -37,42 +39,50 @@ public class FragmentSelection extends Fragment {
         Spinner isItPaid = (Spinner)  mRoot.findViewById(R.id.isItPaid_spinner);
         Spinner kategory = (Spinner)  mRoot.findViewById(R.id.kategory_spinner);
 
+        String[] value = getResources().getStringArray(R.array.numbers);
+        ArrayAdapter<String> adapter_number_of_table = new spinnerAdapter(getActivity(),
+                android.R.layout.simple_spinner_item,value);
 
-        ArrayAdapter<CharSequence> adapter_number_of_table = ArrayAdapter.createFromResource(this.getContext(),
-                R.array.numbers, android.R.layout.simple_spinner_item);
+
 
         // Specify the layout to use when the list of choices appears
         adapter_number_of_table.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         number_of_table.setAdapter(adapter_number_of_table);
+        number_of_table.setSelection(adapter_number_of_table.getCount());
 
 
-        ArrayAdapter<CharSequence>  adapter_isItPaid = ArrayAdapter.createFromResource(this.getContext(),
-                R.array.paidNotpaid, android.R.layout.simple_spinner_item);
+         value = getResources().getStringArray(R.array.paidNotpaid);
+        ArrayAdapter<String>  adapter_isItPaid = new spinnerAdapter(getActivity(),
+                 android.R.layout.simple_spinner_item ,value);
 
         // Specify the layout to use when the list of choices appears
         adapter_isItPaid.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         isItPaid.setAdapter(adapter_isItPaid);
+        isItPaid.setSelection(isItPaid.getCount());
 
 
-        ArrayAdapter<CharSequence> adapter_kategory = ArrayAdapter.createFromResource(this.getContext(),
-                R.array.kategory_array, android.R.layout.simple_spinner_item);
+         value = getResources().getStringArray(R.array.kategory_array);
+        ArrayAdapter<String> adapter_kategory = new spinnerAdapter(getActivity(),
+                android.R.layout.simple_spinner_item,value );
 
         // Specify the layout to use when the list of choices appears
         adapter_kategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         kategory.setAdapter(adapter_kategory);
+        kategory.setSelection(kategory.getCount());
 
 
-
-
-
-        CheckedTextView all =(CheckedTextView) mRoot.findViewById(R.id.all_checkedTextView);
+       final CheckedTextView all =(CheckedTextView) mRoot.findViewById(R.id.all_checkedTextView);
         all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(all.isChecked()){
+                    all.setChecked(false);
+                }else{
+                    all.setChecked(true);
+                }
             }
         });
         return mRoot;
@@ -82,7 +92,7 @@ public class FragmentSelection extends Fragment {
 
 
         if(instance == null){
-            return new FragmentList();
+            return new FragmentListReservations();
         }else return instance;
 
     }
@@ -93,5 +103,25 @@ public class FragmentSelection extends Fragment {
         menu.findItem(R.id.action_user_info).setVisible(true);
         menu.findItem(R.id.action_add).setVisible(true);
         super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+if(position == 0 ){return;}
+        switch (view.getId()) {
+            case R.id.isItPaid_spinner:
+                break;
+            case R.id.kategory_spinner:
+                break;
+            case R.id.numbreOfTable_spinner:
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
