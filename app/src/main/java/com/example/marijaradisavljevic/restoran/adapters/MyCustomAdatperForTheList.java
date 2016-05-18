@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
@@ -47,7 +48,7 @@ public class MyCustomAdatperForTheList extends BaseAdapter{
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.layout_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.rezervation, parent, false);
             mViewHolder = new MyViewHolder(convertView);
             convertView.setTag(mViewHolder);
         } else {
@@ -56,22 +57,28 @@ public class MyCustomAdatperForTheList extends BaseAdapter{
 
         ListData currentListData = getItem(position);
 
-        mViewHolder.tvTitle.setText(currentListData.getTitle());
-        mViewHolder.tvDesc.setText(currentListData.getDescription());
-        mViewHolder.ivIcon.setImageResource(currentListData.getImgResId());
+        mViewHolder.time.setText(currentListData.gettime());
+        mViewHolder.name_user.setText(currentListData.getname_user());
+        mViewHolder.numberTable.setText(currentListData.getnumberTable());
+        mViewHolder.price.setText(currentListData.getprice());
+        mViewHolder.itemsOrder.setText(currentListData.getitemsOrder());
+        mViewHolder.paidOrNot.setText(currentListData.getpaidOrNot());
 
         return convertView;
     }
 
 
     private class MyViewHolder {//have fild like views in
-        TextView tvTitle, tvDesc;
-        ImageView ivIcon;
+        TextView time, name_user,numberTable,price,itemsOrder,paidOrNot;
+        Button edit,remove;
 
         public MyViewHolder(View item) {
-            tvTitle = (TextView) item.findViewById(R.id.tvTitle);
-            tvDesc = (TextView) item.findViewById(R.id.tvDesc);
-            ivIcon = (ImageView) item.findViewById(R.id.ivIcon);
+            time = (TextView) item.findViewById(R.id.time);
+            name_user = (TextView) item.findViewById(R.id.name_user);
+            numberTable = (TextView) item.findViewById(R.id.numberTable);
+            price = (TextView) item.findViewById(R.id.price);
+            itemsOrder = (TextView) item.findViewById(R.id.itemsOrder);
+            paidOrNot = (TextView) item.findViewById(R.id.paidOrNot);
         }
     }
 
