@@ -15,14 +15,14 @@ import java.util.ArrayList;
 /**
  * Created by marija.radisavljevic on 5/13/2016.
  */
-public class MyCustomAdatperForTheList extends BaseAdapter{
+public class MyCustomAdatperForTheList<T> extends BaseAdapter{
 
 
-    ArrayList<ListData> myList = new ArrayList<ListData>();
+    ArrayList<T> myList = new ArrayList<T>();
     LayoutInflater inflater;
     Context context;
 
-    public MyCustomAdatperForTheList(Context context, ArrayList<ListData> myList) {
+    public MyCustomAdatperForTheList(Context context, ArrayList<T> myList) {
         this.myList = myList;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
@@ -55,14 +55,14 @@ public class MyCustomAdatperForTheList extends BaseAdapter{
             mViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        ListData currentListData = getItem(position);
+        T currentListData = (T )getItem(position);
 
-        mViewHolder.time.setText(currentListData.gettime());
+     /*   mViewHolder.time.setText(currentListData.gettime());
         mViewHolder.name_user.setText(currentListData.getname_user());
         mViewHolder.numberTable.setText(currentListData.getnumberTable());
         mViewHolder.price.setText(currentListData.getprice());
         mViewHolder.itemsOrder.setText(currentListData.getitemsOrder());
-        mViewHolder.paidOrNot.setText(currentListData.getpaidOrNot());
+        mViewHolder.paidOrNot.setText(currentListData.getpaidOrNot());*/
 
         return convertView;
     }
