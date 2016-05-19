@@ -3,7 +3,7 @@ package com.example.marijaradisavljevic.restoran.adapters;
 /**
  * Created by marija.radisavljevic on 5/18/2016.
  */
-public class ListData {
+public class ListData {//TODO DB komunication
 
     private String time,name_user,numberTable,price,itemsOrder,paidOrNot;
 

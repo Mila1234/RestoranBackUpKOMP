@@ -49,15 +49,15 @@
         android:src="@drawable/icon_plus"
        android:text="@string/new_item_string"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/checkedTextView"
-        android:layout_alignStart="@+id/checkedTextView" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <CheckedTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/paid_string"
         android:checked="false"
-        android:id="@+id/checkedTextView"
+        android:id="@+id/paidOrNot"
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
         android:shadowColor="#1132ec"
         android:layout_above="@+id/make_order"
@@ -70,7 +70,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/split_order"
+        android:layout_below="@+id/listaAddOrder"
         android:layout_alignLeft="@+id/time"
         android:layout_alignStart="@+id/time">
 

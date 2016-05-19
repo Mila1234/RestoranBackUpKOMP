@@ -28,12 +28,12 @@ private static boolean firstTime = true;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //toolbar.setNavigationIcon(R.drawable.back);
+       // toolbar.setNavigationIcon(R.drawable.back);
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
-        //toolbar.setLogo(R.drawable.help);
+       // toolbar.setLogo(R.drawable.help);
         toolbar.setLogoDescription(getResources().getString(R.string.Logo_description));
 
-
+      //  getSupportActionBar().hide();
         Bundle extras = getIntent().getExtras();
         String fragmetnName;
 

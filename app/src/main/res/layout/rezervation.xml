@@ -13,14 +13,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="konobar: marija radisavljevic"
-        android:layout_above="@+id/edit"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/itemsOrder"
+        android:layout_toEndOf="@+id/itemsOrder" />
 
     <TextView android:id = "@+id/numberTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="broj stola 4"
-        android:layout_below="@+id/edit"
+        android:layout_alignBottom="@+id/edit"
         android:layout_alignLeft="@+id/price"
         android:layout_alignStart="@+id/price" />
 
@@ -36,15 +37,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="bla 1, bla 2, bla 3"
-        android:layout_below="@+id/edit"
-        android:layout_toRightOf="@+id/price"
-        android:layout_toEndOf="@+id/price" />
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/remove"
+        android:layout_alignLeft="@+id/paidOrNot"
+        android:layout_alignStart="@+id/paidOrNot" />
 
     <TextView android:id = "@+id/paidOrNot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="placeno"
-        android:layout_alignBottom="@+id/remove"
+        android:layout_above="@+id/itemsOrder"
         android:layout_alignLeft="@+id/numberTable"
         android:layout_alignStart="@+id/numberTable" />
 

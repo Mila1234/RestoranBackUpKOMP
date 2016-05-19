@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.adapters.ItemForRezervationsList;
 import com.example.marijaradisavljevic.restoran.adapters.ListData;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 
@@ -45,7 +46,11 @@ public class FragmentListReservations extends Fragment {
         context = getActivity();
         lvDetail = (ListView)mRoot.findViewById(R.id.list_reservations);
         getDataInList();
-        MyCustomAdatperForTheList<ListData> adapter = new MyCustomAdatperForTheList(context,myList);
+        MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(context);
+
+        adapter.addItem(new ItemForRezervationsList(myList.get(0)));
+        adapter.addItem(new ItemForRezervationsList(myList.get(1)));
+        adapter.addItem(new ItemForRezervationsList(myList.get(2)));
 
         // TODO: 5/13/2016 add new MyCustomAdatperForTheList adapter and populate listReservations
 
@@ -66,12 +71,7 @@ public class FragmentListReservations extends Fragment {
 
     //TODO 5/19/2016  this  is read from DB
     private void getDataInList() {
-
-
-
-
-
-       /* ListData ld = new ListData();
+        ListData ld = new ListData();
         ld.setName_user("milica jelic");
         ld.setItemsOrder("kapucino , truska kafa, lenja pita sa jabukama");
         ld.setNumberTable("3");
@@ -94,7 +94,7 @@ public class FragmentListReservations extends Fragment {
         ld.setPaidOrNot("paid");
         ld.setPrice("690 rsd");
         ld.setTime("5.5.2016. 17:00 ");
-        myList.add(ld);*/
+        myList.add(ld);
 
 
 
