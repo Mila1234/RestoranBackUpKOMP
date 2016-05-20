@@ -68,9 +68,10 @@
 
 
     <ListView
+        android:id="@+id/listaAddOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/listaAddOrder"
+        android:layout_below="@+id/make_order"
         android:layout_alignLeft="@+id/time"
         android:layout_alignStart="@+id/time">
 

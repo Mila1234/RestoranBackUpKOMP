@@ -1,13 +1,13 @@
 package com.example.marijaradisavljevic.restoran.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.database.Rezervation;
 
 /**
  * Created by marija.radisavljevic on 5/19/2016.
@@ -16,7 +16,7 @@ public class ItemForRezervationsList extends HolderAdapterItem{
 
     private String time,name_user,numberTable,price,itemsOrder,paidOrNot;
 
-public ItemForRezervationsList(ListData ld){
+public ItemForRezervationsList(Rezervation ld){
     time = ld.gettime();
     name_user = ld.getname_user();
     numberTable = ld. getnumberTable();

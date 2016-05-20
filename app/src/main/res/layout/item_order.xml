@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:id = "@+id/item_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5.8.2016  17:05"/>
+
+    <Button  android:id="@+id/remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remove"  />
+
+    <CheckedTextView
+        android:id="@+id/in_new_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/in_new_order"
+        android:checked="false"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:shadowColor="#1132ec"/>
+</LinearLayout>

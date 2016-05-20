@@ -1,11 +1,23 @@
-package com.example.marijaradisavljevic.restoran.adapters;
+package com.example.marijaradisavljevic.restoran.database;
+
+import java.util.ArrayList;
 
 /**
  * Created by marija.radisavljevic on 5/18/2016.
  */
-public class ListData {//TODO DB komunication
+public class Rezervation {//TODO DB komunication
 
     private String time,name_user,numberTable,price,itemsOrder,paidOrNot;
+    private ArrayList<String > itemsOrder;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setTime(String time) {
         this.time = time;
@@ -23,7 +35,7 @@ public class ListData {//TODO DB komunication
         this.price = price;
     }
 
-    public void setItemsOrder(String itemsOrder) {
+    public void setItemsOrder(ArrayList<String > itemsOrder) {
         this.itemsOrder = itemsOrder;
     }
 
@@ -47,7 +59,7 @@ public class ListData {//TODO DB komunication
         return price;
     }
 
-    public String getitemsOrder() {
+    public ArrayList<String > getitemsOrder() {
         return itemsOrder;
     }
 

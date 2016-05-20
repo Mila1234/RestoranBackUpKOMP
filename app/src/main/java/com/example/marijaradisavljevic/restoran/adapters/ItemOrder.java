@@ -4,24 +4,25 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
+
+
+import java.util.ArrayList;
 
 /**
  * Created by marija.radisavljevic on 5/19/2016.
  */
 public class ItemOrder extends HolderAdapterItem {
 
-    private String time,name_user,numberTable,price,itemsOrder,paidOrNot;
+    private String itemorder;
 
-    public ItemOrder(ListData ld){
-        time = ld.gettime();
-        name_user = ld.getname_user();
-        numberTable = ld. getnumberTable();
-        price = ld.getprice();
-        itemsOrder = ld.getitemsOrder();
-        paidOrNot = ld.getpaidOrNot();
+
+    public ItemOrder(String itemorder){
+        this.itemorder = itemorder;
+
 
     }
     @Override
@@ -36,7 +37,7 @@ public class ItemOrder extends HolderAdapterItem {
 
     @Override
     protected int getViewLayoutResId() {
-        return R.layout.rezervation;
+        return R.layout.item_order;
     }
 
     @Override
@@ -44,17 +45,41 @@ public class ItemOrder extends HolderAdapterItem {
         return  new OrderViewHolder();
     }
 
-    private class  OrderViewHolder implements IViewHolder<ItemForRezervationsList> {
-        TextView time, name_user, numberTable, price, itemsOrder, paidOrNot;
-        Button edit, remove;
+    private class  OrderViewHolder implements IViewHolder<ItemOrder> {
+        TextView  itemOrder;
+        Button  remove;
+        CheckedTextView innewRezervations;
 
 
         @Override
         public void findViews(View convertView) {
+            itemOrder =(TextView) convertView.findViewById(R.id.item_order);
+            remove = (Button)convertView.findViewById(R.id.remove);
+            innewRezervations =(CheckedTextView) convertView.findViewById(R.id.in_new_order);
 
         }
         @Override
-        public void fillData(final ItemForRezervationsList adapterItem) {
+        public void fillData(final ItemOrder adapterItem) {
+
+            itemOrder.setVisibility(View.VISIBLE);
+            itemOrder.setText(adapterItem.itemorder);
+            remove.setVisibility(View.VISIBLE);
+
+            innewRezervations.setVisibility(View.VISIBLE);
+            innewRezervations.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+            remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
 
 
         }

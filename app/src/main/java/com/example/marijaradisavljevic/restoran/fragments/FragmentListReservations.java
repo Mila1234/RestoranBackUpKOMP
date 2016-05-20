@@ -1,6 +1,5 @@
 package com.example.marijaradisavljevic.restoran.fragments;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 //import android.app.Fragment;
 import android.os.Bundle;
@@ -13,8 +12,9 @@ import android.widget.ListView;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.adapters.ItemForRezervationsList;
-import com.example.marijaradisavljevic.restoran.adapters.ListData;
+import com.example.marijaradisavljevic.restoran.database.Rezervation;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
+import com.example.marijaradisavljevic.restoran.database.AdapterDB;
 
 import java.util.ArrayList;
 
@@ -23,31 +23,24 @@ import java.util.ArrayList;
  */
 public class FragmentListReservations extends Fragment {
 
-    //i get list of reservatins from back end
+
     ListView lvDetail;
-    Context context ;
-    ArrayList<ListData> myList = new ArrayList<ListData>();
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        context = getActivity();
-
-
         setHasOptionsMenu(true);
     }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mRoot = inflater.inflate(R.layout.list_rezervations, container, false);
-        context = getActivity();
-        lvDetail = (ListView)mRoot.findViewById(R.id.list_reservations);
-        getDataInList();
-        MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(context);
 
+        lvDetail = (ListView)mRoot.findViewById(R.id.list_reservations);
+
+        MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
+        ArrayList<Rezervation> myList = AdapterDB.getInstance().getRezervations();
         adapter.addItem(new ItemForRezervationsList(myList.get(0)));
         adapter.addItem(new ItemForRezervationsList(myList.get(1)));
         adapter.addItem(new ItemForRezervationsList(myList.get(2)));
@@ -69,35 +62,7 @@ public class FragmentListReservations extends Fragment {
     }
 
 
-    //TODO 5/19/2016  this  is read from DB
-    private void getDataInList() {
-        ListData ld = new ListData();
-        ld.setName_user("milica jelic");
-        ld.setItemsOrder("kapucino , truska kafa, lenja pita sa jabukama");
-        ld.setNumberTable("3");
-        ld.setPaidOrNot("paid");
-        ld.setPrice("540 rsd");
-        ld.setTime("5.5.2016. 17:30 ");
-        myList.add(ld);
-         ld = new ListData();
-        ld.setName_user("milanka rajicic");
-        ld.setItemsOrder("koka kola , koka kola, lenja pita sa jabukama");
-        ld.setNumberTable("2");
-        ld.setPaidOrNot("paid");
-        ld.setPrice("350 rsd");
-        ld.setTime("5.5.2016. 18:00");
-        myList.add(ld);
-         ld = new ListData();
-        ld.setName_user("novak stojanovic");
-        ld.setItemsOrder("jelen pivo ,crveno vino , lenja pita sa jabukama");
-        ld.setNumberTable("1");
-        ld.setPaidOrNot("paid");
-        ld.setPrice("690 rsd");
-        ld.setTime("5.5.2016. 17:00 ");
-        myList.add(ld);
 
 
-
-    }
 
 }
