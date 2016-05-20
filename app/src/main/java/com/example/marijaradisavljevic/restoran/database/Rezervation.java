@@ -1,15 +1,35 @@
 package com.example.marijaradisavljevic.restoran.database;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by marija.radisavljevic on 5/18/2016.
  */
 public class Rezervation {//TODO DB komunication
 
-    private String time,name_user,numberTable,price,itemsOrder,paidOrNot;
-    private ArrayList<String > itemsOrder;
+    private String time,name_user,price;
+    private  int numberTable;
+    private boolean paidOrNot;
+    private ArrayList<String> itemsOrder;
     private int id;
+
+
+    public Rezervation() {
+        itemsOrder  = new ArrayList<String>();
+    }
+
+    public String getnumberTable_string(){
+        return Integer.toString(numberTable);
+    }
+
+    public String getpaidOrNot_string(){
+        if (paidOrNot) {
+            return "paid";
+        }else{
+            return "not paid";
+        }
+    }
 
     public int getId() {
         return id;
@@ -27,7 +47,7 @@ public class Rezervation {//TODO DB komunication
         this.name_user = name_user;
     }
 
-    public void setNumberTable(String numberTable) {
+    public void setNumberTable(int numberTable) {
         this.numberTable = numberTable;
     }
 
@@ -39,7 +59,7 @@ public class Rezervation {//TODO DB komunication
         this.itemsOrder = itemsOrder;
     }
 
-    public void setPaidOrNot(String paidOrNot) {
+    public void setPaidOrNot(boolean paidOrNot) {
         this.paidOrNot = paidOrNot;
     }
 
@@ -51,7 +71,7 @@ public class Rezervation {//TODO DB komunication
         return name_user;
     }
 
-    public String getnumberTable() {
+    public int getnumberTable() {
         return numberTable;
     }
 
@@ -63,7 +83,17 @@ public class Rezervation {//TODO DB komunication
         return itemsOrder;
     }
 
-    public String getpaidOrNot() {
+
+    public String getItemsOrdersInString(){
+        Iterator<String> iter = itemsOrder.iterator();
+        StringBuilder builder = new StringBuilder();
+        while(iter.hasNext()){
+            builder.append(iter.next());
+
+        }
+        return builder.toString();
+    }
+    public boolean ispaidOrNot() {
         return paidOrNot;
     }
 }

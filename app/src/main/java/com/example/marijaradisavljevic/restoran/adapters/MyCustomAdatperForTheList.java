@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.marijaradisavljevic.restoran.R;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by marija.radisavljevic on 5/13/2016.
@@ -35,15 +36,30 @@ public class MyCustomAdatperForTheList<T> extends BaseAdapter{
     }
 
 
+    public void deleteItemFromAdapter(T obj){
+        Iterator<T>  iter = myList.iterator();
+
+        while(iter.hasNext()){
+            T t = iter.next();
+            if(obj.equals(t)){
+                iter.remove();
+                break;
+            }
+        }
+
+
+    }
 
     @Override
     public int getCount() {
-        return myList.size();
+        int size  = myList.size();
+        return size;
     }
 
     @Override
     public Object getItem(int position) {
-        return myList.get(position);
+        T t = myList.get(position);
+        return t;
     }
 
     @Override

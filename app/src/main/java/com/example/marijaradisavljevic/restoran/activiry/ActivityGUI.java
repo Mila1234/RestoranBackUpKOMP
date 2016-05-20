@@ -88,10 +88,11 @@ public class ActivityGUI extends AppCompatActivity  {  //work with all fragments
             case R.id.action_logout:
                 //call popup win for logout
                 return true;
-            case R.id.action_add:
+            case R.id.action_add://plus action
 
                 Intent intent2 = new Intent(getApplicationContext(), ActivityFirst.class);
                 intent2.putExtra("name","FreagmentAddOrder");
+                intent2.putExtra("action","plusbutton");
                 intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent2);
                 return true;

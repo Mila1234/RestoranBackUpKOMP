@@ -45,9 +45,28 @@ private static boolean firstTime = true;
                 FragmentUserInfo fragmentUserInfo = FragmentUserInfo.getInstance();
                 fm.beginTransaction().replace(R.id.container_menu, fragmentUserInfo).commit();
             }else if(fragmetnName.equals("FreagmentAddOrder")){
-                FragmentManager fm = getSupportFragmentManager();
-                FreagmentAddOrder freagmentAddOrder = FreagmentAddOrder.getInstance();
-                fm.beginTransaction().replace(R.id.container_menu, freagmentAddOrder).commit();
+                String action = extras.getString("action");
+                if (action.equals("plusbutton")){
+                    FragmentManager fm = getSupportFragmentManager();
+                    FreagmentAddOrder freagmentAddOrder = FreagmentAddOrder.getInstance();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("action","plusbutton");
+                    freagmentAddOrder.setArguments(bundle);
+                    fm.beginTransaction().replace(R.id.container_menu, freagmentAddOrder).commit();
+                }else{
+                    if (action.equals("onclick")){
+                        FragmentManager fm = getSupportFragmentManager();
+                        FreagmentAddOrder freagmentAddOrder = FreagmentAddOrder.getInstance();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("rezervationId",extras.getString("rezervationId"));
+                        bundle.putString("action","onclick");
+                        freagmentAddOrder.setArguments(bundle);
+                        fm.beginTransaction().replace(R.id.container_menu, freagmentAddOrder).commit();
+                    }else{
+                        //TODO
+                    }
+                }
+
             }
         }else
         {
