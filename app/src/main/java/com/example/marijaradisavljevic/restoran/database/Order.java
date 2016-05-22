@@ -3,7 +3,7 @@ package com.example.marijaradisavljevic.restoran.database;
 /**
  * Created by marija on 22.5.16.
  */
-public class Order {
+public class Order implements Cloneable {
 
     private FoodMenuItem order;
     private int nuberOrder;
@@ -12,8 +12,23 @@ public class Order {
     //TODO id se dobija od backenda
     private static int ukid= 0;
 
+    @Override
+    public Order clone() throws CloneNotSupportedException {
 
-    public Order(int id,FoodMenuItem order,int nuberOrder) {
+        Order clone  = new Order();
+        clone.id = this.id;
+        clone.nuberOrder = this.nuberOrder;
+
+        FoodMenuItem cloneFMT = this.getOrder().clone();
+
+        clone.order = cloneFMT;
+        return clone;
+    }
+    public Order(){
+
+    }
+
+    public Order(int id, FoodMenuItem order, int nuberOrder) {
         this.order = order;
         this.nuberOrder = nuberOrder;
         this.id = ukid++;

@@ -60,6 +60,8 @@
     <string name="edit">izmeni</string>
     <string name="remove">izbrisi</string>
     <string name="in_new_order">u novu porudzbinu</string>
+    <string name="ok_button">ok</string>
+    <string name="cancel_button">cancel</string>
 
 
 </resources>

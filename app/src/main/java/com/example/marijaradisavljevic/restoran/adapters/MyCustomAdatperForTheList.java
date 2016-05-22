@@ -37,15 +37,17 @@ public class MyCustomAdatperForTheList<T> extends BaseAdapter{
 
 
     public void deleteItemFromAdapter(T obj){
-        Iterator<T>  iter = myList.iterator();
+        myList.remove(obj);
+        /*Iterator<T>  iter = myList.iterator();
 
         while(iter.hasNext()){
             T t = iter.next();
             if(obj.equals(t)){
-                iter.remove();
+                myList.remove(t);
+               // iter.remove();
                 break;
             }
-        }
+        }*/
 
 
     }
@@ -77,5 +79,13 @@ public class MyCustomAdatperForTheList<T> extends BaseAdapter{
     }
 
 
+    public void deleteAll() {
+        myList = new ArrayList<T>();
+    }
 
+    public void update() {
+
+
+
+    }
 }

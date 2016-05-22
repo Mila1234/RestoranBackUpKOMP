@@ -102,17 +102,27 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
         adapter_number_of_table.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         numbreOfTable_spinner.setAdapter(adapter_number_of_table);
-        numbreOfTable_spinner.setSelection(rezervation.getnumberTable());//
+        if (action.equals("onclick")){
+            numbreOfTable_spinner.setSelection(rezervation.getnumberTable());//
+        }else{
+            numbreOfTable_spinner.setSelection(adapter_number_of_table.getCount());//
+        }
+
 
 
         listaAddOrder = (ListView) mRoot.findViewById(R.id.listaAddOrder);
 
         MyCustomAdatperForTheList<ItemOrder> adapter = new MyCustomAdatperForTheList(getActivity());
+        try{
+            for (int i=0 ; i<rezervation.getOrders().size();i++) {
+                Order order = rezervation.getOrders().get(i);
+                Order clone = order.clone();
+                adapter.addItem(new ItemOrder(clone));
 
-        for (int i=0 ; i<rezervation.getOrders().size();i++) {
-            Order order = rezervation.getOrders().get(i);
-            adapter.addItem(new ItemOrder(order));
+            }
 
+        }catch (Exception e){
+            System.out.print(e.getStackTrace());
         }
         listaAddOrder.setAdapter(adapter);
         return mRoot;
@@ -233,8 +243,24 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
                     @Override
                     public void onClick(View v) {
                      rezervation.getOrders().remove(order);//TODO ovde mora da se implementira dobar equals !
-                        ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).deleteItemFromAdapter(ItemOrder.this);
+
+                       // ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).deleteItemFromAdapter(ItemOrder.this);
+
+                        MyCustomAdatperForTheList<ItemOrder> adapter = new MyCustomAdatperForTheList(getActivity());
+                        try{
+                            for (int i=0 ; i<rezervation.getOrders().size();i++) {
+                                Order order = rezervation.getOrders().get(i);
+                                Order clone = order.clone();
+                                adapter.addItem(new ItemOrder(clone));
+
+                            }
+
+                        }catch (Exception e){
+                            System.out.print(e.getStackTrace());
+                        }
+                        listaAddOrder.setAdapter(adapter);
                        ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).notifyDataSetChanged();
+                        FreagmentAddOrder.this.listaAddOrder.invalidate();
 
 
                     }

@@ -7,7 +7,7 @@ import java.util.concurrent.Semaphore;
 /**
  * Created by marija.radisavljevic on 5/18/2016.
  */
-public class Rezervation {//TODO DB komunication
+public class Rezervation implements  Cloneable{//TODO DB komunication
 
     private String time,name_user;
     private Integer price;
@@ -15,7 +15,7 @@ public class Rezervation {//TODO DB komunication
     private boolean paidOrNot;
    // private ArrayList<String> itemsOrder;
 
-    private Semaphore orders_semaphore = new Semaphore(1);
+
     private ArrayList<Order> orders;
     private int id;
 
@@ -24,7 +24,31 @@ public class Rezervation {//TODO DB komunication
     private static int ukid = 0;
 
 
+    @Override
+    public Rezervation clone() throws CloneNotSupportedException {
+        Rezervation clone = new Rezervation();
+         clone.setPaidOrNot(this.isPaidOrNot());
+        clone.setTime(this.gettime());
+        clone.setName_user(this.getname_user());
+        clone.setNumberTable(this.getnumberTable());
+        clone.id = this.id;
 
+        Iterator<Order> iter = orders.iterator();
+        ArrayList<Order>  cloneOrdersList = clone.getOrders();
+        while (iter.hasNext()) {
+            Order cloneOrder;
+            Order tek = iter.next();
+
+
+            cloneOrder = tek.clone();
+
+            cloneOrdersList.add(cloneOrder);
+
+        }
+
+
+        return clone;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -36,17 +60,12 @@ public class Rezervation {//TODO DB komunication
     }
 
     public Rezervation() {
-        try {
-            orders_semaphore.acquire();
+
             orders = new ArrayList<Order>();
-            orders_semaphore.release();
+
             //itemsOrder  = new ArrayList<String>();
             id = ukid++;
-        }catch (Exception e){
 
-        } finally{
-            orders_semaphore.release();
-        }
     }
 
     public String getnumberTable_string(){
@@ -69,7 +88,7 @@ public class Rezervation {//TODO DB komunication
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -107,8 +126,7 @@ public class Rezervation {//TODO DB komunication
     }
 
     public Integer getprice() {
-        try {
-            orders_semaphore.acquire();
+
 
             Iterator<Order> iter = orders.iterator();
             price = 0;
@@ -119,12 +137,7 @@ public class Rezervation {//TODO DB komunication
 
 
             return price;
-        }catch (Exception e){
 
-            return null;
-        }finally {
-            orders_semaphore.release();
-        }
     }
 
     public String getPrice_toString(){
@@ -148,8 +161,7 @@ public class Rezervation {//TODO DB komunication
     }
 
     public String getItemsOrdersInString(){
-        try {
-            orders_semaphore.acquire();
+
             Iterator<Order> iter = orders.iterator();
             StringBuilder builder = new StringBuilder();
             while (iter.hasNext()) {
@@ -158,12 +170,7 @@ public class Rezervation {//TODO DB komunication
             }
 
             return builder.toString();
-        }catch (Exception e){
 
-            return null;
-        }finally {
-            orders_semaphore.release();
-        }
     }
     public boolean ispaidOrNot() {
         return paidOrNot;
