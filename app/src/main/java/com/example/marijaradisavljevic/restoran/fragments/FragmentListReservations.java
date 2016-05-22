@@ -41,11 +41,11 @@ public class FragmentListReservations extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mRoot = inflater.inflate(R.layout.list_rezervations, container, false);
+        View mRoot = inflater.inflate(R.layout.fragment_list_rezervations_layout, container, false);
 
         lvDetail = (ListView)mRoot.findViewById(R.id.list_reservations);
 
-
+/*
         lvDetail.setOnTouchListener(new ListView.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -66,7 +66,7 @@ public class FragmentListReservations extends Fragment {
                         v.onTouchEvent(event);
                         return true;
                     }
-                });
+                });*/
 
         MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
         ArrayList<Rezervation> myList = AdapterDB.getInstance().getRezervations();
@@ -153,7 +153,7 @@ public class FragmentListReservations extends Fragment {
                 numberTable.setVisibility(View.VISIBLE);
                 numberTable.setText(adapterItem.rezervation.getnumberTable_string());
                 price.setVisibility(View.VISIBLE);
-                price.setText(adapterItem.rezervation.getprice());
+                price.setText(adapterItem.rezervation.getprice().toString());
                 itemsOrder.setVisibility(View.VISIBLE);
                 itemsOrder.setText(adapterItem.rezervation.getItemsOrdersInString());
                 paidOrNot.setVisibility(View.VISIBLE);
@@ -182,6 +182,8 @@ public class FragmentListReservations extends Fragment {
                     public void onClick(View v) {
                         AdapterDB.getInstance().deleteRezervation(rezervation.getId());
                         ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).deleteItemFromAdapter(ItemForRezervationsList.this);
+                        ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).notifyDataSetChanged();
+
 
                     }
                 });

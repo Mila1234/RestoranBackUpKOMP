@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -32,7 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.activiry.LoginActivity;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +76,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mRoot = inflater.inflate(R.layout.fragmentlogin, container, false);
+        View mRoot = inflater.inflate(R.layout.fragmentlogin_layout, container, false);
         mEmailView = (AutoCompleteTextView) mRoot.findViewById(R.id.email);
         populateAutoComplete();
 

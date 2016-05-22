@@ -23,7 +23,7 @@ import com.example.marijaradisavljevic.restoran.fragments.FragmentSelection;
 /**
  * Created by marija.radisavljevic on 5/12/2016.
  */
-public class ActivityGUI extends AppCompatActivity  {  //work with all fragments in app
+public class ActivityGUI extends AppCompatActivity  {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -44,11 +44,11 @@ public class ActivityGUI extends AppCompatActivity  {  //work with all fragments
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gui);
+        setContentView(R.layout.activity_gui_layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.back);
+        //toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         //toolbar.setLogo(R.drawable.help);
         toolbar.setLogoDescription(getResources().getString(R.string.Logo_description));
@@ -132,7 +132,7 @@ public class ActivityGUI extends AppCompatActivity  {  //work with all fragments
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_placeholder_layout, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;

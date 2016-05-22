@@ -13,7 +13,7 @@ import android.widget.CheckedTextView;
 import android.widget.Spinner;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.spiner.spinnerAdapter;
+import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 /**
  * Created by marija.radisavljevic on 5/13/2016.
@@ -34,13 +34,13 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View mRoot = inflater.inflate(R.layout.selector_layout,container,false);
+        View mRoot = inflater.inflate(R.layout.fragment_selector_layout,container,false);
         Spinner number_of_table = (Spinner)  mRoot.findViewById(R.id.numbreOfTable_spinner);
         Spinner isItPaid = (Spinner)  mRoot.findViewById(R.id.isItPaid_spinner);
         Spinner kategory = (Spinner)  mRoot.findViewById(R.id.kategory_spinner);
 
         String[] value = getResources().getStringArray(R.array.numbers);
-        ArrayAdapter<String> adapter_number_of_table = new spinnerAdapter(getActivity(),
+        ArrayAdapter<String> adapter_number_of_table = new MySpinnerAdapter(getActivity(),
                 android.R.layout.simple_spinner_item,value);
 
 
@@ -53,7 +53,7 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
 
 
          value = getResources().getStringArray(R.array.paidNotpaid);
-        ArrayAdapter<String>  adapter_isItPaid = new spinnerAdapter(getActivity(),
+        ArrayAdapter<String>  adapter_isItPaid = new MySpinnerAdapter(getActivity(),
                  android.R.layout.simple_spinner_item ,value);
 
         // Specify the layout to use when the list of choices appears
@@ -64,7 +64,7 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
 
 
          value = getResources().getStringArray(R.array.kategory_array);
-        ArrayAdapter<String> adapter_kategory = new spinnerAdapter(getActivity(),
+        ArrayAdapter<String> adapter_kategory = new MySpinnerAdapter(getActivity(),
                 android.R.layout.simple_spinner_item,value );
 
         // Specify the layout to use when the list of choices appears

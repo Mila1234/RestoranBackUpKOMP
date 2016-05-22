@@ -31,7 +31,7 @@ public class FragmentUserInfo extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mRoot = inflater.inflate(R.layout.user_info, container, false);
+        View mRoot = inflater.inflate(R.layout.fragment_user_info_layout, container, false);
         getActivity().setTitle(R.string.fragmentUserInfo);
 
         ///////////////////////////////////////////////////////////////////////

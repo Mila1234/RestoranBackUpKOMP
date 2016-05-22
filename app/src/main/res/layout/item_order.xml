@@ -7,7 +7,12 @@
     <TextView android:id = "@+id/item_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5.8.2016  17:05"/>
+        android:text="koka kola"/>
+
+    <TextView android:id = "@+id/number_item_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"/>
 
     <Button  android:id="@+id/remove"
         android:layout_width="wrap_content"
