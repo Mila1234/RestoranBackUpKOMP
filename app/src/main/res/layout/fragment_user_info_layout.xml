@@ -6,8 +6,10 @@
     android:focusableInTouchMode="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@color/rezervation_color_background"
+    android:padding="@dimen/padding_margin"
+    >
 
     <ImageView android:id="@+id/imgIcon"
         android:layout_width="100dp"

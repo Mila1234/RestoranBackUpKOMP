@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -61,6 +62,13 @@ public class ActivityGUI extends AppCompatActivity  {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container_gui);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                //...anything you may need to do to handle pager state...
+                adapter.notifyDataSetChanged(); //this line will force all pages to be loaded fresh when changing between fragments
+            }
+        }
 
     }
 
@@ -140,8 +148,11 @@ public class ActivityGUI extends AppCompatActivity  {
     }
 
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);

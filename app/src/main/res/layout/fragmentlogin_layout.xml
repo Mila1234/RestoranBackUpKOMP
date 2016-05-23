@@ -8,7 +8,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activiry.LoginActivity">
+    tools:context=".activiry.LoginActivity"
+    android:background="@color/rezervation_color_background"
+    android:padding="@dimen/padding_margin">
 
     <!-- Login progress -->
     <ProgressBar

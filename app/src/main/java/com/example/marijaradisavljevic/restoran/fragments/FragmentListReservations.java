@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityFirst;
 import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
+import com.example.marijaradisavljevic.restoran.data.UserData;
+import com.example.marijaradisavljevic.restoran.database.Order;
 import com.example.marijaradisavljevic.restoran.database.Rezervation;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 import com.example.marijaradisavljevic.restoran.database.AdapterDB;
@@ -29,7 +31,32 @@ import java.util.Iterator;
  * Created by marija.radisavljevic on 5/13/2016.
  */
 public class FragmentListReservations extends Fragment {
+    @Override
+    public void onResume() {
+        super.onResume();
+        MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
 
+
+        ArrayList<Rezervation> myList = AdapterDB.getInstance().getRezervations();
+        try {
+            Iterator<Rezervation> iter = myList.iterator();
+            while (iter.hasNext()) {
+                Rezervation tek = iter.next();
+                Rezervation clone = tek.clone();
+                adapter.addItem(new ItemForRezervationsList(clone));
+            }
+
+        } catch (Exception e) {
+            System.out.print(e.getStackTrace());
+        }
+
+        lvDetail.setAdapter(adapter);
+
+        //////////////////
+
+        //  ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).notifyDataSetChanged();
+        FragmentListReservations.this.lvDetail.invalidateViews();
+    }
 
     ListView lvDetail;
 
@@ -113,12 +140,18 @@ public class FragmentListReservations extends Fragment {
 
         @Override
         protected  IViewHolder createViewHolder() {
-            return  new RezervationsViewHolder();
+            return  new RezervationsViewHolder(this);
         }
 
         private class  RezervationsViewHolder implements IViewHolder<ItemForRezervationsList> {
+            ItemForRezervationsList bla;
             TextView time, name_user, numberTable, price, itemsOrder, paidOrNot;
             Button edit, remove;
+
+
+            public RezervationsViewHolder(ItemForRezervationsList bla) {
+                this.bla = bla;
+            }
 
             @Override
             public void findViews(View convertView) {
@@ -137,15 +170,15 @@ public class FragmentListReservations extends Fragment {
                 time.setVisibility(View.VISIBLE);
                 time.setText(adapterItem.rezervation.gettime());
                 name_user.setVisibility(View.VISIBLE);
-                name_user.setText(adapterItem.rezervation.getname_user());
+                name_user.setText(UserData.getInstance().getUserType()+" : "+adapterItem.rezervation.getname_user());
                 numberTable.setVisibility(View.VISIBLE);
-                numberTable.setText(adapterItem.rezervation.getnumberTable_string());
+                numberTable.setText("Broj stola je :" + adapterItem.rezervation.getnumberTable_string());
                 price.setVisibility(View.VISIBLE);
-                price.setText(adapterItem.rezervation.getprice().toString());
+                price.setText("Cena je :"+adapterItem.rezervation.getprice().toString());
                 itemsOrder.setVisibility(View.VISIBLE);
                 itemsOrder.setText(adapterItem.rezervation.getItemsOrdersInString());
                 paidOrNot.setVisibility(View.VISIBLE);
-                paidOrNot.setText(adapterItem.rezervation.getnumberTable_string());
+                paidOrNot.setText(adapterItem.rezervation.getpaidOrNot_string());
 
 
                 edit.setVisibility(View.VISIBLE);
@@ -162,9 +195,11 @@ public class FragmentListReservations extends Fragment {
                         intent2.putExtra("action", "onclick");
                         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getActivity().getApplicationContext().startActivity(intent2);
+
                     }
                 });
 
+               // remove.setOnClickListener(this);
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -174,17 +209,22 @@ public class FragmentListReservations extends Fragment {
                         ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).deleteAll();
 
 
-                        MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
+                        //MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
+
+                        MyCustomAdatperForTheList<ItemForRezervationsList> adapter = ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter());
+
+                        //  adapter.deleteItem(bla);
+
                         ArrayList<Rezervation> myList = AdapterDB.getInstance().getRezervations();
                         try {
                             Iterator<Rezervation> iter = myList.iterator();
-                            while (iter.hasNext()){
+                            while (iter.hasNext()) {
                                 Rezervation tek = iter.next();
                                 Rezervation clone = tek.clone();
                                 adapter.addItem(new ItemForRezervationsList(clone));
                             }
 
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             System.out.print(e.getStackTrace());
                         }
 
@@ -192,8 +232,8 @@ public class FragmentListReservations extends Fragment {
 
                         //////////////////
 
-                        ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).notifyDataSetChanged();
-                        FragmentListReservations.this.lvDetail.invalidate();
+                        //  ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).notifyDataSetChanged();
+                        FragmentListReservations.this.lvDetail.invalidateViews();
 
 
                     }

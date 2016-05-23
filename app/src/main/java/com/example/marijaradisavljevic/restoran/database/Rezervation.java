@@ -164,7 +164,10 @@ public class Rezervation implements  Cloneable{//TODO DB komunication
 
             Iterator<Order> iter = orders.iterator();
             StringBuilder builder = new StringBuilder();
+            String prefix = "";
             while (iter.hasNext()) {
+                builder.append(prefix);
+                prefix = " ,";
                 builder.append(iter.next().getOrder().getFood());
 
             }

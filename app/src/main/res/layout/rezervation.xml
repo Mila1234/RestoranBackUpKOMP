@@ -1,54 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/rezervation_color_background"
+    android:padding="@dimen/padding_margin">
 
     <TextView android:id = "@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="15.5.2016 8:53"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
       />
 
     <TextView android:id = "@+id/name_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="konobar: marija radisavljevic"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/itemsOrder"
-        android:layout_toEndOf="@+id/itemsOrder" />
+        android:layout_toRightOf="@+id/time"
+        android:layout_alignParentRight="true"/>
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@id/time"
+        android:layout_marginBottom="16dp"
+
+        android:background="@color/white" />
 
     <TextView android:id = "@+id/numberTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="broj stola 4"
-        android:layout_alignBottom="@+id/edit"
-        android:layout_alignLeft="@+id/price"
-        android:layout_alignStart="@+id/price" />
+        android:layout_below="@id/divider1"
+
+        android:layout_above="@+id/remove"
+        android:layout_alignParentStart="false" />
 
     <TextView android:id = "@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="cena 450 rsd"
-        android:layout_alignTop="@+id/edit"
-        android:layout_alignRight="@+id/time"
-        android:layout_alignEnd="@+id/time" />
+        android:layout_below="@+id/numberTable"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/itemsOrder" />
 
-    <TextView android:id = "@+id/itemsOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="bla 1, bla 2, bla 3"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/remove"
-        android:layout_alignLeft="@+id/paidOrNot"
-        android:layout_alignStart="@+id/paidOrNot" />
+
 
     <TextView android:id = "@+id/paidOrNot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="placeno"
-        android:layout_above="@+id/itemsOrder"
-        android:layout_alignLeft="@+id/numberTable"
-        android:layout_alignStart="@+id/numberTable" />
+        android:layout_below="@+id/remove"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 
@@ -56,19 +67,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit"
-        android:layout_below="@+id/time"
+        android:layout_below="@id/divider1"
         android:layout_alignLeft="@+id/remove"
-        android:layout_alignStart="@+id/remove" />
+        android:layout_alignStart="@+id/remove"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
     <Button  android:id="@+id/remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remove"
+
         android:layout_marginRight="60dp"
         android:layout_marginEnd="60dp"
         android:layout_below="@+id/edit"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.AppCompat.Button.Colored" />
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        android:layout_below="@+id/paidOrNot"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
+
+    <TextView android:id = "@+id/itemsOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bla 1, bla 2, bla 3"
+        android:layout_below="@+id/divider2"
+        android:layout_marginTop="16dp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/time" />
+
 
 
 

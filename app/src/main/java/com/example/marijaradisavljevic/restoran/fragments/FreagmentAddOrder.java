@@ -20,12 +20,14 @@ import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
 import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
+import com.example.marijaradisavljevic.restoran.data.UserData;
 import com.example.marijaradisavljevic.restoran.database.AdapterDB;
 
 import com.example.marijaradisavljevic.restoran.database.Order;
 import com.example.marijaradisavljevic.restoran.database.Rezervation;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -64,21 +66,30 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
             String rezervationIdString = getArguments().getString("rezervationId");
             int rezeravtionid = Integer.parseInt(rezervationIdString);
-            rezervation = AdapterDB.getInstance().getClickActionRezervation(rezeravtionid);
+            rezervation = AdapterDB.getInstance().getRezervationByID(rezeravtionid);
 
             TextView time = (TextView)mRoot.findViewById(R.id.time);
             time.setText(rezervation.gettime());//
-        }else{
-            if (action.equals("plusbutton")){
-                rezervation = AdapterDB.getInstance().getNewRezervation();
+        }else if (action.equals("plusbutton")) {
+            rezervation = AdapterDB.getInstance().getNewRezervation();
+            rezervation.setName_user(UserData.getInstance().getUser());
+            TextView time = (TextView) mRoot.findViewById(R.id.time);
 
-                TextView time = (TextView)mRoot.findViewById(R.id.time);
-                Date date = new Date();
-                rezervation.setTime(date.toString());
-                time.setText(date.toString());//
-            }else{
-                //TODO
-            }
+            Calendar calendar = Calendar.getInstance();
+            int DAY_OF_MONTH = calendar.get(Calendar.DAY_OF_MONTH);
+            int YEAR = calendar.get(Calendar.YEAR);
+            int MONTH = calendar.get(Calendar.MONTH);
+            int HOUR = calendar.get(Calendar.HOUR);
+            int MINUT = calendar.get(Calendar.MINUTE);
+
+
+            String date;
+
+            date = DAY_OF_MONTH+"."+MONTH+"."+YEAR+" "+HOUR+":"+MINUT;
+            rezervation.setTime( date );
+            time.setText(date);//
+        } else {
+            //TODO
         }
 
 
@@ -244,7 +255,7 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
                     public void onClick(View v) {
                      rezervation.getOrders().remove(order);//TODO ovde mora da se implementira dobar equals !
 
-                       // ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).deleteItemFromAdapter(ItemOrder.this);
+                        ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).deleteAll();
 
                         MyCustomAdatperForTheList<ItemOrder> adapter = new MyCustomAdatperForTheList(getActivity());
                         try{
@@ -259,6 +270,7 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
                             System.out.print(e.getStackTrace());
                         }
                         listaAddOrder.setAdapter(adapter);
+
                        ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).notifyDataSetChanged();
                         FreagmentAddOrder.this.listaAddOrder.invalidate();
 

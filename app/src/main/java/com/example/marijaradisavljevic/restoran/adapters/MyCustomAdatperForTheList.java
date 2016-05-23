@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.fragments.FragmentListReservations;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,13 +32,14 @@ public class MyCustomAdatperForTheList<T> extends BaseAdapter{
 
     public MyCustomAdatperForTheList<T> addItem(T item) {
         this.myList.add(item);
-
+        notifyDataSetChanged();
         return this;
     }
 
 
     public void deleteItemFromAdapter(T obj){
         myList.remove(obj);
+        notifyDataSetChanged();
         /*Iterator<T>  iter = myList.iterator();
 
         while(iter.hasNext()){
@@ -80,12 +82,19 @@ public class MyCustomAdatperForTheList<T> extends BaseAdapter{
 
 
     public void deleteAll() {
+
         myList = new ArrayList<T>();
+        notifyDataSetChanged();
     }
 
     public void update() {
 
 
 
+    }
+
+    public void deleteItem(T t) {
+        myList.remove(t);
+        notifyDataSetChanged();
     }
 }

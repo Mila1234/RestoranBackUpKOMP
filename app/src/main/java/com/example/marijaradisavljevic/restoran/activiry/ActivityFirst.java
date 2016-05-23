@@ -3,6 +3,7 @@ package com.example.marijaradisavljevic.restoran.activiry;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +20,9 @@ import com.example.marijaradisavljevic.restoran.fragments.FreagmentAddOrder;
  * Created by marija.radisavljevic on 5/16/2016.
  */
 public class ActivityFirst extends AppCompatActivity {
-private static boolean firstTime = true;
+
+    private static boolean firstTime = true;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,19 @@ private static boolean firstTime = true;
     }
 
 
+  /*  @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragment = fragmentManager.findFragmentById(R.id.container_menu);
+
+        if (fragment instanceof FreagmentAddOrder){
+
+        }else{
+
+        }
+
+
+    }*/
 
 
 }

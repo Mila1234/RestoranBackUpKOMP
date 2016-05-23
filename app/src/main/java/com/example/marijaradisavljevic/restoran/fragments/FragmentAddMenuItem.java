@@ -34,7 +34,7 @@ public class FragmentAddMenuItem extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mRoot = inflater.inflate(R.layout.fragment_add_menuItem, container, false);
+        View mRoot = inflater.inflate(R.layout.fragment_add_menu_item, container, false);
         getActivity().setTitle(R.string.nameOfApp);
 
         ///////////////////////////////////////////////////////////////////////
@@ -53,10 +53,10 @@ public class FragmentAddMenuItem extends Fragment {
             }
         });
 
-        Button button_ok = (Button) mRoot.findViewById(R.id.ok_button);
+        Button cancel_button = (Button) mRoot.findViewById(R.id.cancel_button);
 
 
-        button_ok.setOnClickListener(new View.OnClickListener() {
+        cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), " Snimljeno ", Toast.LENGTH_LONG).show();
@@ -69,8 +69,6 @@ public class FragmentAddMenuItem extends Fragment {
 
 
         Spinner menu_item_spiner = (Spinner)  mRoot.findViewById(R.id.menu_item_spiner);
-
-
         String[] value = getResources().getStringArray(R.array.kategory_array);
         ArrayAdapter<String> menu_item_spiner_adapter = new MySpinnerAdapter(getActivity(),
                 android.R.layout.simple_spinner_item,value);
@@ -83,8 +81,7 @@ public class FragmentAddMenuItem extends Fragment {
 
 
         Spinner number_item_spiner = (Spinner)  mRoot.findViewById(R.id.number_item_spiner);
-
-        String[] value = getResources().getStringArray(R.array.number_item_spiner);
+        value = getResources().getStringArray(R.array.number_item_spiner);
         ArrayAdapter<String> number_item_spiner_adapter = new MySpinnerAdapter(getActivity(),
                 android.R.layout.simple_spinner_item,value);
         // Specify the layout to use when the list of choices appears

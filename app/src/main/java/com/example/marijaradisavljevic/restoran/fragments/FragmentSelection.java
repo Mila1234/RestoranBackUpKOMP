@@ -13,6 +13,7 @@ import android.widget.CheckedTextView;
 import android.widget.Spinner;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.data.UserData;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 /**
@@ -21,7 +22,9 @@ import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 public class FragmentSelection extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private static Fragment instance ;
-
+    private Spinner number_of_table ;
+    private Spinner isItPaid ;
+    private Spinner kategory;
 
 
     @Override
@@ -35,9 +38,9 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View mRoot = inflater.inflate(R.layout.fragment_selector_layout,container,false);
-        Spinner number_of_table = (Spinner)  mRoot.findViewById(R.id.numbreOfTable_spinner);
-        Spinner isItPaid = (Spinner)  mRoot.findViewById(R.id.isItPaid_spinner);
-        Spinner kategory = (Spinner)  mRoot.findViewById(R.id.kategory_spinner);
+        number_of_table = (Spinner)  mRoot.findViewById(R.id.numbreOfTable_spinner);
+        isItPaid = (Spinner)  mRoot.findViewById(R.id.isItPaid_spinner);
+        kategory = (Spinner)  mRoot.findViewById(R.id.kategory_spinner);
 
         String[] value = getResources().getStringArray(R.array.numbers);
         ArrayAdapter<String> adapter_number_of_table = new MySpinnerAdapter(getActivity(),
@@ -80,8 +83,10 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
             public void onClick(View v) {
                 if(all.isChecked()){
                     all.setChecked(false);
+                    UserData.getInstance().setAll(false);
                 }else{
                     all.setChecked(true);
+                    UserData.getInstance().setAll(true);
                 }
             }
         });
@@ -110,10 +115,17 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
 if(position == 0 ){return;}
         switch (view.getId()) {
             case R.id.isItPaid_spinner:
+                UserData.getInstance().setPaidOrNot_selected(true);
+                UserData.getInstance().setPaidOrNot(Boolean.parseBoolean(isItPaid.getSelectedItem().toString()));
                 break;
             case R.id.kategory_spinner:
+                //UserData.getInstance().setKategory_selected(true);
+
+                //UserData.getInstance().setKategory(kategory.getSelectedItem().toString());
                 break;
             case R.id.numbreOfTable_spinner:
+                UserData.getInstance().setNumberOfTable_selectied(true);
+                UserData.getInstance().setNumberOfTable(Integer.parseInt(number_of_table.getSelectedItem().toString()));
                 break;
             default:
                 break;

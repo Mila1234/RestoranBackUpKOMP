@@ -2,9 +2,7 @@ package com.example.marijaradisavljevic.restoran.database;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.concurrent.Semaphore;
 
 /**
  * Created by marija.radisavljevic on 5/20/2016.
@@ -25,7 +23,7 @@ public class AdapterDB {
 
         listFoodMenuItem = new ArrayList<FoodMenuItem>();
 
-        FoodMenuItem fmt1 = new FoodMenuItem("koka kola", 100);
+        FoodMenuItem fmt1 = new FoodMenuItem("koka kolabla bla bla bla bla", 100);
         listFoodMenuItem.add(fmt1);
         FoodMenuItem fmt2 = new FoodMenuItem("koka kola", 100);
         listFoodMenuItem.add(fmt2);
@@ -50,6 +48,12 @@ public class AdapterDB {
         ld.setName_user("milica jelic");
        // ld.setItemsOrder(new ArrayList(Arrays.asList("kapucino , truska kafa, lenja pita sa jabukama")));
         ArrayList<Order>listOrders = new ArrayList<Order>();
+        listOrders.add(new Order(1,fmt1,1));
+        listOrders.add(new Order(3,fmt2,1));
+        listOrders.add(new Order(4,fmt3,1));
+        listOrders.add(new Order(1,fmt1,1));
+        listOrders.add(new Order(3,fmt2,1));
+        listOrders.add(new Order(4,fmt3,1));
         listOrders.add(new Order(1,fmt1,1));
         listOrders.add(new Order(3,fmt2,1));
         listOrders.add(new Order(4,fmt3,1));
@@ -142,7 +146,7 @@ ld.setId(7);
 
 
 
-    public Rezervation getClickActionRezervation(int id){
+    public Rezervation getRezervationByID(int id){
 
 
         Iterator<Rezervation> iter = listOfRezervations.iterator();
@@ -165,7 +169,7 @@ ld.setId(7);
         return r;
     }
     public void  putRezervation(Rezervation r) {
-        Rezervation rez = getClickActionRezervation(r.getId());
+        Rezervation rez = getRezervationByID(r.getId());
 
         rez = r;
 
