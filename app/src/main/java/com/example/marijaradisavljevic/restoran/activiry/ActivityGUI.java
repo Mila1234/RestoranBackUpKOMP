@@ -62,13 +62,23 @@ public class ActivityGUI extends AppCompatActivity  {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container_gui);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
             @Override
             public void onPageSelected(int position) {
                 //...anything you may need to do to handle pager state...
-                adapter.notifyDataSetChanged(); //this line will force all pages to be loaded fresh when changing between fragments
+                mSectionsPagerAdapter.notifyDataSetChanged(); //this line will force all pages to be loaded fresh when changing between fragments
             }
-        }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
     }
 
