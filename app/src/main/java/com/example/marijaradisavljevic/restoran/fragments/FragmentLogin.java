@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -31,6 +32,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
+import com.example.marijaradisavljevic.restoran.backend.Executor;
 
 
 import java.util.ArrayList;
@@ -336,8 +339,10 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
                 }
             }
 
+
+           return Executor.doesExisting(mEmail, mPassword);
             // TODO: register the new account here.
-            return true;
+            //return true;
         }
 
         @Override
@@ -348,10 +353,14 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             if (success) {
                 //  finish();
 
-                FragmentManager fm = getActivity().getSupportFragmentManager();
+               /* FragmentManager fm = getActivity().getSupportFragmentManager();
                 FragmentUserInfo fragmentUserInfo = FragmentUserInfo.getInstance();
                 fm.beginTransaction().replace(R.id.container_menu, fragmentUserInfo).commit();
+*/
 
+                Intent intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().getApplicationContext().startActivity(intent);
 
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
