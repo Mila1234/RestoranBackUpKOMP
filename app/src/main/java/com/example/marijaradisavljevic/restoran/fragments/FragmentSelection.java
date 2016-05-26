@@ -112,7 +112,8 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-if(position == 0 ){return;}
+        if(position == 0 ){return;}
+
         switch (view.getId()) {
             case R.id.isItPaid_spinner:
                 UserData.getInstance().setPaidOrNot_selected(true);

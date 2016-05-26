@@ -1,27 +1,24 @@
-package com.example.marijaradisavljevic.restoran.data;
+package com.example.marijaradisavljevic.restoran.backend;
 
 import com.example.marijaradisavljevic.restoran.database.FoodMenuItem;
 
 /**
- * Created by marija.radisavljevic on 5/17/2016.
+ * Created by marija.radisavljevic on 5/26/2016.
  */
-public class UserData {
+public class SelectedFilter {
 
-    private static UserData instance = new UserData();
-    public static UserData getInstance() {return instance; }
+    //selection
+    private Integer numberOfTable;
+    private boolean numberOfTable_selectied;
 
-    private String user;
-    private String userType;
+    private boolean paidOrNot;
+    private boolean paidOrNot_selected;
 
+    private FoodMenuItem kategory;
+    private boolean kategory_selected;
 
+    private boolean all;
 
-    public boolean isAll() {
-        return all;
-    }
-
-    public void setAll(boolean all) {
-        this.all = all;
-    }
 
     public Integer getNumberOfTable() {
         return numberOfTable;
@@ -44,7 +41,6 @@ public class UserData {
     }
 
     public void setPaidOrNot(boolean paidOrNot) {
-
         this.paidOrNot = paidOrNot;
     }
 
@@ -72,13 +68,11 @@ public class UserData {
         this.kategory_selected = kategory_selected;
     }
 
-    public String getUserType() {
-        //return userType;
-        return "Konobar";
+    public boolean isAll() {
+        return all;
     }
 
-    public String getUser() {
-        //return user;
-        return "marija radisavljevic";
+    public void setAll(boolean all) {
+        this.all = all;
     }
 }
