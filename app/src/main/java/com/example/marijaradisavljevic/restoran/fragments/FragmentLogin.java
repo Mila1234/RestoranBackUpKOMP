@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
 import com.example.marijaradisavljevic.restoran.backend.Executor;
+import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 
 import java.util.ArrayList;
@@ -81,7 +82,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mRoot = inflater.inflate(R.layout.fragmentlogin_layout, container, false);
         mEmailView = (AutoCompleteTextView) mRoot.findViewById(R.id.email);
-        populateAutoComplete();
+      //  populateAutoComplete();
 
         mPasswordView = (EditText) mRoot.findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -110,14 +111,15 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
     }
 
 
-    private void populateAutoComplete() {
+   /* private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
         }
 
         getActivity().getLoaderManager().initLoader(0, null, this);
     }
-
+    */
+/*
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
@@ -139,11 +141,11 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
         }
         return false;
     }
-
+*/
     /**
      * Callback received when a permissions request has been completed.
      */
-    @Override
+   /* @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
@@ -152,7 +154,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             }
         }
     }
-
+*/
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -340,7 +342,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             }
 
 
-           return Executor.doesExisting(mEmail, mPassword);
+           return Servis.logIN(mEmail, mPassword);
             // TODO: register the new account here.
             //return true;
         }

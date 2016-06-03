@@ -8,12 +8,24 @@ import com.example.marijaradisavljevic.restoran.database.FoodMenuItem;
 public class UserData {
 
     private static UserData instance = new UserData();
+
+
     public static UserData getInstance() {return instance; }
 
     private String user;
     private String userType;
 
+    //selection
+    private Integer numberOfTable;
+    private boolean numberOfTable_selectied=false;
 
+    private boolean paidOrNot;
+    private boolean paidOrNot_selected=false;
+
+    private FoodMenuItem kategory;
+    private boolean kategory_selected=false;
+
+    private boolean all==false;
 
     public boolean isAll() {
         return all;

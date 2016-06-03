@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.view.LayoutInflater;
@@ -19,7 +20,8 @@ import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 /**
  * Created by marija.radisavljevic on 5/13/2016.
  */
-public class FragmentSelection extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FragmentSelection extends Fragment implements View.OnTouchListener {
+
 
     private static Fragment instance ;
     private Spinner number_of_table ;
@@ -53,7 +55,7 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
         // Apply the adapter to the spinner
         number_of_table.setAdapter(adapter_number_of_table);
         number_of_table.setSelection(adapter_number_of_table.getCount());
-
+        number_of_table.setOnTouchListener(this);
 
          value = getResources().getStringArray(R.array.paidNotpaid);
         ArrayAdapter<String>  adapter_isItPaid = new MySpinnerAdapter(getActivity(),
@@ -64,7 +66,7 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
         // Apply the adapter to the spinner
         isItPaid.setAdapter(adapter_isItPaid);
         isItPaid.setSelection(isItPaid.getCount());
-
+        isItPaid.setOnTouchListener(this);
 
          value = getResources().getStringArray(R.array.kategory_array);
         ArrayAdapter<String> adapter_kategory = new MySpinnerAdapter(getActivity(),
@@ -75,9 +77,9 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
         // Apply the adapter to the spinner
         kategory.setAdapter(adapter_kategory);
         kategory.setSelection(kategory.getCount());
+        kategory.setOnTouchListener(this);
 
-
-       final CheckedTextView all =(CheckedTextView) mRoot.findViewById(R.id.all_checkedTextView);
+        final CheckedTextView all =(CheckedTextView) mRoot.findViewById(R.id.all_checkedTextView);
         all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,18 +113,20 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(position == 0 ){return;}
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
 
-        switch (view.getId()) {
+
+
+        switch (v.getId()) {
             case R.id.isItPaid_spinner:
                 UserData.getInstance().setPaidOrNot_selected(true);
                 UserData.getInstance().setPaidOrNot(Boolean.parseBoolean(isItPaid.getSelectedItem().toString()));
                 break;
             case R.id.kategory_spinner:
-                //UserData.getInstance().setKategory_selected(true);
+                UserData.getInstance().setKategory_selected(true);
 
-                //UserData.getInstance().setKategory(kategory.getSelectedItem().toString());
+                UserData.getInstance().setKategory(kategory.getSelectedItem().toString());
                 break;
             case R.id.numbreOfTable_spinner:
                 UserData.getInstance().setNumberOfTable_selectied(true);
@@ -131,10 +135,10 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
             default:
                 break;
         }
+
+
+        }
+        return false;
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
