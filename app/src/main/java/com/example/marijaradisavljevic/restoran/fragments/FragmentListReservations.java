@@ -86,6 +86,9 @@ public class FragmentListReservations extends Fragment {
 
         MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
         ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulation(UserData.getInstance().getSelecionRegulation());
+        for(Rezervation rez:myList){
+            adapter.addItem(new ItemForRezervationsList(rez));
+        }
         lvDetail.setAdapter(adapter);
 
         return mRoot;
@@ -224,6 +227,9 @@ public class FragmentListReservations extends Fragment {
                         }*/
                         MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
                         ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulation(UserData.getInstance().getSelecionRegulation());
+                        for(Rezervation rez:myList){
+                            adapter.addItem(new ItemForRezervationsList(rez));
+                        }
                         lvDetail.setAdapter(adapter);
 
                         //////////////////

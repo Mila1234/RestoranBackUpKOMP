@@ -92,6 +92,8 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
                 }
             }
         });
+
+        all.setChecked(true);
         return mRoot;
     }
 
@@ -114,20 +116,32 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(position == 0 ){return;}
+
 
         switch (parent.getId()) {
             case R.id.isItPaid_spinner:
-                UserData.getInstance().setPaidOrNot_selected(true);
-                UserData.getInstance().setPaidOrNot(Boolean.parseBoolean(isItPaid.getSelectedItem().toString()));
+                if(position == 0 ){
+                    UserData.getInstance().setPaidOrNot_selected(false);
+                }else {
+                    UserData.getInstance().setPaidOrNot_selected(true);
+                    UserData.getInstance().setPaidOrNot(Boolean.parseBoolean(isItPaid.getSelectedItem().toString()));
+                }
                 break;
             case R.id.kategory_spinner:
-                UserData.getInstance().setKategory_selected(true);
-                UserData.getInstance().setKategory(kategory.getSelectedItem().toString());
+                if(position == 0 ){
+                    UserData.getInstance().setKategory_selected(false);
+                }else {
+                    UserData.getInstance().setKategory_selected(true);
+                    UserData.getInstance().setKategory(kategory.getSelectedItem().toString());
+                }
                 break;
             case R.id.numbreOfTable_spinner:
-                UserData.getInstance().setNumberOfTable_selectied(true);
-                UserData.getInstance().setNumberOfTable(Integer.parseInt(number_of_table.getSelectedItem().toString()));
+                if(position == 0 ){
+                    UserData.getInstance().setNumberOfTable_selectied(false);
+                }else {
+                    UserData.getInstance().setNumberOfTable_selectied(true);
+                    UserData.getInstance().setNumberOfTable(number_of_table.getSelectedItem().toString());
+                }
                 break;
             default:
                 break;

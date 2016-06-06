@@ -1,11 +1,14 @@
 package com.example.marijaradisavljevic.restoran.servis;
 
+import com.example.marijaradisavljevic.restoran.data.UserData;
 import com.example.marijaradisavljevic.restoran.database.FoodMenuItem;
 import com.example.marijaradisavljevic.restoran.database.Order;
 import com.example.marijaradisavljevic.restoran.database.Rezervation;
 import com.example.marijaradisavljevic.restoran.database.SelecionRegulations;
+import com.example.marijaradisavljevic.restoran.database.UserInfo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by marija.radisavljevic on 6/3/2016.
@@ -14,13 +17,20 @@ public class Servis {
     private static Servis instance = new Servis();
     public static Servis getInstance() {return instance; }
 
-
+    private UserInfo userInfo;
     private String[] listaTable;
     private ArrayList<FoodMenuItem> listFoodMenuItem;
     private ArrayList<Rezervation> listOfRezervations;
 
 
     public Servis() {
+
+        userInfo = new UserInfo();
+        userInfo.setEmail("marijarad89@gmail.com");
+        userInfo.setName("Marija");
+        userInfo.setSurname("Radisavljevic");
+        userInfo.setNumber("060123789");
+
 
         listaTable = new String[6];
         listaTable[0] = "broj stola";
@@ -133,6 +143,13 @@ public class Servis {
         return "Pera Peric";
     }
 
+    public UserInfo getUserInfo(){
+        return userInfo;
+    }
+    public void setUserInfo(UserInfo ui){
+        userInfo = ui;
+    }
+
     public String[] stringListofTables (){
         return  listaTable;
     }
@@ -171,7 +188,7 @@ public class Servis {
             }
 
             if(selecionRegulation.isNumberOfTable_selectied()){
-                if(currRezervation.getnumberTable() == selecionRegulation.getNumberOfTable()){
+                if(currRezervation.getnumberTable().toString().equals(selecionRegulation.getNumberOfTable())  ){
                     returnRezerList.add(currRezervation);
                 }
 
@@ -185,5 +202,36 @@ public class Servis {
         }
         return returnRezerList;
 
+    }
+
+    public Rezervation getRezervationByID(int id) {
+
+        Iterator<Rezervation> iter = listOfRezervations.iterator();
+        while (iter.hasNext()){
+            Rezervation tek;
+            tek = iter.next();
+            if(tek.getId() == id){
+                return tek;
+
+            }
+        }
+
+
+        return  null;//todo  mora da postoji taj id
+    }
+
+
+    public Rezervation AddRezervation(Rezervation r ){
+        for(Rezervation rez: listOfRezervations){
+            if(rez.getId()== r.getId()){
+                //update info
+                listOfRezervations.remove(rez);
+                listOfRezervations.add(r);
+                return r;
+            }
+
+        }
+        listOfRezervations.add(r);
+        return r;
     }
 }

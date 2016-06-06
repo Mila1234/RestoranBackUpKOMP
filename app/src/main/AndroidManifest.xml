@@ -25,6 +25,10 @@
         <activity
             android:name="com.example.marijaradisavljevic.restoran.activiry.ActivityGUI">
         </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activiry.Activity_AddMenuItem">
+        </activity>
+
     </application>
 
 </manifest>

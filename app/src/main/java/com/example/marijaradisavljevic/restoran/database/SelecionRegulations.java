@@ -5,7 +5,7 @@ package com.example.marijaradisavljevic.restoran.database;
  */
 public class SelecionRegulations {
     //selection
-    private Integer numberOfTable;
+    private String numberOfTable;
     private boolean numberOfTable_selectied=false;
 
     private boolean paidOrNot;
@@ -25,11 +25,11 @@ public class SelecionRegulations {
         this.all = all;
     }
 
-    public Integer getNumberOfTable() {
+    public String getNumberOfTable() {
         return numberOfTable;
     }
 
-    public void setNumberOfTable(Integer numberOfTable) {
+    public void setNumberOfTable(String numberOfTable) {
         this.numberOfTable = numberOfTable;
     }
 

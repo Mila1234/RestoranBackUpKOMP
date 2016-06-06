@@ -15,7 +15,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.activiry.ActivityFirst;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
+import com.example.marijaradisavljevic.restoran.database.Order;
+import com.example.marijaradisavljevic.restoran.servis.Servis;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 /**
@@ -24,8 +27,8 @@ import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 public class FragmentAddMenuItem extends Fragment {
 
     private static FragmentAddMenuItem instance;
-
-
+    private Spinner number_item_spiner;
+    private Spinner menu_item_spiner;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +50,14 @@ public class FragmentAddMenuItem extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(getActivity(), " Snimljeno ", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getActivity().getApplicationContext().startActivity(intent);
+                Order newOrder = new Order();
+                newOrder.setNuberOrder(number_item_spiner.getSelectedItem().toString());
+                newOrder.setOrder(menu_item_spiner.getSelectedItem().toString());
+                Intent intent2 = new Intent(getActivity().getApplicationContext(), ActivityFirst.class);
+                intent2.putExtra("name", "FreagmentAddOrder");
+
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().getApplicationContext().startActivity(intent2);
             }
         });
 
@@ -59,36 +67,40 @@ public class FragmentAddMenuItem extends Fragment {
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), " Snimljeno ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Odustali ste ", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getActivity().getApplicationContext().startActivity(intent);
+
+                Intent intent2 = new Intent(getActivity().getApplicationContext(), ActivityFirst.class);
+                intent2.putExtra("name","FreagmentAddOrder");
+
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().getApplicationContext().startActivity(intent2);
+
             }
         });
 
 
         Spinner menu_item_spiner = (Spinner)  mRoot.findViewById(R.id.menu_item_spiner);
-        String[] value = getResources().getStringArray(R.array.kategory_array);
+        //String[] value = getResources().getStringArray(R.array.kategory_array);
         ArrayAdapter<String> menu_item_spiner_adapter = new MySpinnerAdapter(getActivity(),
-                android.R.layout.simple_spinner_item,value);
+                android.R.layout.simple_spinner_item, Servis.getInstance().stringListofFoodItems());
         // Specify the layout to use when the list of choices appears
         menu_item_spiner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         menu_item_spiner.setAdapter(menu_item_spiner_adapter);
-        menu_item_spiner.setSelection(menu_item_spiner_adapter.getCount());
+        menu_item_spiner.setSelection(0);
 
 
 
-        Spinner number_item_spiner = (Spinner)  mRoot.findViewById(R.id.number_item_spiner);
-        value = getResources().getStringArray(R.array.number_item_spiner);
+         number_item_spiner = (Spinner)  mRoot.findViewById(R.id.number_item_spiner);
+        String [] value = getResources().getStringArray(R.array.number_item_spiner);
         ArrayAdapter<String> number_item_spiner_adapter = new MySpinnerAdapter(getActivity(),
                 android.R.layout.simple_spinner_item,value);
         // Specify the layout to use when the list of choices appears
         number_item_spiner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         number_item_spiner.setAdapter(number_item_spiner_adapter);
-        number_item_spiner.setSelection(number_item_spiner_adapter.getCount());
+        number_item_spiner.setSelection(0);
 
         return mRoot;
     }

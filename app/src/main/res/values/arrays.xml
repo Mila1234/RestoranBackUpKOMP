@@ -22,6 +22,7 @@
         <item>kategorija</item>
     </string-array>
     <string-array name="number_item_spiner">
+        <item>Broj komada</item>
         <item>1</item>
         <item>2</item>
         <item>3 </item>

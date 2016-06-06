@@ -23,13 +23,13 @@ public class UserData {
     private String userType;
 
     //selection
-    private Integer numberOfTable;
+    private String numberOfTable;
     private boolean numberOfTable_selectied=false;
 
     private boolean paidOrNot;
     private boolean paidOrNot_selected=false;
 
-    private String kategory;
+    private String kategory = "";
     private boolean kategory_selected=false;
 
     private boolean all=false;
@@ -56,11 +56,11 @@ public class UserData {
         this.all = all;
     }
 
-    public Integer getNumberOfTable() {
+    public String getNumberOfTable() {
         return numberOfTable;
     }
 
-    public void setNumberOfTable(Integer numberOfTable) {
+    public void setNumberOfTable(String numberOfTable) {
         this.numberOfTable = numberOfTable;
     }
 

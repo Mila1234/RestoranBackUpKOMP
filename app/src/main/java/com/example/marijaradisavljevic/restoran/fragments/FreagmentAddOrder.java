@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
+import com.example.marijaradisavljevic.restoran.activiry.Activity_AddMenuItem;
 import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 import com.example.marijaradisavljevic.restoran.data.UserData;
@@ -25,8 +26,11 @@ import com.example.marijaradisavljevic.restoran.database.AdapterDB;
 
 import com.example.marijaradisavljevic.restoran.database.Order;
 import com.example.marijaradisavljevic.restoran.database.Rezervation;
+import com.example.marijaradisavljevic.restoran.servis.Servis;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -41,9 +45,11 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
     private ListView listaAddOrder;
 
+    ////////////////////
     private Rezervation rezervation;
 
-    private Rezervation newRezervation;
+    ArrayList<Order> ListOrdersForSplitAction = new ArrayList<Order>();
+   // private Rezervation newRezervation;
     //TODO private ArrayList<String> whatAction;
 
     @Override
@@ -66,12 +72,12 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
             String rezervationIdString = getArguments().getString("rezervationId");
             int rezeravtionid = Integer.parseInt(rezervationIdString);
-            rezervation = AdapterDB.getInstance().getRezervationByID(rezeravtionid);
+            rezervation = Servis.getInstance().getRezervationByID(rezeravtionid);
 
-            TextView time = (TextView)mRoot.findViewById(R.id.time);
-            time.setText(rezervation.gettime());//
+
         }else if (action.equals("plusbutton")) {
-            rezervation = AdapterDB.getInstance().getNewRezervation();
+
+            rezervation = new Rezervation();
             rezervation.setName_user(UserData.getInstance().getUser());
             TextView time = (TextView) mRoot.findViewById(R.id.time);
 
@@ -86,14 +92,13 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
             String date;
 
             date = DAY_OF_MONTH+"."+MONTH+"."+YEAR+" "+HOUR+":"+MINUT;
-            rezervation.setTime( date );
-            time.setText(date);//
+            rezervation.setTime(date);
+
         } else {
             //TODO
         }
 
-
-       //buttons
+//buttons
         split_order = (Button) mRoot.findViewById(R.id.split_order);
         split_order.setOnClickListener(this);
         make_order = (Button) mRoot.findViewById(R.id.make_order);
@@ -101,11 +106,12 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
         new_item  = (Button) mRoot.findViewById(R.id.new_item);
         new_item.setOnClickListener(this);
 
-
+//CheckedTextView
         paidOrNot  = (CheckedTextView) mRoot.findViewById(R.id.paidOrNot);
         paidOrNot.setChecked(rezervation.ispaidOrNot());
         paidOrNot.setOnClickListener(this);
 
+//spiner
         Spinner numbreOfTable_spinner = (Spinner)  mRoot.findViewById(R.id.numbreOfTable_spinner);
         String[] value = getResources().getStringArray(R.array.numbers);
         ArrayAdapter<String> adapter_number_of_table = new MySpinnerAdapter(getActivity(),android.R.layout.simple_spinner_item,value);
@@ -116,26 +122,25 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
         if (action.equals("onclick")){
             numbreOfTable_spinner.setSelection(rezervation.getnumberTable());//
         }else{
-            numbreOfTable_spinner.setSelection(adapter_number_of_table.getCount());//
+            numbreOfTable_spinner.setSelection(0);//
         }
 
+//TextView
+        TextView time = (TextView)mRoot.findViewById(R.id.time);
+        time.setText(rezervation.gettime());
 
+//ListView
 
         listaAddOrder = (ListView) mRoot.findViewById(R.id.listaAddOrder);
-
         MyCustomAdatperForTheList<ItemOrder> adapter = new MyCustomAdatperForTheList(getActivity());
-        try{
-            for (int i=0 ; i<rezervation.getOrders().size();i++) {
-                Order order = rezervation.getOrders().get(i);
-                Order clone = order.clone();
-                adapter.addItem(new ItemOrder(clone));
-
+            for (Order order:rezervation.getOrders()) {
+                adapter.addItem(new ItemOrder(order));
             }
-
-        }catch (Exception e){
-            System.out.print(e.getStackTrace());
-        }
         listaAddOrder.setAdapter(adapter);
+
+
+
+
         return mRoot;
     }
 
@@ -156,21 +161,47 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()){
             case R.id.split_order:
+                Rezervation newRezervation = new Rezervation();
+                newRezervation.setName_user(rezervation.getname_user());
+                newRezervation.setNumberTable(rezervation.getnumberTable());
+                newRezervation.setPaidOrNot(rezervation.isPaidOrNot());
+                Date date = new Date();
+                newRezervation.setTime(date.toString());
+                newRezervation.setOrders(ListOrdersForSplitAction);
+                rezervation.removeOrders(ListOrdersForSplitAction);
 
+                Servis.getInstance().AddRezervation(rezervation);
+                Servis.getInstance().AddRezervation(newRezervation);
+               // ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).deleteItemFromAdapter(ItemOrder.this);
+              /*  MyCustomAdatperForTheList<ItemOrder> adapter = new MyCustomAdatperForTheList(getActivity());
+                for (Order order:rezervation.getOrders()) {
+                    adapter.addItem(new ItemOrder(order.clone()));
+                }
+                listaAddOrder.setAdapter(adapter);*/
+              //  ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).notifyDataSetChanged();
+                 intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("rezervation_id",rezervation.getId());
+                getActivity().getApplicationContext().startActivity(intent);
 
-                    //TODO
+                //TODO
                 break;
             case R.id.make_order: //TODO make, remake order !
-                AdapterDB.getInstance().putRezervation(rezervation);//update baze
-                Intent intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
+                Servis.getInstance().AddRezervation(rezervation);
+
+                 intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getActivity().getApplicationContext().startActivity(intent);
 
                 break;
             case R.id.new_item:
-
+                 intent = new Intent(getActivity().getApplicationContext(), Activity_AddMenuItem.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("rezervation_id",rezervation.getId());
+                getActivity().getApplicationContext().startActivity(intent);
 
                 //TODO
                 break;
@@ -226,7 +257,8 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
             }
             @Override
             public void fillData(final ItemOrder adapterItem) {
-
+                number_item_order.setVisibility(View.VISIBLE);
+                number_item_order.setText("komada : "+adapterItem.order.getNuberOrder());
                 itemOrder.setVisibility(View.VISIBLE);
                 itemOrder.setText(adapterItem.order.getOrder().getFood());
                 remove.setVisibility(View.VISIBLE);
@@ -235,17 +267,7 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
                 innewRezervations.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        newRezervation = new Rezervation();
-                        newRezervation.setName_user(rezervation.getname_user());
-                        newRezervation.setNumberTable(rezervation.getnumberTable());
-                        newRezervation.setPaidOrNot(rezervation.isPaidOrNot());
-                        Date date = new Date();
-                        newRezervation.setTime(date.toString());
-                        newRezervation.getOrders().add(order);
-                        rezervation.getOrders().remove(order);
-                        ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).deleteItemFromAdapter(ItemOrder.this);
-                        ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).notifyDataSetChanged();
-
+                        ListOrdersForSplitAction.add(order);
 
                     }
                 });

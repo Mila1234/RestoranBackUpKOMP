@@ -121,7 +121,7 @@ public class Rezervation implements  Cloneable{//TODO DB komunication
         return name_user;
     }
 
-    public int getnumberTable() {
+    public Integer getnumberTable() {
         return numberTable;
     }
 
@@ -177,5 +177,17 @@ public class Rezervation implements  Cloneable{//TODO DB komunication
     }
     public boolean ispaidOrNot() {
         return paidOrNot;
+    }
+
+    public void removeOrders(ArrayList<Order> listOrdersForSplitAction) {
+
+        for(Order currOrder: orders){
+            for(Order orderForErase: listOrdersForSplitAction){
+                if (currOrder.getId()== orderForErase.getId()){
+                    orders.remove(currOrder);
+                }
+            }
+
+        }
     }
 }

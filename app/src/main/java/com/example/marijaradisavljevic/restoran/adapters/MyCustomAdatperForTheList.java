@@ -36,6 +36,13 @@ public class MyCustomAdatperForTheList<T> extends BaseAdapter{
         return this;
     }
 
+    public MyCustomAdatperForTheList<T> SetList(ArrayList<T> list) {
+        this.myList =  list;
+        notifyDataSetChanged();
+        return this;
+    }
+
+
 
     public void deleteItemFromAdapter(T obj){
         myList.remove(obj);

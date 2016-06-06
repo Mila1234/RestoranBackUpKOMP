@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
+import com.example.marijaradisavljevic.restoran.database.UserInfo;
+import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 /**
  * Created by marija.radisavljevic on 5/12/2016.
@@ -21,6 +23,13 @@ import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
 public class FragmentUserInfo extends Fragment {
 
     private static FragmentUserInfo instance;
+
+
+    private EditText username;
+    private EditText name ;
+    private EditText surname ;
+    private EditText number ;
+    private EditText email;
 
 
     @Override
@@ -35,23 +44,33 @@ public class FragmentUserInfo extends Fragment {
         getActivity().setTitle(R.string.fragmentUserInfo);
 
         ///////////////////////////////////////////////////////////////////////
-        EditText username = (EditText) mRoot.findViewById(R.id.username);
-        EditText name = (EditText) mRoot.findViewById(R.id.name);
-        EditText surname = (EditText) mRoot.findViewById(R.id.surname);
-        EditText number = (EditText) mRoot.findViewById(R.id.number);
-        EditText email = (EditText) mRoot.findViewById(R.id.email);
+        username = (EditText) mRoot.findViewById(R.id.username);
+         name = (EditText) mRoot.findViewById(R.id.name);
+         surname = (EditText) mRoot.findViewById(R.id.surname);
+         number = (EditText) mRoot.findViewById(R.id.number);
+         email = (EditText) mRoot.findViewById(R.id.email);
         Button button_ok = (Button) mRoot.findViewById(R.id.ok_button);
 
-        username.setText("MARIJARAD89");
-        name.setText("Marija");
-        surname.setText("Radisavljevic");
-        number.setText("0608861715");
-        email.setText("marijarad89@gmail.com");
+        UserInfo ui =  Servis.getInstance().getUserInfo();
+
+        username.setText(ui.getUsername());
+        name.setText(ui.getName());
+        surname.setText(ui.getSurname());
+        number.setText(ui.getNumber());
+        email.setText(ui.getEmail());
 
         button_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), " Snimljeno ", Toast.LENGTH_LONG).show();
+
+                UserInfo ui = new UserInfo();
+                ui.setUsername(username.getText().toString());
+                ui.setName(name.getText().toString());
+                ui.setSurname(surname.getText().toString());
+                ui.setNumber(number.getText().toString());
+                ui.setEmail(email.getText().toString());
+                Servis.getInstance().setUserInfo(ui);
 
                 Intent intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
