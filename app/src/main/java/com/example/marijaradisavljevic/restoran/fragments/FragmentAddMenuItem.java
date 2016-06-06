@@ -49,10 +49,9 @@ public class FragmentAddMenuItem extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), " Snimljeno ", Toast.LENGTH_LONG).show();
-
-                Order newOrder = new Order();
-                newOrder.setNuberOrder(number_item_spiner.getSelectedItem().toString());
-                newOrder.setOrder(menu_item_spiner.getSelectedItem().toString());
+                Bundle extras = getActivity().getIntent().getExtras();
+                String rezIdString = extras.getString("rezervation_id");
+                 Servis.getInstance().addOrder(Integer.parseInt(rezIdString),number_item_spiner.getSelectedItem().toString(),menu_item_spiner.getSelectedItem().toString());
                 Intent intent2 = new Intent(getActivity().getApplicationContext(), ActivityFirst.class);
                 intent2.putExtra("name", "FreagmentAddOrder");
 

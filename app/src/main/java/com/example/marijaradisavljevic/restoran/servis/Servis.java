@@ -234,4 +234,27 @@ public class Servis {
         listOfRezervations.add(r);
         return r;
     }
+
+    public void addOrder(int id, String numberOfItems, String Kategory) {
+
+        for(Rezervation rez: listOfRezervations){
+            if(rez.getId()== id){
+                Order o = new Order();
+
+                o.setOrder(getGoodmenuItem(Kategory));
+                o.setNuberOrder(Integer.parseInt(numberOfItems));
+                rez.getOrders().add(o);
+            }
+
+        }
+    }
+
+    private FoodMenuItem getGoodmenuItem(String kategory) {
+        for(FoodMenuItem f:listFoodMenuItem){
+            if (f.getFood().equals(kategory)){
+                return  f;
+            }
+        }
+        return null;
+    }
 }
