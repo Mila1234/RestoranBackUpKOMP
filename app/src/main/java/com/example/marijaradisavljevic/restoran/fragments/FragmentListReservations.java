@@ -23,6 +23,8 @@ import com.example.marijaradisavljevic.restoran.database.Order;
 import com.example.marijaradisavljevic.restoran.database.Rezervation;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 import com.example.marijaradisavljevic.restoran.database.AdapterDB;
+import com.example.marijaradisavljevic.restoran.database.SelecionRegulations;
+import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,10 +33,16 @@ import java.util.Iterator;
  * Created by marija.radisavljevic on 5/13/2016.
  */
 public class FragmentListReservations extends Fragment {
+
+    private ListView lvDetail;
+
+
+
+
     @Override
     public void onResume() {
         super.onResume();
-        MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
+      /*  MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
 
 
         ArrayList<Rezervation> myList = AdapterDB.getInstance().getRezervations();
@@ -56,9 +64,10 @@ public class FragmentListReservations extends Fragment {
 
         //  ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).notifyDataSetChanged();
         FragmentListReservations.this.lvDetail.invalidateViews();
-    }
 
-    ListView lvDetail;
+
+        */
+    }
 
 
     @Override
@@ -76,21 +85,7 @@ public class FragmentListReservations extends Fragment {
 
 
         MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
-        ArrayList<Rezervation> myList = AdapterDB.getInstance().getRezervations();
-        try {
-            Rezervation clone1 = myList.get(0).clone();
-            adapter.addItem(new ItemForRezervationsList(clone1));
-            Rezervation clone2 = myList.get(1).clone();
-            adapter.addItem(new ItemForRezervationsList(clone2));
-            Rezervation clone3 = myList.get(2).clone();
-            adapter.addItem(new ItemForRezervationsList(clone3));
-            Rezervation clone4 = myList.get(3).clone();
-            adapter.addItem(new ItemForRezervationsList(clone4));
-
-        }catch (Exception e){
-            System.out.print(e.getStackTrace());
-        }
-
+        ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulation(UserData.getInstance().getSelecionRegulation());
         lvDetail.setAdapter(adapter);
 
         return mRoot;
@@ -206,7 +201,7 @@ public class FragmentListReservations extends Fragment {
                         AdapterDB.getInstance().deleteRezervation(rezervation.getId());
                         //((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).deleteItemFromAdapter(ItemForRezervationsList.this);
 
-                        ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).deleteAll();
+                      /*  ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).deleteAll();
 
 
                         //MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
@@ -226,8 +221,9 @@ public class FragmentListReservations extends Fragment {
 
                         } catch (Exception e) {
                             System.out.print(e.getStackTrace());
-                        }
-
+                        }*/
+                        MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
+                        ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulation(UserData.getInstance().getSelecionRegulation());
                         lvDetail.setAdapter(adapter);
 
                         //////////////////

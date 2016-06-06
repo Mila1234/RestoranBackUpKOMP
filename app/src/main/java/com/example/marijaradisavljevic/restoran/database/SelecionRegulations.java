@@ -1,27 +1,9 @@
-package com.example.marijaradisavljevic.restoran.data;
-
-import com.example.marijaradisavljevic.restoran.database.FoodMenuItem;
-import com.example.marijaradisavljevic.restoran.database.SelecionRegulations;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+package com.example.marijaradisavljevic.restoran.database;
 
 /**
- * Created by marija.radisavljevic on 5/17/2016.
+ * Created by marija.radisavljevic on 6/6/2016.
  */
-public class UserData {
-
-    private static UserData instance = new UserData();
-
-
-    public static UserData getInstance() {return instance; }
-
-    public UserData() {
-         userType = Servis.getInstance().UserType();
-        user = Servis.getInstance().NameOfUser();
-    }
-
-    private String user;
-    private String userType;
-
+public class SelecionRegulations {
     //selection
     private Integer numberOfTable;
     private boolean numberOfTable_selectied=false;
@@ -34,19 +16,6 @@ public class UserData {
 
     private boolean all=false;
 
-    public SelecionRegulations getSelecionRegulation (){
-        SelecionRegulations sr = new SelecionRegulations();
-
-        sr.setAll(all) ;
-        sr.setNumberOfTable(numberOfTable);
-        sr.setNumberOfTable_selectied(numberOfTable_selectied);
-        sr.setPaidOrNot(paidOrNot) ;
-        sr.setPaidOrNot_selected(paidOrNot_selected) ;
-        sr.setKategory(kategory);
-        sr.setKategory_selected(kategory_selected) ;
-
-        return sr;
-    }
 
     public boolean isAll() {
         return all;
@@ -77,7 +46,6 @@ public class UserData {
     }
 
     public void setPaidOrNot(boolean paidOrNot) {
-
         this.paidOrNot = paidOrNot;
     }
 
@@ -103,15 +71,5 @@ public class UserData {
 
     public void setKategory_selected(boolean kategory_selected) {
         this.kategory_selected = kategory_selected;
-    }
-
-    public String getUserType() {
-        return userType;
-       // return "Konobar";
-    }
-
-    public String getUser() {
-        return user;
-       // return "marija radisavljevic";
     }
 }

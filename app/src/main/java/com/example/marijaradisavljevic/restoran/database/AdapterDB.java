@@ -76,7 +76,7 @@ public class AdapterDB {
         ld.setOrders(listOrders);
         ld.setNumberTable(2);
         ld.setPaidOrNot(true);
-ld.setId(22);
+        ld.setId(22);
         ld.setTime("5.5.2016. 18:30 ");
         listOfRezervations.add(ld);
 

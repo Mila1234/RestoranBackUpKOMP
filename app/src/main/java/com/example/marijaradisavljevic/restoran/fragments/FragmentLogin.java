@@ -342,7 +342,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             }
 
 
-           return Servis.logIN(mEmail, mPassword);
+           return Servis.getInstance().logIN(mEmail, mPassword);
             // TODO: register the new account here.
             //return true;
         }

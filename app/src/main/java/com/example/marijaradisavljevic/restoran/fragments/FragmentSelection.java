@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.view.LayoutInflater;
@@ -15,13 +14,13 @@ import android.widget.Spinner;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.data.UserData;
+import com.example.marijaradisavljevic.restoran.servis.Servis;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 /**
  * Created by marija.radisavljevic on 5/13/2016.
  */
-public class FragmentSelection extends Fragment implements View.OnTouchListener {
-
+public class FragmentSelection extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private static Fragment instance ;
     private Spinner number_of_table ;
@@ -44,9 +43,9 @@ public class FragmentSelection extends Fragment implements View.OnTouchListener 
         isItPaid = (Spinner)  mRoot.findViewById(R.id.isItPaid_spinner);
         kategory = (Spinner)  mRoot.findViewById(R.id.kategory_spinner);
 
-        String[] value = getResources().getStringArray(R.array.numbers);
+        //String[] value = getResources().getStringArray(R.array.numbers);
         ArrayAdapter<String> adapter_number_of_table = new MySpinnerAdapter(getActivity(),
-                android.R.layout.simple_spinner_item,value);
+                android.R.layout.simple_spinner_item, Servis.getInstance().stringListofTables());
 
 
 
@@ -54,10 +53,11 @@ public class FragmentSelection extends Fragment implements View.OnTouchListener 
         adapter_number_of_table.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         number_of_table.setAdapter(adapter_number_of_table);
-        number_of_table.setSelection(adapter_number_of_table.getCount());
-        number_of_table.setOnTouchListener(this);
+        number_of_table.setSelection(0);
+        number_of_table.setOnItemSelectedListener(this);
 
-         value = getResources().getStringArray(R.array.paidNotpaid);
+
+        String[] value = getResources().getStringArray(R.array.paidNotpaid);
         ArrayAdapter<String>  adapter_isItPaid = new MySpinnerAdapter(getActivity(),
                  android.R.layout.simple_spinner_item ,value);
 
@@ -65,21 +65,21 @@ public class FragmentSelection extends Fragment implements View.OnTouchListener 
         adapter_isItPaid.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         isItPaid.setAdapter(adapter_isItPaid);
-        isItPaid.setSelection(isItPaid.getCount());
-        isItPaid.setOnTouchListener(this);
+        isItPaid.setSelection(0);
+        isItPaid.setOnItemSelectedListener(this);
 
-         value = getResources().getStringArray(R.array.kategory_array);
+        // value = getResources().getStringArray(R.array.kategory_array);
         ArrayAdapter<String> adapter_kategory = new MySpinnerAdapter(getActivity(),
-                android.R.layout.simple_spinner_item,value );
+                android.R.layout.simple_spinner_item,Servis.getInstance().stringListofFoodItems() );
 
         // Specify the layout to use when the list of choices appears
         adapter_kategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         kategory.setAdapter(adapter_kategory);
-        kategory.setSelection(kategory.getCount());
-        kategory.setOnTouchListener(this);
+        kategory.setSelection(0);
+        kategory.setOnItemSelectedListener(this);
 
-        final CheckedTextView all =(CheckedTextView) mRoot.findViewById(R.id.all_checkedTextView);
+       final CheckedTextView all =(CheckedTextView) mRoot.findViewById(R.id.all_checkedTextView);
         all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,19 +113,16 @@ public class FragmentSelection extends Fragment implements View.OnTouchListener 
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(position == 0 ){return;}
 
-
-
-        switch (v.getId()) {
+        switch (parent.getId()) {
             case R.id.isItPaid_spinner:
                 UserData.getInstance().setPaidOrNot_selected(true);
                 UserData.getInstance().setPaidOrNot(Boolean.parseBoolean(isItPaid.getSelectedItem().toString()));
                 break;
             case R.id.kategory_spinner:
                 UserData.getInstance().setKategory_selected(true);
-
                 UserData.getInstance().setKategory(kategory.getSelectedItem().toString());
                 break;
             case R.id.numbreOfTable_spinner:
@@ -135,10 +132,10 @@ public class FragmentSelection extends Fragment implements View.OnTouchListener 
             default:
                 break;
         }
-
-
-        }
-        return false;
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
