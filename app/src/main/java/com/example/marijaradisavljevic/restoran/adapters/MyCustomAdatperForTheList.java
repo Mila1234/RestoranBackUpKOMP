@@ -42,7 +42,9 @@ public class MyCustomAdatperForTheList<T> extends BaseAdapter{
         return this;
     }
 
-
+public ArrayList<T> getMyList (){
+    return myList;
+}
 
     public void deleteItemFromAdapter(T obj){
         myList.remove(obj);

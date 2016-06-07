@@ -42,15 +42,18 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
     private Button split_order,new_item,make_order;
     private CheckedTextView paidOrNot;
     private static FreagmentAddOrder instance;
+    String rezervationIdString = "";
 
+    TextView time,nameUser;
+    Spinner numbreOfTable_spinner;
+
+
+    ///////////////////////////
     private ListView listaAddOrder;
+    MyCustomAdatperForTheList<ItemOrder> adapter;
+    ArrayList<ItemOrder> ListOrdersForSplitAction ;
 
-    ////////////////////
-    private Rezervation rezervation;
 
-    ArrayList<Order> ListOrdersForSplitAction = new ArrayList<Order>();
-   // private Rezervation newRezervation;
-    //TODO private ArrayList<String> whatAction;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,23 +66,31 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mRoot = inflater.inflate(R.layout.fragment_add_order_layout,container,false);
-
+        ListOrdersForSplitAction = new ArrayList<ItemOrder>();
 
         Bundle bundle =  this.getArguments();
         String action = bundle.getString("action");
 
+//TextView
+        time = (TextView)mRoot.findViewById(R.id.time);
+        nameUser = (TextView)mRoot.findViewById(R.id.name_of_user);
+
         if (action.equals("onclick")){
 
-            String rezervationIdString = getArguments().getString("rezervationId");
-            int rezeravtionid = Integer.parseInt(rezervationIdString);
-            rezervation = Servis.getInstance().getRezervationByID(rezeravtionid);
-
+            rezervationIdString = getArguments().getString("rezervationId");
+           // int rezeravtionid = Integer.parseInt(rezervationIdString);
+            //rezervation = Servis.getInstance().getRezervationByID(rezeravtionid);
+            time.setText(Servis.getInstance().getTimeForRezervation(rezervationIdString));
+            nameUser.setText(Servis.getInstance().getUserAndTypeForRezervation(rezervationIdString));
 
         }else if (action.equals("plusbutton")) {
+            rezervationIdString = Servis.getInstance().newRezervation();
+            nameUser.setText(UserData.getInstance().getUserType()+ " : "+UserData.getInstance().getUser());
+            Servis.getInstance().setUserInfoForRezervation(rezervationIdString , UserData.getInstance().getUserType(),UserData.getInstance().getUser());
 
-            rezervation = new Rezervation();
-            rezervation.setName_user(UserData.getInstance().getUser());
-            TextView time = (TextView) mRoot.findViewById(R.id.time);
+           // rezervation = new Rezervation();
+           // rezervation.setName_user(UserData.getInstance().getUser());
+
 
             Calendar calendar = Calendar.getInstance();
             int DAY_OF_MONTH = calendar.get(Calendar.DAY_OF_MONTH);
@@ -87,12 +98,9 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
             int MONTH = calendar.get(Calendar.MONTH);
             int HOUR = calendar.get(Calendar.HOUR);
             int MINUT = calendar.get(Calendar.MINUTE);
-
-
             String date;
-
             date = DAY_OF_MONTH+"."+MONTH+"."+YEAR+" "+HOUR+":"+MINUT;
-            rezervation.setTime(date);
+
 
         } else {
             //TODO
@@ -108,11 +116,11 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
 //CheckedTextView
         paidOrNot  = (CheckedTextView) mRoot.findViewById(R.id.paidOrNot);
-        paidOrNot.setChecked(rezervation.ispaidOrNot());
+        paidOrNot.setChecked(Servis.getInstance().getPaidOrNot(rezervationIdString));
         paidOrNot.setOnClickListener(this);
 
 //spiner
-        Spinner numbreOfTable_spinner = (Spinner)  mRoot.findViewById(R.id.numbreOfTable_spinner);
+         numbreOfTable_spinner = (Spinner)  mRoot.findViewById(R.id.numbreOfTable_spinner);
         String[] value = getResources().getStringArray(R.array.numbers);
         ArrayAdapter<String> adapter_number_of_table = new MySpinnerAdapter(getActivity(),android.R.layout.simple_spinner_item,value);
         // Specify the layout to use when the list of choices appears
@@ -120,20 +128,20 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
         // Apply the adapter to the spinner
         numbreOfTable_spinner.setAdapter(adapter_number_of_table);
         if (action.equals("onclick")){
-            numbreOfTable_spinner.setSelection(rezervation.getnumberTable());//
+            numbreOfTable_spinner.setSelection(Servis.getInstance().getNumberOFtable(rezervationIdString));//
         }else{
             numbreOfTable_spinner.setSelection(0);//
         }
 
-//TextView
-        TextView time = (TextView)mRoot.findViewById(R.id.time);
-        time.setText(rezervation.gettime());
+
+
 
 //ListView
 
         listaAddOrder = (ListView) mRoot.findViewById(R.id.listaAddOrder);
-        MyCustomAdatperForTheList<ItemOrder> adapter = new MyCustomAdatperForTheList(getActivity());
-            for (Order order:rezervation.getOrders()) {
+
+        adapter = new MyCustomAdatperForTheList(getActivity());
+            for (Order order:Servis.getInstance().getListOrders(rezervationIdString)) {
                 adapter.addItem(new ItemOrder(order));
             }
         listaAddOrder.setAdapter(adapter);
@@ -164,17 +172,27 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
         Intent intent;
         switch (v.getId()){
             case R.id.split_order:
-                Rezervation newRezervation = new Rezervation();
-                newRezervation.setName_user(rezervation.getname_user());
-                newRezervation.setNumberTable(rezervation.getnumberTable());
-                newRezervation.setPaidOrNot(rezervation.isPaidOrNot());
-                Date date = new Date();
-                newRezervation.setTime(date.toString());
-                newRezervation.setOrders(ListOrdersForSplitAction);
-                rezervation.removeOrders(ListOrdersForSplitAction);
 
-                Servis.getInstance().AddRezervation(rezervation);
-                Servis.getInstance().AddRezervation(newRezervation);
+                ArrayList<ItemOrder> listOfOrders = adapter.getMyList();
+                ArrayList<ItemOrder> splitListaNew = new ArrayList<ItemOrder>();
+                for(ItemOrder currOrder : listOfOrders) {
+                    boolean find = false;
+                    for (ItemOrder interCurOrder : ListOrdersForSplitAction) {
+                        if (currOrder.getOrder().getId() == interCurOrder.getOrder().getId()) {
+                            find = true;
+                        }
+                    }
+                    if (!find) {
+                        splitListaNew.add(currOrder);
+                    }
+                }
+
+
+                Servis.getInstance().AddRezervation( rezervationIdString,nameUser.getText().toString(),time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),splitListaNew);
+                rezervationIdString = Servis.getInstance().newRezervation();
+                Servis.getInstance().AddRezervation( rezervationIdString,nameUser.getText().toString(),time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),ListOrdersForSplitAction);
+
+
                // ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).deleteItemFromAdapter(ItemOrder.this);
               /*  MyCustomAdatperForTheList<ItemOrder> adapter = new MyCustomAdatperForTheList(getActivity());
                 for (Order order:rezervation.getOrders()) {
@@ -184,29 +202,42 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
               //  ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).notifyDataSetChanged();
                  intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("rezervation_id",rezervation.getId());
+               // intent.putExtra("rezervation_id",rezervationIdString);
                 getActivity().getApplicationContext().startActivity(intent);
 
                 //TODO
                 break;
             case R.id.make_order: //TODO make, remake order !
-                Servis.getInstance().AddRezervation(rezervation);
+                listOfOrders =adapter.getMyList();
+                Servis.getInstance().AddRezervation(rezervationIdString,nameUser.getText().toString(),time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),listOfOrders);
 
-                 intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
+                intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getActivity().getApplicationContext().startActivity(intent);
 
                 break;
             case R.id.new_item:
-                 intent = new Intent(getActivity().getApplicationContext(), Activity_AddMenuItem.class);
+                listOfOrders =adapter.getMyList();
+                Servis.getInstance().AddRezervation(rezervationIdString,nameUser.getText().toString(),time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),listOfOrders);
+
+                intent = new Intent(getActivity().getApplicationContext(), Activity_AddMenuItem.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("rezervation_id",rezervation.getId());
+                intent.putExtra("rezervation_id",rezervationIdString);
+
                 getActivity().getApplicationContext().startActivity(intent);
 
                 //TODO
                 break;
             case R.id.paidOrNot:
-                rezervation.setPaidOrNot(paidOrNot.isChecked());
+                if(paidOrNot.isChecked()){
+                    paidOrNot.setChecked(false);
+
+
+                }else{
+                    paidOrNot.setChecked(true);
+
+
+                }
                 break;
         }
 
@@ -215,6 +246,13 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
         private Order order;
 
+        public Order getOrder() {
+            return order;
+        }
+
+        public void setOrder(Order order) {
+            this.order = order;
+        }
 
         public ItemOrder(Order order){
             this.order = order;
@@ -267,7 +305,16 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
                 innewRezervations.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ListOrdersForSplitAction.add(order);
+
+                        if(innewRezervations.isChecked()){
+                            innewRezervations.setChecked(false);
+                            ListOrdersForSplitAction.remove(ItemOrder.this);
+
+                        }else{
+                            innewRezervations.setChecked(true);
+                            ListOrdersForSplitAction.add(ItemOrder.this);
+
+                        }
 
                     }
                 });
@@ -275,8 +322,8 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                     rezervation.getOrders().remove(order);//TODO ovde mora da se implementira dobar equals !
 
+/*
                         ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).deleteAll();
 
                         MyCustomAdatperForTheList<ItemOrder> adapter = new MyCustomAdatperForTheList(getActivity());
@@ -294,6 +341,18 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
                         listaAddOrder.setAdapter(adapter);
 
                        ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).notifyDataSetChanged();
+                        FreagmentAddOrder.this.listaAddOrder.invalidate();
+*/
+
+                        Servis.getInstance().removeorderForRezer(order,rezervationIdString);
+
+
+                        adapter = new MyCustomAdatperForTheList(getActivity());
+                        for (Order order:Servis.getInstance().getListOrders(rezervationIdString)) {
+                            adapter.addItem(new ItemOrder(order));
+                        }
+                        listaAddOrder.setAdapter(adapter);
+                        ((MyCustomAdatperForTheList<ItemOrder>) listaAddOrder.getAdapter()).notifyDataSetChanged();
                         FreagmentAddOrder.this.listaAddOrder.invalidate();
 
 

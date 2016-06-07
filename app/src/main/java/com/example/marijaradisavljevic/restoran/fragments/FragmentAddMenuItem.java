@@ -48,15 +48,20 @@ public class FragmentAddMenuItem extends Fragment {
         button_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Toast.makeText(getActivity(), " Snimljeno ", Toast.LENGTH_LONG).show();
                 Bundle extras = getActivity().getIntent().getExtras();
                 String rezIdString = extras.getString("rezervation_id");
-                 Servis.getInstance().addOrder(Integer.parseInt(rezIdString),number_item_spiner.getSelectedItem().toString(),menu_item_spiner.getSelectedItem().toString());
+                 Servis.getInstance().addOrder(Integer.parseInt(rezIdString), number_item_spiner.getSelectedItem().toString(), menu_item_spiner.getSelectedItem().toString());
+
                 Intent intent2 = new Intent(getActivity().getApplicationContext(), ActivityFirst.class);
                 intent2.putExtra("name", "FreagmentAddOrder");
-
+                intent2.putExtra("rezervationId", rezIdString);
+                intent2.putExtra("action", "onclick");
                 intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getActivity().getApplicationContext().startActivity(intent2);
+
             }
         });
 
@@ -79,7 +84,7 @@ public class FragmentAddMenuItem extends Fragment {
         });
 
 
-        Spinner menu_item_spiner = (Spinner)  mRoot.findViewById(R.id.menu_item_spiner);
+         menu_item_spiner = (Spinner)  mRoot.findViewById(R.id.menu_item_spiner);
         //String[] value = getResources().getStringArray(R.array.kategory_array);
         ArrayAdapter<String> menu_item_spiner_adapter = new MySpinnerAdapter(getActivity(),
                 android.R.layout.simple_spinner_item, Servis.getInstance().stringListofFoodItems());
@@ -92,9 +97,9 @@ public class FragmentAddMenuItem extends Fragment {
 
 
          number_item_spiner = (Spinner)  mRoot.findViewById(R.id.number_item_spiner);
-        String [] value = getResources().getStringArray(R.array.number_item_spiner);
+       // String [] value = getResources().getStringArray(R.array.number_item_spiner);
         ArrayAdapter<String> number_item_spiner_adapter = new MySpinnerAdapter(getActivity(),
-                android.R.layout.simple_spinner_item,value);
+                android.R.layout.simple_spinner_item,Servis.getInstance().getNumberItems());
         // Specify the layout to use when the list of choices appears
         number_item_spiner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner

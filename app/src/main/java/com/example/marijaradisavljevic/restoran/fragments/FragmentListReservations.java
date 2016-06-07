@@ -168,7 +168,7 @@ public class FragmentListReservations extends Fragment {
                 time.setVisibility(View.VISIBLE);
                 time.setText(adapterItem.rezervation.gettime());
                 name_user.setVisibility(View.VISIBLE);
-                name_user.setText(UserData.getInstance().getUserType()+" : "+adapterItem.rezervation.getname_user());
+                name_user.setText(adapterItem.rezervation.getNameType()+" : "+adapterItem.rezervation.getname_user());
                 numberTable.setVisibility(View.VISIBLE);
                 numberTable.setText("Broj stola je :" + adapterItem.rezervation.getnumberTable_string());
                 price.setVisibility(View.VISIBLE);
@@ -225,6 +225,8 @@ public class FragmentListReservations extends Fragment {
                         } catch (Exception e) {
                             System.out.print(e.getStackTrace());
                         }*/
+
+                        Servis.getInstance().removeRezer(rezervation.getId());
                         MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
                         ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulation(UserData.getInstance().getSelecionRegulation());
                         for(Rezervation rez:myList){

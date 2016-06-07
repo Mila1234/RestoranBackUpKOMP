@@ -13,16 +13,27 @@ public class Rezervation implements  Cloneable{//TODO DB komunication
     private Integer price;
     private  Integer numberTable;
     private boolean paidOrNot;
-   // private ArrayList<String> itemsOrder;
 
+    private String nameType;
 
     private ArrayList<Order> orders;
-    private int id;
+    private Integer id;
 
 
     //TODO ovaj id treba da se dobija od backenda
     private static int ukid = 0;
 
+
+
+
+
+    public String getNameType() {
+        return nameType;
+    }
+
+    public void setNameType(String nameType) {
+        this.nameType = nameType;
+    }
 
     @Override
     public Rezervation clone() throws CloneNotSupportedException {
@@ -61,10 +72,16 @@ public class Rezervation implements  Cloneable{//TODO DB komunication
 
     public Rezervation() {
 
-            orders = new ArrayList<Order>();
+         price = 0;
+         numberTable = 0;
+         paidOrNot = false;
 
-            //itemsOrder  = new ArrayList<String>();
-            id = ukid++;
+
+
+         orders = new ArrayList<Order>();
+
+         //itemsOrder  = new ArrayList<String>();
+         id = ukid++;
 
     }
 

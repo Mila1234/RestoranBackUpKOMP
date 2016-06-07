@@ -94,6 +94,8 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
         });
 
         all.setChecked(true);
+        UserData.getInstance().setAll(true);
+
         return mRoot;
     }
 

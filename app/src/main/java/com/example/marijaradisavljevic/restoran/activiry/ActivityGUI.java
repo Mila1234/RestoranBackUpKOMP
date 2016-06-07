@@ -174,9 +174,10 @@ public class ActivityGUI extends AppCompatActivity  {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return new  FragmentSelection();
-                case 1:
                     return new FragmentListReservations();
+
+                case 1:
+                    return new  FragmentSelection();
                 default:
                     return PlaceholderFragment.newInstance(position);
             }
