@@ -28,6 +28,9 @@
         <activity
             android:name="com.example.marijaradisavljevic.restoran.activiry.Activity_AddMenuItem">
         </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activiry.ActivityLogout">
+        </activity>
 
     </application>
 

@@ -105,6 +105,9 @@ public class ActivityGUI extends AppCompatActivity  {
                 return true;
             case R.id.action_logout:
                 //call popup win for logout
+                intent = new Intent(getApplicationContext(), ActivityLogout.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
                 return true;
             case R.id.action_add://plus action
 

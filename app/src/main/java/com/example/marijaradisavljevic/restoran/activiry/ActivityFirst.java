@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -42,14 +43,14 @@ public class ActivityFirst extends AppCompatActivity {
 
         if (extras != null) {
             fragmetnName = extras.getString("name");
-
-            if(fragmetnName.equals("FragmentUserInfo")) {
+            Log.d("BLA",extras.toString());
+            if(fragmetnName !=null && fragmetnName.equals("FragmentUserInfo")) {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentUserInfo fragmentUserInfo = FragmentUserInfo.getInstance();
                 fm.beginTransaction().replace(R.id.container_menu, fragmentUserInfo).commit();
-            }else if(fragmetnName.equals("FreagmentAddOrder")){
+            }else if(fragmetnName !=null &&  fragmetnName.equals("FreagmentAddOrder")){
                 String action = extras.getString("action");
-                if (action.equals("plusbutton")){
+                if (action !=null &&  action.equals("plusbutton")){
                     FragmentManager fm = getSupportFragmentManager();
                     FreagmentAddOrder freagmentAddOrder = FreagmentAddOrder.getInstance();
                     Bundle bundle = new Bundle();
@@ -57,7 +58,7 @@ public class ActivityFirst extends AppCompatActivity {
                     freagmentAddOrder.setArguments(bundle);
                     fm.beginTransaction().replace(R.id.container_menu, freagmentAddOrder).commit();
                 }else{
-                    if (action.equals("onclick")){
+                    if (action !=null &&  action.equals("onclick")){
                         FragmentManager fm = getSupportFragmentManager();
                         FreagmentAddOrder freagmentAddOrder = FreagmentAddOrder.getInstance();
                         Bundle bundle = new Bundle();
@@ -66,10 +67,16 @@ public class ActivityFirst extends AppCompatActivity {
                         freagmentAddOrder.setArguments(bundle);
                         fm.beginTransaction().replace(R.id.container_menu, freagmentAddOrder).commit();
                     }else{
-                        //TODO
+                        FragmentManager fm = getSupportFragmentManager();
+                        FragmentLogin fragmentLogin = FragmentLogin.getInstance();
+                        fm.beginTransaction().replace(R.id.container_menu, fragmentLogin).commit();
                     }
                 }
 
+            }else{
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentLogin fragmentLogin = FragmentLogin.getInstance();
+                fm.beginTransaction().replace(R.id.container_menu, fragmentLogin).commit();
             }
         }else
         {
@@ -106,6 +113,9 @@ public class ActivityFirst extends AppCompatActivity {
                 return true;
             case R.id.action_logout:
                 //call popup win for logout
+                intent = new Intent(getApplicationContext(), ActivityLogout.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
                 return true;
             case R.id.action_add:
 

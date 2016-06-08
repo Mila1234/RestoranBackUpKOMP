@@ -71,9 +71,14 @@
     />
 
    <Button  android:id="@+id/ok_button"
+       android:layout_marginLeft="@dimen/activity_small_padding"
+       android:layout_marginRight="@dimen/activity_small_padding"
+       android:layout_marginTop="@dimen/standard_margin"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="@string/button_record"/>
+       android:text="@string/button_record"
+       android:background="@drawable/shape_of_button"
+       android:textColor="@color/white"/>
 
 
 

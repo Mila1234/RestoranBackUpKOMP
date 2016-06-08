@@ -23,14 +23,24 @@
         android:layout_height="match_parent">
 
         <Button  android:id="@+id/ok_button"
+            android:layout_marginLeft="@dimen/activity_small_padding"
+            android:layout_marginRight="@dimen/activity_small_padding"
+            android:layout_marginTop="@dimen/standard_margin"
             android:layout_width="191dp"
             android:layout_height="wrap_content"
-            android:text="@string/ok_button"/>
+            android:text="@string/ok_button"
+            android:background="@drawable/shape_of_button"
+            android:textColor="@color/white"/>
 
         <Button  android:id="@+id/cancel_button"
+            android:layout_marginLeft="@dimen/activity_small_padding"
+            android:layout_marginRight="@dimen/activity_small_padding"
+            android:layout_marginTop="@dimen/standard_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/cancel_button"/>
+            android:text="@string/cancel_button"
+            android:background="@drawable/shape_of_button"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
 </LinearLayout>
