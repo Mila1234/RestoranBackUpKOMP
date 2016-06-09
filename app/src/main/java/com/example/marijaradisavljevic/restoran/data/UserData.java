@@ -15,12 +15,31 @@ public class UserData {
     public static UserData getInstance() {return instance; }
 
     public UserData() {
-         userType = Servis.getInstance().UserType();
-        user = Servis.getInstance().NameOfUser();
+         //userType = Servis.getInstance().UserType();
+        //user = Servis.getInstance().NameOfUser();
     }
 
-    private String user;
-    private String userType;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    private String username;
+    private String password;
+
+   // private String user;
+   // private String userType;
 
     //selection
     private String numberOfTable;
@@ -105,6 +124,15 @@ public class UserData {
         this.kategory_selected = kategory_selected;
     }
 
+/*
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     public String getUserType() {
         return userType;
        // return "Konobar";
@@ -113,5 +141,5 @@ public class UserData {
     public String getUser() {
         return user;
        // return "marija radisavljevic";
-    }
+    }*/
 }

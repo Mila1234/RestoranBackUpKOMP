@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
+import com.example.marijaradisavljevic.restoran.data.UserData;
 import com.example.marijaradisavljevic.restoran.database.UserInfo;
 import com.example.marijaradisavljevic.restoran.servis.Servis;
 
@@ -51,7 +52,7 @@ public class FragmentUserInfo extends Fragment {
          email = (EditText) mRoot.findViewById(R.id.email);
         Button button_ok = (Button) mRoot.findViewById(R.id.ok_button);
 
-        UserInfo ui =  Servis.getInstance().getUserInfo();
+        UserInfo ui =  Servis.getInstance().getUserInfo(UserData.getInstance().getUsername(),UserData.getInstance().getPassword());
 
         username.setText(ui.getUsername());
         name.setText(ui.getName());
@@ -71,6 +72,9 @@ public class FragmentUserInfo extends Fragment {
                 ui.setNumber(number.getText().toString());
                 ui.setEmail(email.getText().toString());
                 Servis.getInstance().setUserInfo(ui);
+
+                UserData.getInstance().setUsername(ui.getUsername());
+              //  UserData.getInstance().setUsername(ui.getPasseord());
 
                 Intent intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

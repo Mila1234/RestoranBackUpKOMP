@@ -85,8 +85,8 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
         }else if (action.equals("plusbutton")) {
             rezervationIdString = Servis.getInstance().newRezervation();
-            nameUser.setText(UserData.getInstance().getUserType()+ " : "+UserData.getInstance().getUser());
-            Servis.getInstance().setUserInfoForRezervation(rezervationIdString , UserData.getInstance().getUserType(),UserData.getInstance().getUser());
+            nameUser.setText(Servis.getInstance().getUserInfo(UserData.getInstance().getUsername(), UserData.getInstance().getPassword()).getNameSurnameType());
+            Servis.getInstance().setUserInfoForRezervation(rezervationIdString, Servis.getInstance().getUserInfo(UserData.getInstance().getUsername(), UserData.getInstance().getPassword()).getType(), Servis.getInstance().getUserInfo(UserData.getInstance().getUsername(), UserData.getInstance().getPassword()).getnameAndSurname());
 
            // rezervation = new Rezervation();
            // rezervation.setName_user(UserData.getInstance().getUser());

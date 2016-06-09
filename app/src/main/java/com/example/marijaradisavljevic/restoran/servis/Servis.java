@@ -32,6 +32,8 @@ public class Servis {
         userInfo.setName("Marija");
         userInfo.setSurname("Radisavljevic");
         userInfo.setNumber("060123789");
+        userInfo.setUsername("marijarad89@gmail.com");
+        userInfo.setType("konobar");
 
         numberItemssStrignList = new String[7];
         numberItemssStrignList[0] = "broj komada";
@@ -139,17 +141,13 @@ public class Servis {
     }
 
     public  Boolean logIN(String mEmail, String mPassword) {
+
         return true;
     }
 
-    public String UserType(){
-        return "konobar";
-    }
-    public String NameOfUser (){
-        return "Pera Peric";
-    }
 
-    public UserInfo getUserInfo(){
+
+    public UserInfo getUserInfo(String username, String password){
         return userInfo;
     }
     public void setUserInfo(UserInfo ui){

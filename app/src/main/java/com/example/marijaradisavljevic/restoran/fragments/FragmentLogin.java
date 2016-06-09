@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
 import com.example.marijaradisavljevic.restoran.backend.Executor;
+import com.example.marijaradisavljevic.restoran.data.UserData;
 import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 
@@ -341,6 +342,8 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
                 }
             }
 
+            UserData.getInstance().setUsername(mEmail);
+            UserData.getInstance().setPassword(mPassword);
 
            return Servis.getInstance().logIN(mEmail, mPassword);
             // TODO: register the new account here.
