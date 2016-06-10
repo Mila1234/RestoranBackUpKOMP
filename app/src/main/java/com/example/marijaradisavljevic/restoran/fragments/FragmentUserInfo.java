@@ -31,7 +31,7 @@ public class FragmentUserInfo extends Fragment {
     private EditText surname ;
     private EditText number ;
     private EditText email;
-
+    private EditText password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,10 +46,12 @@ public class FragmentUserInfo extends Fragment {
 
         ///////////////////////////////////////////////////////////////////////
         username = (EditText) mRoot.findViewById(R.id.username);
-         name = (EditText) mRoot.findViewById(R.id.name);
-         surname = (EditText) mRoot.findViewById(R.id.surname);
-         number = (EditText) mRoot.findViewById(R.id.number);
-         email = (EditText) mRoot.findViewById(R.id.email);
+        name = (EditText) mRoot.findViewById(R.id.name);
+        surname = (EditText) mRoot.findViewById(R.id.surname);
+        number = (EditText) mRoot.findViewById(R.id.number);
+        email = (EditText) mRoot.findViewById(R.id.email);
+        password = (EditText) mRoot.findViewById(R.id.password);
+
         Button button_ok = (Button) mRoot.findViewById(R.id.ok_button);
 
         UserInfo ui =  Servis.getInstance().getUserInfo(UserData.getInstance().getUsername(),UserData.getInstance().getPassword());
@@ -59,6 +61,7 @@ public class FragmentUserInfo extends Fragment {
         surname.setText(ui.getSurname());
         number.setText(ui.getNumber());
         email.setText(ui.getEmail());
+        password.setText(ui.getPassword());
 
         button_ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +74,7 @@ public class FragmentUserInfo extends Fragment {
                 ui.setSurname(surname.getText().toString());
                 ui.setNumber(number.getText().toString());
                 ui.setEmail(email.getText().toString());
+                ui.setPassword(password.getText().toString());
                 Servis.getInstance().setUserInfo(ui);
 
                 UserData.getInstance().setUsername(ui.getUsername());

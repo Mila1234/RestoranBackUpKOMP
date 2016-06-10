@@ -63,6 +63,7 @@
     <string name="ok_button">ok</string>
     <string name="cancel_button">cancel</string>
     <string name="logout_message"> Da li ste sigurni da zelite da se izlogujete ? </string>
+    <string name="password">sifra</string>
 
 
 </resources>

@@ -15,62 +15,86 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_avatar"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/username"
+        android:layout_weight="1"
         />
     <EditText android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/name"
+        android:layout_weight="1"
         />
 
     <EditText android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/surname"
+        android:layout_weight="1"
        />
 
     <EditText android:id="@+id/surname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/number"
+        android:layout_weight="1"
         />
     <EditText android:id="@+id/number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/email"
+        android:layout_weight="1"
     />
 
     <EditText android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
     />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:layout_weight="1"
+        />
+
+    <EditText android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
 
    <Button  android:id="@+id/ok_button"
+       android:layout_weight="1"
        android:layout_marginLeft="@dimen/activity_small_padding"
        android:layout_marginRight="@dimen/activity_small_padding"
        android:layout_marginTop="@dimen/standard_margin"

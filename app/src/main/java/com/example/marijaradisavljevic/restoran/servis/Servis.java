@@ -34,6 +34,7 @@ public class Servis {
         userInfo.setNumber("060123789");
         userInfo.setUsername("marijarad89@gmail.com");
         userInfo.setType("konobar");
+        userInfo.setPassword("sifra");
 
         numberItemssStrignList = new String[7];
         numberItemssStrignList[0] = "broj komada";
