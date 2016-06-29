@@ -37,7 +37,7 @@ public class ActivityFirst extends AppCompatActivity {
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
        // toolbar.setLogo(R.drawable.help);
         toolbar.setLogoDescription(getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+
 
       //  getSupportActionBar().hide();
         Bundle extras = getIntent().getExtras();
@@ -47,10 +47,12 @@ public class ActivityFirst extends AppCompatActivity {
             fragmetnName = extras.getString("name");
             Log.d("BLA",extras.toString());
             if(fragmetnName !=null && fragmetnName.equals("FragmentUserInfo")) {
+                toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentUserInfo fragmentUserInfo = FragmentUserInfo.getInstance();
                 fm.beginTransaction().replace(R.id.container_menu, fragmentUserInfo).commit();
             }else if(fragmetnName !=null &&  fragmetnName.equals("FreagmentAddOrder")){
+                toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
                 String action = extras.getString("action");
                 if (action !=null &&  action.equals("plusbutton")){
                     FragmentManager fm = getSupportFragmentManager();
