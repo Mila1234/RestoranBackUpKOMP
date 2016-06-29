@@ -44,7 +44,7 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
         kategory = (Spinner)  mRoot.findViewById(R.id.kategory_spinner);
 
         //String[] value = getResources().getStringArray(R.array.numbers);
-        ArrayAdapter<String> adapter_number_of_table = new MySpinnerAdapter(getActivity(),
+        ArrayAdapter<String> adapter_number_of_table = new MySpinnerAdapter(false,getActivity(),
                 android.R.layout.simple_spinner_item, Servis.getInstance().stringListofTables());
 
 
@@ -58,7 +58,7 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
 
 
         String[] value = getResources().getStringArray(R.array.paidNotpaid);
-        ArrayAdapter<String>  adapter_isItPaid = new MySpinnerAdapter(getActivity(),
+        ArrayAdapter<String>  adapter_isItPaid = new MySpinnerAdapter(false,getActivity(),
                  android.R.layout.simple_spinner_item ,value);
 
         // Specify the layout to use when the list of choices appears
@@ -69,7 +69,7 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
         isItPaid.setOnItemSelectedListener(this);
 
         // value = getResources().getStringArray(R.array.kategory_array);
-        ArrayAdapter<String> adapter_kategory = new MySpinnerAdapter(getActivity(),
+        ArrayAdapter<String> adapter_kategory = new MySpinnerAdapter(false,getActivity(),
                 android.R.layout.simple_spinner_item,Servis.getInstance().stringListofFoodItems() );
 
         // Specify the layout to use when the list of choices appears

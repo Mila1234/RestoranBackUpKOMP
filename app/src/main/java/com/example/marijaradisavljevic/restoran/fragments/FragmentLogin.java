@@ -342,8 +342,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
                 }
             }
 
-            UserData.getInstance().setUsername(mEmail);
-            UserData.getInstance().setPassword(mPassword);
+
 
            return Servis.getInstance().logIN(mEmail, mPassword);
             // TODO: register the new account here.

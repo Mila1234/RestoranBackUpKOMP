@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentAddMenuItem;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentUserInfo;
+import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 /**
  * Created by marija.radisavljevic on 6/6/2016.
@@ -31,7 +32,7 @@ public class Activity_AddMenuItem extends AppCompatActivity {
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setLogoDescription(getResources().getString(R.string.Logo_description));
-
+        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
         FragmentManager fm = getSupportFragmentManager();
         FragmentAddMenuItem fragmentAddMenuItem = FragmentAddMenuItem.getInstance();
         fm.beginTransaction().replace(R.id.container_menu, fragmentAddMenuItem).commit();

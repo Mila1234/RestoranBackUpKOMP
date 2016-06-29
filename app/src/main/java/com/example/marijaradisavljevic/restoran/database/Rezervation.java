@@ -2,45 +2,64 @@ package com.example.marijaradisavljevic.restoran.database;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.Semaphore;
 
 /**
  * Created by marija.radisavljevic on 5/18/2016.
  */
 public class Rezervation implements  Cloneable{//TODO DB komunication
 
-    private String time,name_user;
-    private Integer price;
+    private String time;
+
     private  Integer numberTable;
     private boolean paidOrNot;
+    private String password;
+    private String username;
 
-    private String nameType;
 
     private ArrayList<Order> orders;
+
     private Integer id;
+    private Integer price;
 
 
     //TODO ovaj id treba da se dobija od backenda
     private static int ukid = 0;
 
-
-
-
-
-    public String getNameType() {
-        return nameType;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNameType(String nameType) {
-        this.nameType = nameType;
+    public String getTime() {
+        return time;
     }
+
+    public Integer getNumberTable() {
+        return numberTable;
+    }
+
+    public void setNumberTable(Integer numberTable) {
+        this.numberTable = numberTable;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     @Override
     public Rezervation clone() throws CloneNotSupportedException {
         Rezervation clone = new Rezervation();
          clone.setPaidOrNot(this.isPaidOrNot());
         clone.setTime(this.gettime());
-        clone.setName_user(this.getname_user());
+
         clone.setNumberTable(this.getnumberTable());
         clone.id = this.id;
 
@@ -113,9 +132,7 @@ public class Rezervation implements  Cloneable{//TODO DB komunication
         this.time = time;
     }
 
-    public void setName_user(String name_user) {
-        this.name_user = name_user;
-    }
+
 
     public void setNumberTable(int numberTable) {
         this.numberTable = numberTable;
@@ -134,9 +151,7 @@ public class Rezervation implements  Cloneable{//TODO DB komunication
         return time;
     }
 
-    public String getname_user() {
-        return name_user;
-    }
+
 
     public Integer getnumberTable() {
         return numberTable;

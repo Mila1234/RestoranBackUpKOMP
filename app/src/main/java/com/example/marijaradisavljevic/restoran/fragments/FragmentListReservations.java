@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,15 +18,11 @@ import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityFirst;
 import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.data.UserData;
-import com.example.marijaradisavljevic.restoran.database.Order;
-import com.example.marijaradisavljevic.restoran.database.Rezervation;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
-import com.example.marijaradisavljevic.restoran.database.AdapterDB;
-import com.example.marijaradisavljevic.restoran.database.SelecionRegulations;
+import com.example.marijaradisavljevic.restoran.database.Rezervation;
 import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by marija.radisavljevic on 5/13/2016.
@@ -42,31 +37,7 @@ public class FragmentListReservations extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-      /*  MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
 
-
-        ArrayList<Rezervation> myList = AdapterDB.getInstance().getRezervations();
-        try {
-            Iterator<Rezervation> iter = myList.iterator();
-            while (iter.hasNext()) {
-                Rezervation tek = iter.next();
-                Rezervation clone = tek.clone();
-                adapter.addItem(new ItemForRezervationsList(clone));
-            }
-
-        } catch (Exception e) {
-            System.out.print(e.getStackTrace());
-        }
-
-        lvDetail.setAdapter(adapter);
-
-        //////////////////
-
-        //  ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).notifyDataSetChanged();
-        FragmentListReservations.this.lvDetail.invalidateViews();
-
-
-        */
     }
 
 
@@ -105,19 +76,10 @@ public class FragmentListReservations extends Fragment {
 
 
     public class ItemForRezervationsList extends HolderAdapterItem {
-
-        //private String time,name_user,numberTable,price,itemsOrder,paidOrNot;
-       // int id;
         Rezervation rezervation;
 
         public ItemForRezervationsList(Rezervation ld){
-            /*time = ld.gettime();
-            name_user = ld.getname_user();
-            numberTable = ld. getnumberTable();
-            price = ld.getprice();
-            itemsOrder = ld.getitemsOrder();
-            paidOrNot = ld.getpaidOrNot();
-            id = ld.getId();*/
+
             rezervation = ld;
 
         }
@@ -154,7 +116,7 @@ public class FragmentListReservations extends Fragment {
             @Override
             public void findViews(View convertView) {
                 time = (TextView)convertView.findViewById(R.id.time);
-                name_user= (TextView)convertView.findViewById(R.id.name_user);
+
                 numberTable= (TextView)convertView.findViewById(R.id.numberTable);
                 price= (TextView)convertView.findViewById(R.id.price);
                 itemsOrder = (TextView)convertView.findViewById(R.id.itemsOrder);
@@ -167,12 +129,11 @@ public class FragmentListReservations extends Fragment {
 
                 time.setVisibility(View.VISIBLE);
                 time.setText(adapterItem.rezervation.gettime());
-                name_user.setVisibility(View.VISIBLE);
-                name_user.setText(adapterItem.rezervation.getNameType()+" : "+adapterItem.rezervation.getname_user());
+
                 numberTable.setVisibility(View.VISIBLE);
-                numberTable.setText("Broj stola je :" + adapterItem.rezervation.getnumberTable_string());
+                numberTable.setText("Broj stola je : " + adapterItem.rezervation.getnumberTable_string());
                 price.setVisibility(View.VISIBLE);
-                price.setText("Cena je :"+adapterItem.rezervation.getprice().toString());
+                price.setText("Cena je : "+adapterItem.rezervation.getprice().toString());
                 itemsOrder.setVisibility(View.VISIBLE);
                 itemsOrder.setText(adapterItem.rezervation.getItemsOrdersInString());
                 paidOrNot.setVisibility(View.VISIBLE);
@@ -201,30 +162,8 @@ public class FragmentListReservations extends Fragment {
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AdapterDB.getInstance().deleteRezervation(rezervation.getId());
-                        //((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).deleteItemFromAdapter(ItemForRezervationsList.this);
+                       // AdapterDB.getInstance().deleteRezervation(rezervation.getId());
 
-                      /*  ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).deleteAll();
-
-
-                        //MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
-
-                        MyCustomAdatperForTheList<ItemForRezervationsList> adapter = ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter());
-
-                        //  adapter.deleteItem(bla);
-
-                        ArrayList<Rezervation> myList = AdapterDB.getInstance().getRezervations();
-                        try {
-                            Iterator<Rezervation> iter = myList.iterator();
-                            while (iter.hasNext()) {
-                                Rezervation tek = iter.next();
-                                Rezervation clone = tek.clone();
-                                adapter.addItem(new ItemForRezervationsList(clone));
-                            }
-
-                        } catch (Exception e) {
-                            System.out.print(e.getStackTrace());
-                        }*/
 
                         Servis.getInstance().removeRezer(rezervation.getId());
                         MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
@@ -236,7 +175,6 @@ public class FragmentListReservations extends Fragment {
 
                         //////////////////
 
-                        //  ((MyCustomAdatperForTheList<ItemForRezervationsList>) lvDetail.getAdapter()).notifyDataSetChanged();
                         FragmentListReservations.this.lvDetail.invalidateViews();
 
 

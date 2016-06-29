@@ -8,15 +8,17 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
-import com.example.marijaradisavljevic.restoran.data.UserData;
 import com.example.marijaradisavljevic.restoran.database.UserInfo;
 import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 /**
  * Created by marija.radisavljevic on 5/12/2016.
@@ -32,6 +34,8 @@ public class FragmentUserInfo extends Fragment {
     private EditText number ;
     private EditText email;
     private EditText password;
+    private Spinner type;
+    private UserInfo currUI;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,22 @@ public class FragmentUserInfo extends Fragment {
         getActivity().setTitle(R.string.fragmentUserInfo);
 
         ///////////////////////////////////////////////////////////////////////
+        type = (Spinner) mRoot.findViewById(R.id.typeSpiner);
+        // value = getResources().getStringArray(R.array.kategory_array);
+        ArrayAdapter<String> adapter_type = new MySpinnerAdapter(false,getActivity().getBaseContext(),
+                android.R.layout.simple_spinner_item,Servis.getInstance().strignListTypeOFUsers() );
+
+        // Specify the layout to use when the list of choices appears
+        adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        type.setAdapter(adapter_type);
+        type.setSelection(((MySpinnerAdapter)adapter_type).getStartPosition());
+
+
+
+        ///////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////
         username = (EditText) mRoot.findViewById(R.id.username);
         name = (EditText) mRoot.findViewById(R.id.name);
         surname = (EditText) mRoot.findViewById(R.id.surname);
@@ -54,31 +74,40 @@ public class FragmentUserInfo extends Fragment {
 
         Button button_ok = (Button) mRoot.findViewById(R.id.ok_button);
 
-        UserInfo ui =  Servis.getInstance().getUserInfo(UserData.getInstance().getUsername(),UserData.getInstance().getPassword());
+        currUI =  Servis.getInstance().getUserInfo();
 
-        username.setText(ui.getUsername());
-        name.setText(ui.getName());
-        surname.setText(ui.getSurname());
-        number.setText(ui.getNumber());
-        email.setText(ui.getEmail());
-        password.setText(ui.getPassword());
+        username.setText(currUI.getUsername());
+        name.setText(currUI.getName());
+        surname.setText(currUI.getSurname());
+        number.setText(currUI.getNumber());
+        email.setText(currUI.getEmail());
+        password.setText(currUI.getPassword());
+
+        int position = adapter_type.getPosition(currUI.getType());
+        type.setSelection(position);
 
         button_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), " Snimljeno ", Toast.LENGTH_LONG).show();
+                UserInfo newUI = new UserInfo();
+                newUI.setUsername(username.getText().toString());
+                newUI.setName(name.getText().toString());
+                newUI.setSurname(surname.getText().toString());
+                newUI.setNumber(number.getText().toString());
+                newUI.setEmail(email.getText().toString());
+                newUI.setPassword(password.getText().toString());
+                newUI.setType((String)type.getSelectedItem());
 
-                UserInfo ui = new UserInfo();
-                ui.setUsername(username.getText().toString());
-                ui.setName(name.getText().toString());
-                ui.setSurname(surname.getText().toString());
-                ui.setNumber(number.getText().toString());
-                ui.setEmail(email.getText().toString());
-                ui.setPassword(password.getText().toString());
-                Servis.getInstance().setUserInfo(ui);
+                if(newUI.getUsername().length()==0 || newUI.getPassword().length()==0 ){
+                    Toast.makeText(getActivity().getApplicationContext(), getString(R.string.obavezniparametri), Toast.LENGTH_LONG).show();
+                    return;
+                }
 
-                UserData.getInstance().setUsername(ui.getUsername());
-              //  UserData.getInstance().setUsername(ui.getPasseord());
+                Toast.makeText(getActivity().getApplicationContext(), getString(R.string.snimljeno), Toast.LENGTH_LONG).show();
+
+                Servis.getInstance().setUserInfo(newUI);
+
+
 
                 Intent intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

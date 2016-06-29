@@ -1,6 +1,7 @@
 package com.example.marijaradisavljevic.restoran.servis;
 
-import com.example.marijaradisavljevic.restoran.data.UserData;
+
+
 import com.example.marijaradisavljevic.restoran.database.FoodMenuItem;
 import com.example.marijaradisavljevic.restoran.database.Order;
 import com.example.marijaradisavljevic.restoran.database.Rezervation;
@@ -10,6 +11,7 @@ import com.example.marijaradisavljevic.restoran.fragments.FreagmentAddOrder;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by marija.radisavljevic on 6/3/2016.
@@ -18,7 +20,11 @@ public class Servis {
     private static Servis instance = new Servis();
     public static Servis getInstance() {return instance; }
 
-    private UserInfo userInfo;
+    private Semaphore mutex;
+
+    private UserInfo userInfo; //current user
+    String[] listUsersTypes;
+    private ArrayList<UserInfo> listUsers;
     private String[] listaTable;
     private String[] numberItemssStrignList;
     private ArrayList<FoodMenuItem> listFoodMenuItem;
@@ -27,44 +33,73 @@ public class Servis {
 
     public Servis() {
 
-        userInfo = new UserInfo();
-        userInfo.setEmail("marijarad89@gmail.com");
-        userInfo.setName("Marija");
-        userInfo.setSurname("Radisavljevic");
-        userInfo.setNumber("060123789");
-        userInfo.setUsername("marijarad89@gmail.com");
-        userInfo.setType("konobar");
-        userInfo.setPassword("sifra");
+        mutex = new Semaphore(1);
+        listUsersTypes = new String[2];
+        listUsersTypes[0]= "konobar";
+        listUsersTypes[1]= "admin";
+        listUsers = new ArrayList<UserInfo>();
+
+
+        UserInfo userInfo1 = new UserInfo();
+        userInfo1.setEmail("marijarad89@gmail.com");
+        userInfo1.setName("Marija");
+        userInfo1.setSurname("Radisavljevic");
+        userInfo1.setNumber("060123789");
+        userInfo1.setUsername("marijarad89@gmail.com");
+        userInfo1.setType("konobar");
+        userInfo1.setPassword("sifra");
+
+        userInfo = userInfo1;
+
+        listUsers.add(userInfo1);
+        userInfo1 = new UserInfo();
+        userInfo1.setEmail("anailic@gmail.com");
+        userInfo1.setName("Ana");
+        userInfo1.setSurname("Ilic");
+        userInfo1.setNumber("060123789");
+        userInfo1.setUsername("anailic@gmail.com");
+        userInfo1.setType("konobar");
+        userInfo1.setPassword("sifra");
+        listUsers.add(userInfo1);
+        userInfo1 = new UserInfo();
+        userInfo1.setEmail("paja@gmail.com");
+        userInfo1.setName("Pavle");
+        userInfo1.setSurname("Stojanovic");
+        userInfo1.setNumber("060123789");
+        userInfo1.setUsername("paja@gmail.com");
+        userInfo1.setType("konobar");
+        userInfo1.setPassword("sifra");
+        listUsers.add(userInfo1);
 
         numberItemssStrignList = new String[7];
-        numberItemssStrignList[0] = "broj komada";
-        numberItemssStrignList[1] ="1" ;
-        numberItemssStrignList[2] ="2";
-        numberItemssStrignList[3] ="3";
-        numberItemssStrignList[4] ="4";
-        numberItemssStrignList[5] = "5";
-        numberItemssStrignList[6] = "6";
+        numberItemssStrignList[0] = "1";
+        numberItemssStrignList[1] ="2" ;
+        numberItemssStrignList[2] ="3";
+        numberItemssStrignList[3] ="4";
+        numberItemssStrignList[4] ="5";
+        numberItemssStrignList[5] = "6";
+        numberItemssStrignList[6] = "broj komada";
 
         listaTable = new String[6];
-        listaTable[0] = "broj stola";
-        listaTable[1] ="1" ;
-        listaTable[2] ="2";
-        listaTable[3] ="3";
-        listaTable[4] ="4";
-        listaTable[5] = "5";
+        listaTable[0] = "1";
+        listaTable[1] ="2" ;
+        listaTable[2] ="3";
+        listaTable[3] ="4";
+        listaTable[4] ="5";
+        listaTable[5] = "broj stola";
 
 
         listFoodMenuItem = new ArrayList<FoodMenuItem>();
-
-        FoodMenuItem fmt1 = new FoodMenuItem("1 ", 100);
+        FoodMenuItem nadtavka  = new FoodMenuItem(null,"pice", 100);
+        FoodMenuItem fmt1 = new FoodMenuItem(nadtavka,"1 type food", 100);
         listFoodMenuItem.add(fmt1);
-        FoodMenuItem fmt2 = new FoodMenuItem("2 ", 100);
+        FoodMenuItem fmt2 = new FoodMenuItem(nadtavka,"2 type food", 100);
         listFoodMenuItem.add(fmt2);
 
-        FoodMenuItem fmt3 = new FoodMenuItem("3 ", 100);
+        FoodMenuItem fmt3 = new FoodMenuItem(nadtavka,"3 type food", 100);
         listFoodMenuItem.add(fmt3);
 
-        FoodMenuItem fmt4 = new FoodMenuItem("4 ", 100);
+        FoodMenuItem fmt4 = new FoodMenuItem(nadtavka,"4 type food", 100);
         listFoodMenuItem.add(fmt4);
 
 
@@ -77,8 +112,8 @@ public class Servis {
 
 
         Rezervation ld = new Rezervation();
-        ld.setNameType("konobar");
-        ld.setName_user("milica jelic");
+        ld.setUsername("marijarad89@gmail.com");
+    ld.setPassword("sifra");
         // ld.setItemsOrder(new ArrayList(Arrays.asList("kapucino , truska kafa, lenja pita sa jabukama")));
         ArrayList<Order>listOrders = new ArrayList<Order>();
         listOrders.add(new Order(1,fmt1,1));
@@ -94,8 +129,8 @@ public class Servis {
         listOfRezervations.add(ld);
 
         ld = new Rezervation();
-        ld.setNameType("konobar");
-        ld.setName_user("Ana Ilic");
+        ld.setUsername("anailic@gmail.com");
+        ld.setPassword("sifra");
         //ld.setItemsOrder(new ArrayList(Arrays.asList("kapucino , truska kafa, lenja pita sa jabukama")));
         listOrders = new ArrayList<Order>();
         listOrders.add(new Order(1,fmt1,9));
@@ -108,25 +143,13 @@ public class Servis {
         ld.setTime("5.5.2016. 18:30 ");
         listOfRezervations.add(ld);
 
-        ld = new Rezervation();
-        ld.setNameType("konobar");
-        ld.setName_user("milanka rajicic");
-        // ld.setItemsOrder(new ArrayList(Arrays.asList("koka kola , koka kola, lenja pita sa jabukama")));
-        listOrders = new ArrayList<Order>();
-        listOrders.add(new Order(1,fmt1,71));
-        listOrders.add(new Order(3,fmt2,17));
-        listOrders.add(new Order(4,fmt3,17));
-        ld.setOrders(listOrders);
-        ld.setNumberTable(2);
-        ld.setId(40);
-        ld.setPaidOrNot(true);
-        ld.setTime("5.5.2016. 18:00");
-        listOfRezervations.add(ld);
+
 
 
         ld = new Rezervation();
-        ld.setNameType("konobar");
-        ld.setName_user("novak stojanovic");
+
+        ld.setUsername("paja@gmail.com");
+        ld.setPassword("sifra");
         //  ld.setItemsOrder(new ArrayList(Arrays.asList("jelen pivo ,crveno vino , lenja pita sa jabukama")));
         listOrders = new ArrayList<Order>();
         listOrders.add(new Order(1,fmt1,12));
@@ -141,38 +164,116 @@ public class Servis {
         listOfRezervations.add(ld);
     }
 
-    public  Boolean logIN(String mEmail, String mPassword) {
-
-        return true;
+    public String toolBarTypeNameSurnameString(){
+        String bla = userInfo.getType()+" : "+userInfo.getName()+" "+userInfo.getSurname();
+        return bla;
     }
 
+    public  Boolean logIN(String username, String password) {
+//make userinfo if user exists in database
+        Boolean value = false;
+        try{
+            mutex.acquire();
+            //for test
+            for(UserInfo rez: listUsers){
+                if(rez.getUsername().equals("marijarad89@gmail.com") && rez.getPassword().equals("sifra")){
+                    userInfo = rez;
+                    value = true;
+                }
 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
 
-    public UserInfo getUserInfo(String username, String password){
+        }finally{
+            mutex.release();
+        }
+
+        return value;
+
+    }
+
+    public UserInfo getUserInfofromList(String username, String password){
+        UserInfo ui = new UserInfo();
+        try{
+            mutex.acquire();
+            for(UserInfo rez: listUsers){
+                if(rez.getUsername().equals(username) && rez.getPassword().equals(password)){
+                    ui =  rez;
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }finally{
+            mutex.release();
+        }
+        return ui;
+    }
+
+    public UserInfo getUserInfo() {
         return userInfo;
     }
+
+
+
     public void setUserInfo(UserInfo ui){
-        userInfo = ui;
+        try{
+            mutex.acquire();
+
+            for(UserInfo rez: listUsers){
+                //if already exists indatabase update it
+                if(rez.getUsername().equals(ui.getUsername()) && rez.getPassword().equals(ui.getPassword())){
+                    listUsers.remove(rez);
+                    listUsers.add(ui);
+                }
+            }
+            userInfo = ui;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }finally{
+            mutex.release();
+        }
     }
+
+
+    public String[] stringListofFoodItems (){
+        ArrayList<String> returnStringList = new ArrayList<String>();
+        String[] stringList = null;
+        try{
+            mutex.acquire();
+
+
+
+            for(FoodMenuItem foodMenuItem : listFoodMenuItem ){
+                returnStringList.add(foodMenuItem.getFood());
+            }
+            returnStringList.add("kategory");
+            stringList = new String[returnStringList.size()];
+            stringList = returnStringList.toArray(stringList);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }finally{
+            mutex.release();
+        }
+        return  stringList;
+    }
+
 
     public String[] stringListofTables (){
         return  listaTable;
     }
 
-    public String[] stringListofFoodItems (){
-        ArrayList<String> returnStringList = new ArrayList<String>();
-        returnStringList.add("kategory");
-        for(FoodMenuItem foodMenuItem : listFoodMenuItem ){
-            returnStringList.add(foodMenuItem.getFood());
-        }
-        String[] stringList = new String[returnStringList.size()];
-        stringList = returnStringList.toArray(stringList);
-        return  stringList;
-    }
 
-    public ArrayList<Rezervation> getListOfRezervations(){
-        return listOfRezervations;
-    }
+
+
 
     public ArrayList<Rezervation> getRezervationsWithRegulation(SelecionRegulations selecionRegulation) {
         if(selecionRegulation.isAll()){
@@ -181,201 +282,330 @@ public class Servis {
         }
 
         ArrayList<Rezervation> returnRezerList = new ArrayList<>();
-        for (Rezervation currRezervation : listOfRezervations){
 
-            if(selecionRegulation.isKategory_selected()){
-                for (Order currorder :currRezervation.getOrders()){
-                    if(currorder.getOrder().getFood().equals(selecionRegulation.getKategory())){
-                        returnRezerList.add(currRezervation);
-                        break;
+
+        try{
+                mutex.acquire();
+
+                for (Rezervation currRezervation : listOfRezervations){
+
+                    if(selecionRegulation.isKategory_selected()){
+                        for (Order currorder :currRezervation.getOrders()){
+                            if(currorder.getOrder().getFood().equals(selecionRegulation.getKategory())){
+                                returnRezerList.add(currRezervation);
+                                break;
+                            }
+                        }
+                    }
+
+                    if(selecionRegulation.isNumberOfTable_selectied()){
+                        if(currRezervation.getnumberTable().toString().equals(selecionRegulation.getNumberOfTable())  ){
+                            returnRezerList.add(currRezervation);
+                        }
+
+                    }
+                    if(selecionRegulation.isPaidOrNot_selected() && selecionRegulation.isPaidOrNot()){
+                        //ubaci sve koji su placeni
+                        if(currRezervation.isPaidOrNot() == true ){
+                            returnRezerList.add(currRezervation);
+                        }
                     }
                 }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }finally{
+                mutex.release();
             }
 
-            if(selecionRegulation.isNumberOfTable_selectied()){
-                if(currRezervation.getnumberTable().toString().equals(selecionRegulation.getNumberOfTable())  ){
-                    returnRezerList.add(currRezervation);
-                }
-
-            }
-            if(selecionRegulation.isPaidOrNot_selected() && selecionRegulation.isPaidOrNot()){
-                //ubaci sve koji su placeni
-                if(currRezervation.isPaidOrNot() == true ){
-                    returnRezerList.add(currRezervation);
-                }
-            }
-        }
         return returnRezerList;
 
     }
 
-    public Rezervation getRezervationByID(int id) {
 
-        Iterator<Rezervation> iter = listOfRezervations.iterator();
-        while (iter.hasNext()){
-            Rezervation tek;
-            tek = iter.next();
-            if(tek.getId() == id){
-                return tek;
-
-            }
-        }
-
-
-        return  null;//todo  mora da postoji taj id
-    }
 
     public String newRezervation (){
+        Integer i=-1;
+            try{
+                mutex.acquire();
+
         Rezervation r = new Rezervation();
         listOfRezervations.add(r);
-        Integer i = r.getId();
+        i = r.getId();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }finally{
+                mutex.release();
+            }
         return String.valueOf(i);
     }
 
-    public void AddRezervation(String id,String typeAndName, String time,String nuberTable, boolean ispaidnOrnot,ArrayList<FreagmentAddOrder.ItemOrder> listaOrder ){
+    public void AddRezervation(String id, String time,String nuberTable, boolean ispaidnOrnot,ArrayList<FreagmentAddOrder.ItemOrder> listaOrder ){
+            try{
+                mutex.acquire();
+                    for(Rezervation rez: listOfRezervations){
+                        if(rez.getId()== Integer.parseInt(id)){
+                            //update info
 
-        for(Rezervation rez: listOfRezervations){
-            if(rez.getId()== Integer.parseInt(id)){
-                //update info
-                int index = typeAndName.indexOf(":");
+                            rez.setPassword(userInfo.getPassword());
+                            rez.setUsername(userInfo.getUsername());
+                            rez.setTime(time);
+                            rez.setPaidOrNot(ispaidnOrnot);
+                            rez.setNumberTable(Integer.parseInt(nuberTable));
+                            ArrayList<Order> lista = new ArrayList<Order>();
+                            for(FreagmentAddOrder.ItemOrder curOrder : listaOrder){
+                                lista.add(curOrder.getOrder());
+                            }
+                            rez.setOrders(lista);
 
+                        }
 
-                rez.setNameType(typeAndName.substring(0,index));
-                rez.setName_user(typeAndName.substring(index + 1, typeAndName.length()));
-                rez.setTime(time);
-                rez.setPaidOrNot(ispaidnOrnot);
-                rez.setNumberTable(Integer.parseInt(nuberTable));
-                ArrayList<Order> lista = new ArrayList<Order>();
-                for(FreagmentAddOrder.ItemOrder curOrder : listaOrder){
-                    lista.add(curOrder.getOrder());
-                }
-                rez.setOrders(lista);
+                    }
 
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }finally{
+                mutex.release();
             }
-
-        }
 
 
     }
 
     public void addOrder(int id, String numberOfItems, String Kategory) {
+            try{
+                mutex.acquire();
+                    for(Rezervation rez: listOfRezervations){
+                        if(rez.getId()== id){
 
-        for(Rezervation rez: listOfRezervations){
-            if(rez.getId()== id){
-                Order o = new Order();
-                if (!numberOfItems.equals(numberItemssStrignList[0])  ){
-                    o.setNuberOrder(Integer.parseInt(numberOfItems));
-                    if (!stringListofFoodItems()[0].equals(Kategory)){
-                        o.setOrder(getGoodmenuItem(Kategory));
-                        rez.getOrders().add(o);
+                          /*  boolean find = null;
+                            for(Order curOrd: rez.getOrders()){
+                                if(curOrd.getOrder().getFood().equals(Kategory)){
+                                    curOrd.setNuberOrder(curOrd.getNuberOrder()+numberOfItems);
+                                    find = true;
+                                    break;
+
+                                }
+                            }*/
+                           // if (find==null) {
+                                Order ord = new Order();
+
+                                ord.setNuberOrder(Integer.parseInt(numberOfItems));
+                                for (FoodMenuItem fmi : listFoodMenuItem) {
+                                    if (fmi.getFood().equals(Kategory)) {
+                                        ord.setOrder(fmi);
+                                        break;
+                                    }
+
+                                }
+                                rez.getOrders().add(ord);
+                            //}
+
+                        }
+
                     }
-                }
 
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }finally{
+                mutex.release();
             }
-
-        }
     }
 
     private FoodMenuItem getGoodmenuItem(String kategory) {
+        FoodMenuItem value = null;
+
+            try{
+                mutex.acquire();
+
         for(FoodMenuItem f:listFoodMenuItem){
             if (f.getFood().equals(kategory)){
-                return  f;
+                value =   f;
             }
         }
-        return null;
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }finally{
+                mutex.release();
+            }
+
+    return value;
     }
 
     public String getTimeForRezervation(String rezervationIdString) {
+        String value = "";
+
+            try{
+                mutex.acquire();
+
         for(Rezervation rez: listOfRezervations){
             if(rez.getId() == Integer.parseInt(rezervationIdString)){
 
-                return rez.gettime();
+                value = rez.gettime();
             }
 
         }
-        return "";
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }finally{
+                mutex.release();
+            }
+
+        return value;
     }
 
     public boolean getPaidOrNot(String rezervationIdString) {
+        boolean value = false;
+
+            try{
+                mutex.acquire();
+
         for(Rezervation rez: listOfRezervations){
             if(rez.getId() == Integer.parseInt(rezervationIdString)){
 
-                return rez.isPaidOrNot();
+                value =  rez.isPaidOrNot();
             }
 
         }
-        return false;
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }finally{
+                mutex.release();
+            }
+             return  value;
+
     }
 
     public int getNumberOFtable(String rezervationIdString) {
+
+    int value =-1;
+
+            try{
+                mutex.acquire();
+
         for(Rezervation rez: listOfRezervations){
             if(rez.getId() == Integer.parseInt(rezervationIdString)){
 
-                return rez.getnumberTable();
+                value = rez.getnumberTable();
             }
 
         }
-        return -1;
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }finally{
+                mutex.release();
+            }
+
+        return value;
     }
 
     public ArrayList<Order> getListOrders(String rezervationIdString) {
-        for(Rezervation rez: listOfRezervations){
-            if(rez.getId() == Integer.parseInt(rezervationIdString)){
+        ArrayList<Order> value = null;
+                try{
+                    mutex.acquire();
 
-                return rez.getOrders();
-            }
+                        for(Rezervation rez: listOfRezervations){
+                            if(rez.getId() == Integer.parseInt(rezervationIdString)){
+                                value = rez.getOrders();
+                            }
 
-        }
-        return null;
+                        }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }finally{
+                    mutex.release();
+                }
+        return value;
     }
 
-    public void setUserInfoForRezervation(String id,String userType, String user) {
-        for(Rezervation rez: listOfRezervations){
-            if(rez.getId() == Integer.parseInt(id)){
-               rez.setName_user(user);
-                rez.setNameType(userType);
-            }
 
-        }
-    }
-    public String getUserAndTypeForRezervation(String id) {
-        for(Rezervation rez: listOfRezervations){
-            if(rez.getId() == Integer.parseInt(id)){
-                return rez.getNameType()+" : "+ rez.getname_user();
-            }
 
-        }
-        return "";
-
-    }
 
     public String[] getNumberItems() {
         return numberItemssStrignList;
     }
 
     public void removeorderForRezer(Order o,String rezervationIdString) {
+                try{
+                    mutex.acquire();
+
         for(Rezervation rez: listOfRezervations){
             if(rez.getId() == Integer.parseInt(rezervationIdString) ){
                for(Order currOrd:rez.getOrders()){
                    if(o.getId()==currOrd.getId()){
                        rez.getOrders().remove(currOrd);
-                       return;
+                       break;
                    }
                }
             }
 
         }
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }finally{
+                    mutex.release();
+                }
 
     }
 
     public void removeRezer(int id) {
+                try{
+                    mutex.acquire();
 
-        for(Rezervation rez: listOfRezervations){
-            if(rez.getId() == id){
-                listOfRezervations.remove(rez);
-                return;
-            }
 
+                    for(Rezervation rez: listOfRezervations){
+                        if(rez.getId() == id){
+                            listOfRezervations.remove(rez);
+                            break;
+                        }
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }finally{
+                    mutex.release();
+                }
+    }
+
+    public String[] strignListTypeOFUsers() {
+        String[] bla = null ;
+        try{
+            mutex.acquire();
+
+
+            bla = new String[3];
+            bla[2] = "type of user";
+            bla[1] ="konobar" ;
+            bla[0] ="admin";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }finally{
+            mutex.release();
         }
+        return bla;
     }
 }
