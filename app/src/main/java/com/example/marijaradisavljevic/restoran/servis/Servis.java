@@ -228,6 +228,7 @@ public class Servis {
                 if(rez.getUsername().equals(ui.getUsername()) && rez.getPassword().equals(ui.getPassword())){
                     listUsers.remove(rez);
                     listUsers.add(ui);
+                    break;
                 }
             }
             userInfo = ui;
