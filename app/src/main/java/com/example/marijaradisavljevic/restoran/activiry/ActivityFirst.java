@@ -31,6 +31,10 @@ public class ActivityFirst extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_login_frame);
 
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
        // toolbar.setNavigationIcon(R.drawable.back);
