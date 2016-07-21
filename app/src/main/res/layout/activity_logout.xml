@@ -68,7 +68,7 @@
             android:background="@drawable/shape_of_button"
             android:textColor="@color/white"
 
-            style="@style/Widget.AppCompat.Button.Colored"
+
             />
 
         <Button  android:id="@+id/cancel_button"
@@ -89,7 +89,7 @@
             android:background="@drawable/shape_of_button"
             android:textColor="@color/white"
 
-            style="@style/Widget.AppCompat.Button.Colored"/>
+            />
 
 
     </RelativeLayout>
