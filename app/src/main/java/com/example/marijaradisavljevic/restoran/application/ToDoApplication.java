@@ -1,13 +1,12 @@
-package com.example.marijaradisavljevic.restoran.firebase;
-
-/**
- * Created by marija.radisavljevic on 7/18/2016.
- */
+package com.example.marijaradisavljevic.restoran.application;
 
 import android.app.Application;
+
 import com.firebase.client.Firebase;
 
-
+/**
+ * Created by echessa on 3/10/16.
+ */
 public class ToDoApplication extends Application {
 
     @Override
