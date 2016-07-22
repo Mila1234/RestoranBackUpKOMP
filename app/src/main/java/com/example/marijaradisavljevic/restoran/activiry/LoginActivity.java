@@ -11,12 +11,9 @@ import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFirebase;
-import com.firebase.client.AuthData;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 
-import java.util.HashMap;
-import java.util.Map;
+
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -50,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServisFirebase.getInstance().setCallingactivity(LoginActivity.this);
+
                 ServisFirebase.getInstance().logIN(emailEditText.getText().toString(), passwordEditText.getText().toString());
 
             }

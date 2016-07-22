@@ -10,10 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.firebaseservis.Constants;
+
 import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFirebase;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
+
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -30,12 +29,11 @@ public class SignUpActivity extends AppCompatActivity {
         emailEditText = (EditText)findViewById(R.id.emailField);
         signUpButton = (Button)findViewById(R.id.signupButton);
 
-        final Firebase ref = new Firebase(Constants.FIREBASE_URL);
-
+      
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServisFirebase.getInstance().setCallingactivity(SignUpActivity.this);
+
                 ServisFirebase.getInstance().createUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
             }
         });

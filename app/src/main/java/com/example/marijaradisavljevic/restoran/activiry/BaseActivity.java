@@ -1,21 +1,34 @@
 package com.example.marijaradisavljevic.restoran.activiry;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 
-/**
- * Created by marija.radisavljevic on 7/18/2016.
- */
+import com.example.marijaradisavljevic.restoran.R;
+
 public class BaseActivity extends AppCompatActivity {
 
+    private ProgressDialog mProgressDialog;
+
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-
-
-        Intent intent = new Intent(getApplicationContext(), ActivityFirst.class);
-        getApplicationContext().startActivity(intent);
+    public void onStop() {
+        super.onStop();
+        hideProgressDialog();
     }
 
 }

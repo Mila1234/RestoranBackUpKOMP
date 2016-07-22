@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "671422421536",
-    "firebase_url": "https://master-9346c.firebaseio.com",
-    "project_id": "master-9346c",
-    "storage_bucket": "master-9346c.appspot.com"
+    "project_number": "243616669586",
+    "firebase_url": "https://master-fc467.firebaseio.com",
+    "project_id": "master-fc467",
+    "storage_bucket": "master-fc467.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:671422421536:android:8c908f7ad9630d9b",
+        "mobilesdk_app_id": "1:243616669586:android:8c908f7ad9630d9b",
         "android_client_info": {
           "package_name": "com.example.marijaradisavljevic.restoran"
         }
       },
       "oauth_client": [
         {
-          "client_id": "671422421536-qch1ki3dr555oman6a1i96viioloekd5.apps.googleusercontent.com",
+          "client_id": "243616669586-1e5lb7mcstn5tme6lf4nc0dql7evrbrp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBT8_UuzjWZc5fCrP5ySSUVoipSlKfXyjY"
+          "current_key": "AIzaSyAN1yjINUcfRw4-zMF95repGB9A4mfe2qI"
         }
       ],
       "services": {
