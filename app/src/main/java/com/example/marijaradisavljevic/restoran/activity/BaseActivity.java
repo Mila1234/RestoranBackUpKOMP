@@ -1,4 +1,4 @@
-package com.example.marijaradisavljevic.restoran.activiry;
+package com.example.marijaradisavljevic.restoran.activity;
 
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;

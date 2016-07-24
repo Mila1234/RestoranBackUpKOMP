@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.marijaradisavljevic.restoran.activiry;
+package com.example.marijaradisavljevic.restoran.activitylog;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.activity.BaseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

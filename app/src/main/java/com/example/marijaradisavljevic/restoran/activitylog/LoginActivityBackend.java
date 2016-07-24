@@ -1,25 +1,27 @@
-package com.example.marijaradisavljevic.restoran.fragments;
+package com.example.marijaradisavljevic.restoran.activitylog;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -27,18 +29,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.activiryuser.ActivityGUI;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
 
+import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.activiryadmin.ActivityMainList;
+import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.Manifest.permission.READ_CONTACTS;
+
 /**
- * Created by marija.radisavljevic on 5/16/2016.
+ * A login screen that offers login via email/password.
  */
-public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class LoginActivityBackend extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -49,9 +54,8 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "m@gmail.com:mmmmmmm", "m@gmail.com:mmmmmmm"
+            "foo@example.com:hello", "bar@example.com:world"
     };
-    private static FragmentLogin instance;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -64,20 +68,20 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
     private View mLoginFormView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+        setContentView(R.layout.activity_loginbla);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        // toolbar.setNavigationIcon(R.drawable.back);
+        //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
+        // toolbar.setLogo(R.drawable.help);
+        toolbar.setTitle(getResources().getString(R.string.Logo_description));
+        // Set up the login form.
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        populateAutoComplete();
 
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mRoot = inflater.inflate(R.layout.fragmentlogin_layout, container, false);
-        mEmailView = (AutoCompleteTextView) mRoot.findViewById(R.id.email);
-      //  populateAutoComplete();
-
-        mPasswordView = (EditText) mRoot.findViewById(R.id.password);
+        mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -89,35 +93,33 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             }
         });
 
-        Button mEmailSignInButton = (Button) mRoot.findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
 
-        mLoginFormView = mRoot.findViewById(R.id.login_form);
-        mProgressView = mRoot.findViewById(R.id.login_progress);
-
-        return mRoot;
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
     }
 
 
-   /* private void populateAutoComplete() {
+
+    private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
         }
 
-        getActivity().getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().initLoader(0, null, this);
     }
-    */
-/*
+
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
-        if (getActivity().checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
@@ -134,11 +136,11 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
         }
         return false;
     }
-*/
+
     /**
      * Callback received when a permissions request has been completed.
      */
-   /* @Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
@@ -147,7 +149,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             }
         }
     }
-*/
+
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -249,7 +251,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(getActivity(),
+        return new CursorLoader(this,
                 // Retrieve data rows for the device user's 'profile' contact.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
@@ -284,7 +286,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(getActivity(),
+                new ArrayAdapter<>(LoginActivityBackend.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
@@ -334,11 +336,14 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
                 }
             }
 
+            Boolean value =  Servis.getInstance().logIN(mEmail, mPassword);
 
+            return value;
 
-           return Servis.getInstance().logIN(mEmail, mPassword);
             // TODO: register the new account here.
-            //return true;
+           // return true;
+
+
         }
 
         @Override
@@ -347,17 +352,9 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             showProgress(false);
 
             if (success) {
-                //  finish();
-
-               /* FragmentManager fm = getActivity().getSupportFragmentManager();
-                FragmentUserInfo fragmentUserInfo = FragmentUserInfo.getInstance();
-                fm.beginTransaction().replace(R.id.container_menu, fragmentUserInfo).commit();
-*/
-
-                Intent intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
+                Intent intent = new Intent(getApplicationContext(), ActivityMainList.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getActivity().getApplicationContext().startActivity(intent);
-
+                getApplicationContext().startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
@@ -370,25 +367,5 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             showProgress(false);
         }
     }
-
-
-    public static FragmentLogin getInstance() {
-
-
-        if(instance == null){
-            return new FragmentLogin();
-        }else return instance;
-
-    }
-
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_logout).setVisible(false);
-        menu.findItem(R.id.action_user_info).setVisible(false);
-        menu.findItem(R.id.action_add).setVisible(false);
-        super.onPrepareOptionsMenu(menu);
-    }
-
-
 }
+

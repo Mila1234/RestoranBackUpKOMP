@@ -15,7 +15,8 @@ public class SelecionRegulations {
     private boolean kategory_selected=false;
 
     private boolean all=false;
-
+    private String user;
+    private boolean user_selected=false;
 
     public boolean isAll() {
         return all;
@@ -40,7 +41,20 @@ public class SelecionRegulations {
     public void setNumberOfTable_selectied(boolean numberOfTable_selectied) {
         this.numberOfTable_selectied = numberOfTable_selectied;
     }
+    public String getUser() {
+        return user;
+    }
+    public boolean isUser_selected() {
+        return user_selected;
+    }
 
+    public void setUser_selected(boolean user_selected) {
+        this.user_selected = user_selected;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
     public boolean isPaidOrNot() {
         return paidOrNot;
     }
@@ -71,5 +85,22 @@ public class SelecionRegulations {
 
     public void setKategory_selected(boolean kategory_selected) {
         this.kategory_selected = kategory_selected;
+    }
+
+
+    public void setPaidOrNotString(String selectedItem) {
+        if (selectedItem.equals("ne placena") ){
+            paidOrNot= false;
+        }
+        if (selectedItem.equals("placena") ){
+            paidOrNot = true;
+        }
+        if (selectedItem.equals("placena ,ne placena") ){
+            paidOrNot = false;
+        }
+    }
+
+    public boolean somethingSelectedadminListRezervations() {
+        return numberOfTable_selectied || paidOrNot_selected|| user_selected || kategory_selected;
     }
 }

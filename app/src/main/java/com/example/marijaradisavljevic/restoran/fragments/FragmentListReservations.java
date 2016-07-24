@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.activiry.ActivityFirst;
+import com.example.marijaradisavljevic.restoran.activiryuser.ActivityFirst;
 import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.data.UserData;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
@@ -49,7 +49,7 @@ public class FragmentListReservations extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mRoot = inflater.inflate(R.layout.fragment_list_rezervations_layout, container, false);
+        View mRoot = inflater.inflate(R.layout.fragment_list_rezervations_layout_user, container, false);
 
         lvDetail = (ListView)mRoot.findViewById(R.id.list_reservations);
 
@@ -95,7 +95,7 @@ public class FragmentListReservations extends Fragment {
 
         @Override
         protected int getViewLayoutResId() {
-            return R.layout.rezervation;
+            return R.layout.rezervation_user;
         }
 
         @Override
@@ -162,7 +162,7 @@ public class FragmentListReservations extends Fragment {
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       // AdapterDB.getInstance().deleteRezervation(rezervation.getId());
+                       // AdapterDB.getInstance().deleteRezervation(rezervation_user.getId());
 
 
                         Servis.getInstance().removeRezer(rezervation.getId());

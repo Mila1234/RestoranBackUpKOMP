@@ -1,6 +1,5 @@
-package com.example.marijaradisavljevic.restoran.activiry;
+package com.example.marijaradisavljevic.restoran.activitylog;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,22 +9,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFirebase;
+import com.google.firebase.auth.FirebaseAuth;
 
 
-
-
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivityand extends AppCompatActivity {
 
     protected EditText emailEditText;
     protected EditText passwordEditText;
     protected Button loginButton;
     protected TextView signUpTextView;
 
+
+    // [START declare_auth]
+    private FirebaseAuth mAuth;
+    // [END declare_auth]
+
+    // [START declare_auth_listener]
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    // [END declare_auth_listener]
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_loginbla);
 
 
 
@@ -39,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(LoginActivityand.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
@@ -48,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                ServisFirebase.getInstance().logIN(emailEditText.getText().toString(), passwordEditText.getText().toString());
+                //ServisFirebase.getInstance().logIN(emailEditText.getText().toString(), passwordEditText.getText().toString());
 
             }
         });

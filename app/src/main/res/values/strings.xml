@@ -145,5 +145,6 @@
 
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
+    <string name="action_login">log in</string>
 
 </resources>

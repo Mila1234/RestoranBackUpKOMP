@@ -1,9 +1,7 @@
-package com.example.marijaradisavljevic.restoran.activiry;
+package com.example.marijaradisavljevic.restoran.activitylog;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,9 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.fragments.FragmentLogin;
-import com.example.marijaradisavljevic.restoran.fragments.FragmentUserInfo;
-import com.example.marijaradisavljevic.restoran.fragments.FreagmentAddOrder;
+import com.example.marijaradisavljevic.restoran.activiryuser.ActivityFirst;
 import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 /**

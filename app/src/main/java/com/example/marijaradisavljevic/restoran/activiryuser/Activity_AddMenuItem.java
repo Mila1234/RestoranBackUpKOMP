@@ -1,6 +1,5 @@
-package com.example.marijaradisavljevic.restoran.activiry;
+package com.example.marijaradisavljevic.restoran.activiryuser;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,8 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.activitylog.ActivityLogout;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentAddMenuItem;
-import com.example.marijaradisavljevic.restoran.fragments.FragmentUserInfo;
 import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 /**

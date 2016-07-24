@@ -9,7 +9,7 @@ import java.util.Iterator;
 public class Rezervation implements  Cloneable{//TODO DB komunication
 
     private String time;
-
+    private String name_user;
     private  Integer numberTable;
     private boolean paidOrNot;
     private String password;
@@ -20,11 +20,17 @@ public class Rezervation implements  Cloneable{//TODO DB komunication
 
     private Integer id;
     private Integer price;
-
+    private String nameType;
 
     //TODO ovaj id treba da se dobija od backenda
     private static int ukid = 0;
+    public String getNameType() {
+        return nameType;
+    }
 
+    public void setNameType(String nameType) {
+        this.nameType = nameType;
+    }
     public String getUsername() {
         return username;
     }
@@ -52,7 +58,9 @@ public class Rezervation implements  Cloneable{//TODO DB komunication
     public void setUsername(String username) {
         this.username = username;
     }
-
+    public String getname_user() {
+        return name_user;
+    }
 
     @Override
     public Rezervation clone() throws CloneNotSupportedException {

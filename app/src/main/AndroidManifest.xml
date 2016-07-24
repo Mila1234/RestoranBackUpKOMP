@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activiry.EmailPasswordActivity"
+            android:name=".activitylog.EmailPasswordActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,13 +24,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activiry.ActivityGUI" >
+        <activity android:name=".activiryuser.ActivityGUI" >
         </activity>
-        <activity android:name=".activiry.Activity_AddMenuItem" >
+        <activity android:name=".activiryuser.Activity_AddMenuItem" >
         </activity>
-        <activity android:name=".activiry.ActivityFirst" >
+        <activity android:name=".activiryuser.ActivityFirst" >
         </activity>
-        <activity android:name=".activiry.ActivityLogout" >
+        <activity android:name=".activitylog.ActivityLogout" >
+        </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activiryadmin.ActivityAddmenuItem">
+        </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activiryadmin.ActivityAddUser">
+        </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activiryadmin.ActivityListRezer">
+        </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activiryadmin.ActivityListUsers">
+        </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activitylog.LoginActivity">
+        </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activiryadmin.ActivityMainList">
+        </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activiryadmin.ActivityMenuItemList">
+        </activity>
+        <activity
+            android:name="com.example.marijaradisavljevic.restoran.activiryadmin.ActivityUserInfo">
         </activity>
     </application>
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rezervation_color_background"
+    android:padding="@dimen/padding_margin"
+    >
+
+
+        <ListView android:id = "@+id/list_reservations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@color/transparent"
+            android:divider="@color/blue"
+            android:dividerHeight="5dp"
+            android:listSelector="@android:color/transparent"
+            android:paddingBottom="?attr/actionBarSize"
+            >
+
+
+        </ListView>
+   </LinearLayout>

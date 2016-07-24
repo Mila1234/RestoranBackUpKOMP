@@ -1,9 +1,6 @@
-package com.example.marijaradisavljevic.restoran.activiry;
+package com.example.marijaradisavljevic.restoran.activitylog;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                ServisFirebase.getInstance().createUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
+               // ServisFirebase.getInstance().createUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
             }
         });
     }

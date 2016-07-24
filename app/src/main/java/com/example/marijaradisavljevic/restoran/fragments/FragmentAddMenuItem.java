@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.activiry.ActivityFirst;
+import com.example.marijaradisavljevic.restoran.activiryuser.ActivityFirst;
 import com.example.marijaradisavljevic.restoran.servis.Servis;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 

@@ -19,8 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.activiry.ActivityGUI;
-import com.example.marijaradisavljevic.restoran.activiry.Activity_AddMenuItem;
+import com.example.marijaradisavljevic.restoran.activiryuser.ActivityGUI;
+import com.example.marijaradisavljevic.restoran.activiryuser.Activity_AddMenuItem;
 import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 
@@ -86,7 +86,7 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
             rezervationIdString = getArguments().getString("rezervationId");
            // int rezeravtionid = Integer.parseInt(rezervationIdString);
-            //rezervation = Servis.getInstance().getRezervationByID(rezeravtionid);
+            //rezervation_user = Servis.getInstance().getRezervationByID(rezeravtionid);
             time.setText(Servis.getInstance().getTimeForRezervation(rezervationIdString));
 
 
@@ -213,7 +213,7 @@ if (ListOrdersForSplitAction.isEmpty()){
             case R.id.new_item:
                 listOfOrders =adapter.getMyList();
                 Servis.getInstance().AddRezervation(rezervationIdString,time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),listOfOrders);
-//if something is changed in rezervation , becouse it is open to user to change it using userinterface
+//if something is changed in rezervation_user , becouse it is open to user to change it using userinterface
 
                 intent = new Intent(getActivity().getApplicationContext(), Activity_AddMenuItem.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

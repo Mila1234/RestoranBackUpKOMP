@@ -1,4 +1,4 @@
-package com.example.marijaradisavljevic.restoran.activiry;
+package com.example.marijaradisavljevic.restoran.activiryuser;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
+import com.example.marijaradisavljevic.restoran.activitylog.ActivityLogout;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentListReservations;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentSelection;
 import com.example.marijaradisavljevic.restoran.servis.Servis;
