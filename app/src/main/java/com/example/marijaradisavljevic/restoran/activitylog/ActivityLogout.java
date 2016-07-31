@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiryuser.ActivityFirst;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 
 /**
  * Created by marija.radisavljevic on 6/8/2016.
@@ -27,7 +27,7 @@ public class ActivityLogout extends AppCompatActivity {
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setLogoDescription(getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+        toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
 
         Button ok =  (Button) findViewById(R.id.ok_button);
         assert ok != null;

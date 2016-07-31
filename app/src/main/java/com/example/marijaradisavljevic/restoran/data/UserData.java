@@ -1,8 +1,6 @@
 package com.example.marijaradisavljevic.restoran.data;
 
-import com.example.marijaradisavljevic.restoran.database.FoodMenuItem;
 import com.example.marijaradisavljevic.restoran.database.SelecionRegulations;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 /**
  * Created by marija.radisavljevic on 5/17/2016.
@@ -15,8 +13,8 @@ public class UserData {
     public static UserData getInstance() {return instance; }
 
     public UserData() {
-         //userType = Servis.getInstance().UserType();
-        //user = Servis.getInstance().NameOfUser();
+         //userType = ServisFireBase.getInstance().UserType();
+        //user = ServisFireBase.getInstance().NameOfUser();
     }
 
 

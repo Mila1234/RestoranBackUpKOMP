@@ -16,7 +16,7 @@ import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 import com.example.marijaradisavljevic.restoran.database.FoodMenuItem;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 
 import java.util.ArrayList;
 
@@ -37,12 +37,12 @@ public class ActivityMenuItemList  extends AppCompatActivity {
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setTitle(getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+        toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
 
         lvDetail = (ListView) findViewById(R.id.list_reservations);
 
         MyCustomAdatperForTheList<ItemForFoodMenuItemsList> adapter = new MyCustomAdatperForTheList(getBaseContext());
-        ArrayList<FoodMenuItem> myList = Servis.getInstance().getfoodmenuitemslist();
+        ArrayList<FoodMenuItem> myList = ServisFireBase.getInstance().getfoodmenuitemslist();
         for(FoodMenuItem rez:myList){
             adapter.addItem(new ItemForFoodMenuItemsList(rez));
         }
@@ -123,10 +123,10 @@ public class ActivityMenuItemList  extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        Servis.getInstance().removeFootMenuItem(rezervation.getId());
+                        ServisFireBase.getInstance().removeFootMenuItem(rezervation.getId());
 
                         MyCustomAdatperForTheList<ItemForFoodMenuItemsList> adapter = new MyCustomAdatperForTheList(getBaseContext());
-                        ArrayList<FoodMenuItem> myList = Servis.getInstance().getfoodmenuitemslist();
+                        ArrayList<FoodMenuItem> myList = ServisFireBase.getInstance().getfoodmenuitemslist();
                         for(FoodMenuItem rez:myList){
                             adapter.addItem(new ItemForFoodMenuItemsList(rez));
                         }

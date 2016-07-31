@@ -25,7 +25,7 @@ import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 
 import com.example.marijaradisavljevic.restoran.database.Order;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 import java.util.ArrayList;
@@ -86,12 +86,12 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
             rezervationIdString = getArguments().getString("rezervationId");
            // int rezeravtionid = Integer.parseInt(rezervationIdString);
-            //rezervation_user = Servis.getInstance().getRezervationByID(rezeravtionid);
-            time.setText(Servis.getInstance().getTimeForRezervation(rezervationIdString));
+            //rezervation_user = ServisFireBase.getInstance().getRezervationByID(rezeravtionid);
+            time.setText(ServisFireBase.getInstance().getTimeForRezervation(rezervationIdString));
 
 
         }else if (action.equals("plusbutton")) {
-            rezervationIdString = Servis.getInstance().newRezervation();
+            rezervationIdString = ServisFireBase.getInstance().newRezervation();
 
             Calendar calendar = Calendar.getInstance();
             int DAY_OF_MONTH = calendar.get(Calendar.DAY_OF_MONTH);
@@ -117,7 +117,7 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
 //CheckedTextView
         paidOrNot  = (CheckedTextView) mRoot.findViewById(R.id.paidOrNot);
-        paidOrNot.setChecked(Servis.getInstance().getPaidOrNot(rezervationIdString));
+        paidOrNot.setChecked(ServisFireBase.getInstance().getPaidOrNot(rezervationIdString));
         paidOrNot.setOnClickListener(this);
 
 //spiner
@@ -132,7 +132,7 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
 
         numbreOfTable_spinner.setAdapter(adapter_number_of_table);
         if (action.equals("onclick")){
-            int position = adapter_number_of_table.getPosition(String.valueOf(Servis.getInstance().getNumberOFtable(rezervationIdString)));
+            int position = adapter_number_of_table.getPosition(String.valueOf(ServisFireBase.getInstance().getNumberOFtable(rezervationIdString)));
             numbreOfTable_spinner.setSelection(position);
 
         }else{
@@ -145,7 +145,7 @@ public class FreagmentAddOrder extends Fragment implements View.OnClickListener 
         listaAddOrder = (ListView) mRoot.findViewById(R.id.listaAddOrder);
 
         adapter = new MyCustomAdatperForTheList(getActivity());
-            for (Order order:Servis.getInstance().getListOrders(rezervationIdString)) {
+            for (Order order: ServisFireBase.getInstance().getListOrders(rezervationIdString)) {
                 adapter.addItem(new ItemOrder(order));
             }
         listaAddOrder.setAdapter(adapter);
@@ -188,9 +188,9 @@ if (ListOrdersForSplitAction.isEmpty()){
     Toast.makeText(getActivity(), getString(R.string.nemanistazasplit), Toast.LENGTH_LONG).show();
 }
 
-                Servis.getInstance().AddRezervation( rezervationIdString,time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),splitListaNew);
-                rezervationIdString = Servis.getInstance().newRezervation();
-                Servis.getInstance().AddRezervation( rezervationIdString,time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),ListOrdersForSplitAction);
+                ServisFireBase.getInstance().AddRezervation( rezervationIdString,time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),splitListaNew);
+                rezervationIdString = ServisFireBase.getInstance().newRezervation();
+                ServisFireBase.getInstance().AddRezervation( rezervationIdString,time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),ListOrdersForSplitAction);
 
 
 
@@ -203,7 +203,7 @@ if (ListOrdersForSplitAction.isEmpty()){
                 break;
             case R.id.make_order: //TODO make, remake order !
                 listOfOrders =adapter.getMyList();
-                Servis.getInstance().AddRezervation(rezervationIdString,time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),listOfOrders);
+                ServisFireBase.getInstance().AddRezervation(rezervationIdString,time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),listOfOrders);
 
                 intent = new Intent(getActivity().getApplicationContext(), ActivityGUI.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -212,7 +212,7 @@ if (ListOrdersForSplitAction.isEmpty()){
                 break;
             case R.id.new_item:
                 listOfOrders =adapter.getMyList();
-                Servis.getInstance().AddRezervation(rezervationIdString,time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),listOfOrders);
+                ServisFireBase.getInstance().AddRezervation(rezervationIdString,time.getText().toString(), numbreOfTable_spinner.getSelectedItem().toString(),paidOrNot.isChecked(),listOfOrders);
 //if something is changed in rezervation_user , becouse it is open to user to change it using userinterface
 
                 intent = new Intent(getActivity().getApplicationContext(), Activity_AddMenuItem.class);
@@ -318,11 +318,11 @@ if (ListOrdersForSplitAction.isEmpty()){
                     @Override
                     public void onClick(View v) {
 
-                        Servis.getInstance().removeorderForRezer(order,rezervationIdString);
+                        ServisFireBase.getInstance().removeorderForRezer(order,rezervationIdString);
 
 
                         adapter = new MyCustomAdatperForTheList(getActivity());
-                        for (Order order:Servis.getInstance().getListOrders(rezervationIdString)) {
+                        for (Order order: ServisFireBase.getInstance().getListOrders(rezervationIdString)) {
                             adapter.addItem(new ItemOrder(order));
                         }
                         listaAddOrder.setAdapter(adapter);

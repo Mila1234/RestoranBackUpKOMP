@@ -9,20 +9,36 @@ import com.example.marijaradisavljevic.restoran.R;
  * Created by marija.radisavljevic on 6/6/2016.
  */
 public class UserInfo {
+
+    private String uid;
     private String username;
     private String name;
     private String surname ;
     private String number ;
     private String email ;
     private String type;
-    private String password;
 
-    public String getPassword() {
-        return password;
+
+    public UserInfo() {
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public UserInfo(String email) {
+        this.username = "";
+        this.name= "";
+        this.surname= "" ;
+        this.number = "";
+        this.type= "user";
+        this.uid = "";
+
+        this.email = email;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getType() {

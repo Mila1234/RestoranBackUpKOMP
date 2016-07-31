@@ -16,7 +16,7 @@ import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 import com.example.marijaradisavljevic.restoran.database.UserInfo;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 
 import java.util.ArrayList;
 
@@ -34,7 +34,7 @@ public class ActivityListUsers  extends AppCompatActivity {
         super.onResume();
 /*
         MyCustomAdatperForTheList<ItemForUsersList> adapter = new MyCustomAdatperForTheList(this);
-        ArrayList<UserInfo> myList = Servis.getInstance().getUserList(UserData.getInstance().getUsername(),UserData.getInstance().getPassword());
+        ArrayList<UserInfo> myList = ServisFireBase.getInstance().getUserList(UserData.getInstance().getUsername(),UserData.getInstance().getPassword());
         for(UserInfo rez:myList){
             adapter.addItem(new ItemForUsersList(rez));
         }
@@ -56,11 +56,11 @@ public class ActivityListUsers  extends AppCompatActivity {
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setTitle(getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+        toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
 
         listOfUsers = (ListView) findViewById(R.id.listusers);
         MyCustomAdatperForTheList<ItemForUsersList> adapter = new MyCustomAdatperForTheList(this);
-        ArrayList<UserInfo> myList = Servis.getInstance().getUserList();
+        ArrayList<UserInfo> myList = ServisFireBase.getInstance().getUserList();
         for(UserInfo ui:myList){
             adapter.addItem(new ItemForUsersList(ui));
         }
@@ -132,7 +132,7 @@ public class ActivityListUsers  extends AppCompatActivity {
                 username.setVisibility(View.VISIBLE);
                 username.setText(getString(R.string.username) + " : " + adapterItem.userinfo.getUsername());
                 password.setVisibility(View.VISIBLE);
-                password.setText(getString(R.string.password) +" : "+adapterItem.userinfo.getPassword());
+              //  password.setText(getString(R.string.password) +" : "+adapterItem.userinfo.getPassword());
                 email.setVisibility(View.VISIBLE);
                 email.setText(getString (R.string.email)+" : "+adapterItem.userinfo.getEmail());
                 number.setVisibility(View.VISIBLE);
@@ -145,8 +145,8 @@ public class ActivityListUsers  extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent2 = new Intent(getApplicationContext(), ActivityAddUser.class);
-                        intent2.putExtra("username", adapterItem.userinfo.getUsername());
-                        intent2.putExtra("password", adapterItem.userinfo.getPassword());
+                        intent2.putExtra("uid", adapterItem.userinfo.getUid());
+                       // intent2.putExtra("password", adapterItem.userinfo.getPassword());
                         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getApplicationContext().startActivity(intent2);
                     }
@@ -158,10 +158,10 @@ public class ActivityListUsers  extends AppCompatActivity {
                     public void onClick(View v) {
 
 
-                        Servis.getInstance().removeUser(userinfo.getUsername(), userinfo.getPassword());
+                        //ServisFireBase.getInstance().removeUser(userinfo.getUsername(), userinfo.getPassword());
 
                         MyCustomAdatperForTheList<ItemForUsersList> adapter = new MyCustomAdatperForTheList(getBaseContext());
-                        ArrayList<UserInfo> myList = Servis.getInstance().getUserList();
+                        ArrayList<UserInfo> myList = ServisFireBase.getInstance().getUserList();
                         for(UserInfo rez:myList){
                             adapter.addItem(new ItemForUsersList(rez));
                         }

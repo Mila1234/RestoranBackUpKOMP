@@ -10,9 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.activitylog.ActivityLogout;
+import com.example.marijaradisavljevic.restoran.activitylog.EmailPasswordActivity;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentAddMenuItem;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 
 /**
  * Created by marija.radisavljevic on 6/6/2016.
@@ -31,7 +31,7 @@ public class Activity_AddMenuItem extends AppCompatActivity {
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setLogoDescription(getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+        toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
         FragmentManager fm = getSupportFragmentManager();
         FragmentAddMenuItem fragmentAddMenuItem = FragmentAddMenuItem.getInstance();
         fm.beginTransaction().replace(R.id.container_menu, fragmentAddMenuItem).commit();
@@ -63,7 +63,7 @@ public class Activity_AddMenuItem extends AppCompatActivity {
                 return true;
             case R.id.action_logout:
                 //call popup win for logout
-                intent = new Intent(getApplicationContext(), ActivityLogout.class);
+                intent = new Intent(getApplicationContext(), EmailPasswordActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
                 return true;

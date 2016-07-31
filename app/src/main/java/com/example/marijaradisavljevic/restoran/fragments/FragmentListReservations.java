@@ -20,7 +20,7 @@ import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.data.UserData;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 import com.example.marijaradisavljevic.restoran.database.Rezervation;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 
 import java.util.ArrayList;
 
@@ -56,7 +56,7 @@ public class FragmentListReservations extends Fragment {
 
 
         MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
-        ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulation(UserData.getInstance().getSelecionRegulation());
+        ArrayList<Rezervation> myList = ServisFireBase.getInstance().getRezervationsWithRegulation(UserData.getInstance().getSelecionRegulation());
         for(Rezervation rez:myList){
             adapter.addItem(new ItemForRezervationsList(rez));
         }
@@ -165,9 +165,9 @@ public class FragmentListReservations extends Fragment {
                        // AdapterDB.getInstance().deleteRezervation(rezervation_user.getId());
 
 
-                        Servis.getInstance().removeRezer(rezervation.getId());
+                        ServisFireBase.getInstance().removeRezer(rezervation.getId());
                         MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getActivity());
-                        ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulation(UserData.getInstance().getSelecionRegulation());
+                        ArrayList<Rezervation> myList = ServisFireBase.getInstance().getRezervationsWithRegulation(UserData.getInstance().getSelecionRegulation());
                         for(Rezervation rez:myList){
                             adapter.addItem(new ItemForRezervationsList(rez));
                         }

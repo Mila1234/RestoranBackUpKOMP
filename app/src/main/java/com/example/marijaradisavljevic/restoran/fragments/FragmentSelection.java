@@ -14,7 +14,7 @@ import android.widget.Spinner;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.data.UserData;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 /**
@@ -45,7 +45,7 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
 
         //String[] value = getResources().getStringArray(R.array.numbers);
         ArrayAdapter<String> adapter_number_of_table = new MySpinnerAdapter(false,getActivity(),
-                android.R.layout.simple_spinner_item, Servis.getInstance().stringListofTables());
+                android.R.layout.simple_spinner_item, ServisFireBase.getInstance().stringListofTables());
 
 
 
@@ -70,7 +70,7 @@ public class FragmentSelection extends Fragment implements AdapterView.OnItemSel
 
         // value = getResources().getStringArray(R.array.kategory_array);
         ArrayAdapter<String> adapter_kategory = new MySpinnerAdapter(false,getActivity(),
-                android.R.layout.simple_spinner_item,Servis.getInstance().stringListofFoodItems() );
+                android.R.layout.simple_spinner_item, ServisFireBase.getInstance().stringListofFoodItems() );
 
         // Specify the layout to use when the list of choices appears
         adapter_kategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

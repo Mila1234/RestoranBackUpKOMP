@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.database.UserInfo;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 
@@ -45,12 +45,12 @@ public class ActivityUserInfo extends AppCompatActivity {
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setTitle(getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+        toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
         ///////////////////////////////////////////////////////////////////////
         type = (Spinner) findViewById(R.id.typeSpiner);
         // value = getResources().getStringArray(R.array.kategory_array);
         ArrayAdapter<String> adapter_type = new MySpinnerAdapter(false,getBaseContext(),
-                android.R.layout.simple_spinner_item,Servis.getInstance().strignListTypeOFUsers() );
+                android.R.layout.simple_spinner_item, ServisFireBase.getInstance().strignListTypeOFUsers() );
 
         // Specify the layout to use when the list of choices appears
         adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -69,14 +69,14 @@ public class ActivityUserInfo extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         Button button_ok = (Button) findViewById(R.id.ok_button);
 
-        currUI =  Servis.getInstance().getUserInfo();
+        currUI =  ServisFireBase.getInstance().getUserInfo();
 
         username.setText(currUI.getUsername());
         name.setText(currUI.getName());
         surname.setText(currUI.getSurname());
         number.setText(currUI.getNumber());
         email.setText(currUI.getEmail());
-        password.setText(currUI.getPassword());
+//        password.setText(currUI.getPassword());
 
         int position = adapter_type.getPosition(currUI.getType());
         type.setSelection(position);
@@ -91,17 +91,17 @@ public class ActivityUserInfo extends AppCompatActivity {
                 newUI.setSurname(surname.getText().toString());
                 newUI.setNumber(number.getText().toString());
                 newUI.setEmail(email.getText().toString());
-                newUI.setPassword(password.getText().toString());
+              //  newUI.setPassword(password.getText().toString());
                 newUI.setType((String)type.getSelectedItem());
 
-                if(newUI.getUsername().length()==0 || newUI.getPassword().length()==0 ){
-                    Toast.makeText(getApplicationContext(), getString(R.string.obavezniparametri), Toast.LENGTH_LONG).show();
-                    return;
-                }
+                //if(newUI.getUsername().length()==0 || newUI.getPassword().length()==0 ){
+                   // Toast.makeText(getApplicationContext(), getString(R.string.obavezniparametri), Toast.LENGTH_LONG).show();
+                   // return;
+               // }
 
                 Toast.makeText(getApplicationContext(), getString(R.string.snimljeno), Toast.LENGTH_LONG).show();
 
-                Servis.getInstance().setUserInfo(newUI);
+                ServisFireBase.getInstance().setUserInfo(newUI);
 
                 Intent intent = new Intent(getApplicationContext(), ActivityMainList.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

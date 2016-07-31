@@ -16,7 +16,6 @@
 
 package com.example.marijaradisavljevic.restoran.activitylog;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -27,22 +26,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.activiryadmin.ActivityMainList;
-import com.example.marijaradisavljevic.restoran.activiryuser.ActivityGUI;
 import com.example.marijaradisavljevic.restoran.activity.BaseActivity;
-import com.example.marijaradisavljevic.restoran.database.UserInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class EmailPasswordActivity extends BaseActivity implements
+public class EmailPasswordActivityBackUp extends BaseActivity implements
         View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
@@ -52,64 +43,51 @@ public class EmailPasswordActivity extends BaseActivity implements
     private EditText mEmailField;
     private EditText mPasswordField;
 
-
-    // [START declare_database_ref]
-    private DatabaseReference mDatabase;
-    // [END declare_database_ref]
-
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
 
     // [START declare_auth_listener]
-//    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     // [END declare_auth_listener]
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-
-        signOut();
+        setContentView(R.layout.activity_emailpassword);
 
         // Views
-       // mStatusTextView = (TextView) findViewById(R.id.status);
-       // mDetailTextView = (TextView) findViewById(R.id.detail);
+        mStatusTextView = (TextView) findViewById(R.id.status);
+        mDetailTextView = (TextView) findViewById(R.id.detail);
         mEmailField = (EditText) findViewById(R.id.email);
         mPasswordField = (EditText) findViewById(R.id.password);
 
         // Buttons
         findViewById(R.id.email_create_user_button).setOnClickListener(this);
         findViewById(R.id.email_sign_user_button).setOnClickListener(this);
-        //findViewById(R.id.sign_out_button).setOnClickListener(this);
+        findViewById(R.id.sign_out_button).setOnClickListener(this);
 
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
 
-        // [START initialize_database_ref]
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        // [END initialize_database_ref]
-
         // [START auth_state_listener]
-     /* mAuthListener = new FirebaseAuth.AuthStateListener() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    //updateUI(user);
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
                 // [START_EXCLUDE]
-              //
+                updateUI(user);
                 // [END_EXCLUDE]
             }
-        };*/
+        };
         // [END auth_state_listener]
     }
 
@@ -117,7 +95,7 @@ public class EmailPasswordActivity extends BaseActivity implements
     @Override
     public void onStart() {
         super.onStart();
-       // mAuth.addAuthStateListener(mAuthListener);
+        mAuth.addAuthStateListener(mAuthListener);
     }
     // [END on_start_add_listener]
 
@@ -125,13 +103,13 @@ public class EmailPasswordActivity extends BaseActivity implements
     @Override
     public void onStop() {
         super.onStop();
-       // if (mAuthListener != null) {
-           // mAuth.removeAuthStateListener(mAuthListener);
-       // }
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
     // [END on_stop_remove_listener]
 
-    private void createAccount(final String email, String password) {
+    private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
         if (!validateForm()) {
             return;
@@ -150,18 +128,8 @@ public class EmailPasswordActivity extends BaseActivity implements
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-
-                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+                            Toast.makeText(EmailPasswordActivityBackUp.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
-
-                        }else{
-                            //napravi usera u tabeli users
-                            UserInfo user = new UserInfo( email);
-                            mDatabase.child("users").child(getUid()).setValue(user);
-
-
-                            updateUI();
                         }
 
                         // [START_EXCLUDE]
@@ -192,10 +160,8 @@ public class EmailPasswordActivity extends BaseActivity implements
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail", task.getException());
-                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+                            Toast.makeText(EmailPasswordActivityBackUp.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                        }else{
-                            updateUI();
                         }
 
                         // [START_EXCLUDE]
@@ -207,10 +173,8 @@ public class EmailPasswordActivity extends BaseActivity implements
     }
 
     private void signOut() {
-        if(mAuth!=null) {
-            mAuth.signOut();
-        }
-        //updateUI(null);
+        mAuth.signOut();
+        updateUI(null);
     }
 
     private boolean validateForm() {
@@ -235,83 +199,24 @@ public class EmailPasswordActivity extends BaseActivity implements
         return valid;
     }
 
-    public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
-    }
-
-    private void updateUI() {
-
-        FirebaseUser user = mAuth.getCurrentUser();
+    private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-         //   mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail()));
-          //  mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail()));
+            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
-
-//jednom procita i to je to
-            // [START single_value_read]
-            final String userId = getUid();//current user
-            mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            // Get user value
-                            UserInfo user = dataSnapshot.getValue(UserInfo.class);
-
-                            // [START_EXCLUDE]
-                            if (user == null) {
-                                // User is null, error out
-                                Log.e(TAG, "User " + userId + " is unexpectedly null");
-                                Toast.makeText(getApplicationContext(),
-                                        "Error: could not fetch user.",
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                //zavisno od ulogovanog usera ide se na restoran ili restoran admin
-                                Intent intent;
-                                switch (user.getType() ){
-                                    case "admin":
-                                         intent = new Intent(getApplicationContext(), ActivityMainList.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        getApplicationContext().startActivity(intent);
-
-                                        break;
-                                    case "user":
-                                         intent = new Intent(getApplicationContext(), ActivityGUI.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        getApplicationContext().startActivity(intent);
-                                        break;
-                                }
-
-
-
-                            }
-
-                            // Finish this Activity, back to the stream
-                            finish();
-                            // [END_EXCLUDE]
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                        }
-                    });
-            // [END single_value_read]
-          //  findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
-          //  findViewById(R.id.email_password_fields).setVisibility(View.GONE);
-           // findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
+            findViewById(R.id.email_password_fields).setVisibility(View.GONE);
+            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
         } else {
-          //  mStatusTextView.setText(R.string.signed_out);
-           // mDetailTextView.setText(null);
+            mStatusTextView.setText(R.string.signed_out);
+            mDetailTextView.setText(null);
 
-          //  findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
-           // findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
-           // findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+            findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
+            findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
+            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
         }
     }
-
-
-
 
     @Override
     public void onClick(View v) {

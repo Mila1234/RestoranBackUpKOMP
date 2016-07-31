@@ -32,7 +32,7 @@ import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiryadmin.ActivityMainList;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +93,7 @@ public class LoginActivityBackend extends AppCompatActivity implements LoaderCal
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_create_user_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -336,7 +336,7 @@ public class LoginActivityBackend extends AppCompatActivity implements LoaderCal
                 }
             }
 
-            Boolean value =  Servis.getInstance().logIN(mEmail, mPassword);
+            Boolean value =  ServisFireBase.getInstance().logIN(mEmail, mPassword);
 
             return value;
 

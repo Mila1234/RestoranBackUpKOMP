@@ -105,12 +105,12 @@
                         android:weightSum="2">
 
                         <Button
-                            android:id="@+id/email_log_in_button"
+                            android:id="@+id/email_create_user_button"
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="@string/action_sign_in_short"
+                            android:text="@string/action_crete_accout"
                             android:textStyle="bold"
                             android:layout_marginLeft="@dimen/activity_small_padding"
 
@@ -125,12 +125,12 @@
                             style="@style/Widget.AppCompat.Button.Colored"/>
 
                         <Button
-                            android:id="@+id/email_sign_in_button"
+                            android:id="@+id/email_sign_user_button"
                             android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="@string/action_login"
+                            android:text="@string/action_sign_in"
                             android:textStyle="bold"
                             android:layout_marginLeft="@dimen/activity_small_padding"
 

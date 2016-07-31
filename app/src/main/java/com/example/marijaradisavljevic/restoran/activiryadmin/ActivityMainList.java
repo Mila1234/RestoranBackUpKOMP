@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.activitylog.ActivityLogout;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.activitylog.EmailPasswordActivity;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 
 
 /**
@@ -29,7 +29,7 @@ public class ActivityMainList  extends AppCompatActivity implements View.OnClick
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setTitle( getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+        toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
 
         TextView userinfo = (TextView) findViewById(R.id.userinfo);
         TextView addnewUser = (TextView) findViewById(R.id.addUser);
@@ -83,7 +83,7 @@ public class ActivityMainList  extends AppCompatActivity implements View.OnClick
                 getApplicationContext().startActivity(intent);
                 break;
             case R.id.logout:
-                 intent = new Intent(getApplicationContext(), ActivityLogout.class);
+                 intent = new Intent(getApplicationContext(), EmailPasswordActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
                 break;

@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.activiryuser.ActivityGUI;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 
 
 import java.util.ArrayList;
@@ -89,7 +89,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
             }
         });
 
-        Button mEmailSignInButton = (Button) mRoot.findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) mRoot.findViewById(R.id.email_create_user_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -336,7 +336,7 @@ public class FragmentLogin extends Fragment implements LoaderManager.LoaderCallb
 
 
 
-           return Servis.getInstance().logIN(mEmail, mPassword);
+           return ServisFireBase.getInstance().logIN(mEmail, mPassword);
             // TODO: register the new account here.
             //return true;
         }

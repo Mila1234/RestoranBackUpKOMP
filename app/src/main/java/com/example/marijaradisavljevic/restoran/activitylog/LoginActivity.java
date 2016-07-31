@@ -1,9 +1,7 @@
 package com.example.marijaradisavljevic.restoran.activitylog;
 
 import android.annotation.TargetApi;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -67,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_create_user_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,13 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        Button mEmailLogInButton = (Button) findViewById(R.id.email_log_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
 
         mLoginFormView = findViewById(R.id.login_form);

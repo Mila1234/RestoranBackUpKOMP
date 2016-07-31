@@ -20,7 +20,7 @@ import com.example.marijaradisavljevic.restoran.adapters.HolderAdapterItem;
 import com.example.marijaradisavljevic.restoran.adapters.MyCustomAdatperForTheList;
 import com.example.marijaradisavljevic.restoran.database.Rezervation;
 import com.example.marijaradisavljevic.restoran.database.SelecionRegulations;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class ActivityListRezer  extends AppCompatActivity implements  AdapterVie
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setTitle(getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+        toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
 
 
         lvDetail = (ListView) findViewById(R.id.list_reservations);
@@ -69,7 +69,7 @@ public class ActivityListRezer  extends AppCompatActivity implements  AdapterVie
 
         //String[] value = getResources().getStringArray(R.array.numbers);
          adapter_number_of_table = new MySpinnerAdapter(true,getBaseContext(),
-                android.R.layout.simple_spinner_item, Servis.getInstance().stringListofTables());
+                android.R.layout.simple_spinner_item, ServisFireBase.getInstance().stringListofTables());
 
 
 
@@ -94,7 +94,7 @@ public class ActivityListRezer  extends AppCompatActivity implements  AdapterVie
 
         // value = getResources().getStringArray(R.array.kategory_array);
          adapter_kategory = new MySpinnerAdapter(true,getBaseContext(),
-                android.R.layout.simple_spinner_item,Servis.getInstance().stringListofFoodItems() );
+                android.R.layout.simple_spinner_item, ServisFireBase.getInstance().stringListofFoodItems() );
 
         // Specify the layout to use when the list of choices appears
         adapter_kategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -105,7 +105,7 @@ public class ActivityListRezer  extends AppCompatActivity implements  AdapterVie
 
         // value = getResources().getStringArray(R.array.kategory_array);
          adapterUser = new MySpinnerAdapter(true,getBaseContext(),
-                android.R.layout.simple_spinner_item,Servis.getInstance().stringlistUserNames() );
+                android.R.layout.simple_spinner_item, ServisFireBase.getInstance().stringlistUserNames() );
 
         // Specify the layout to use when the list of choices appears
         adapterUser.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -150,7 +150,7 @@ public class ActivityListRezer  extends AppCompatActivity implements  AdapterVie
         }
 
 
-        ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulationForAdmin(sr);
+        ArrayList<Rezervation> myList = ServisFireBase.getInstance().getRezervationsWithRegulationForAdmin(sr);
         for(Rezervation rez:myList){
             adapter.addItem(new ItemForRezervationsList(rez));
         }
@@ -261,12 +261,12 @@ public class ActivityListRezer  extends AppCompatActivity implements  AdapterVie
                     @Override
                     public void onClick(View v) {
 
-                        Servis.getInstance().removeRezer(rezervation.getId());
+                        ServisFireBase.getInstance().removeRezer(rezervation.getId());
                         MyCustomAdatperForTheList<ItemForRezervationsList> adapter = new MyCustomAdatperForTheList(getBaseContext());
 
                         updateListvView ();
 
-                        /*ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulationForAdmin(UserData.getInstance().getSelecionRegulation());
+                        /*ArrayList<Rezervation> myList = ServisFireBase.getInstance().getRezervationsWithRegulationForAdmin(UserData.getInstance().getSelecionRegulation());
                         for(Rezervation rez:myList){
                             adapter.addItem(new ItemForRezervationsList(rez));
                         }
@@ -318,7 +318,7 @@ public class ActivityListRezer  extends AppCompatActivity implements  AdapterVie
         }
 
 
-        ArrayList<Rezervation> myList = Servis.getInstance().getRezervationsWithRegulationForAdmin(sr);
+        ArrayList<Rezervation> myList = ServisFireBase.getInstance().getRezervationsWithRegulationForAdmin(sr);
         for(Rezervation rez:myList){
             adapter.addItem(new ItemForRezervationsList(rez));
         }

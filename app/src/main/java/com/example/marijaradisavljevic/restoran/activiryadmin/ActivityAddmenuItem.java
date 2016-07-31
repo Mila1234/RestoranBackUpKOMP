@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.database.FoodMenuItem;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 
@@ -40,13 +40,13 @@ public class ActivityAddmenuItem  extends AppCompatActivity {
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setTitle(getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+        toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
 
 
         kategory_spinner = (Spinner) findViewById(R.id.kategorySpiner);
         // value = getResources().getStringArray(R.array.kategory_array);
         ArrayAdapter<String> adapter_kategory = new MySpinnerAdapter(false,getBaseContext(),
-                android.R.layout.simple_spinner_item,Servis.getInstance().stringListofFoodItems() );
+                android.R.layout.simple_spinner_item, ServisFireBase.getInstance().stringListofFoodItems() );
 
         // Specify the layout to use when the list of choices appears
         adapter_kategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -64,7 +64,7 @@ public class ActivityAddmenuItem  extends AppCompatActivity {
 
         if (extras!= null) {//edit user
             String foodItemId = extras.getString("foodItemId");
-            FoodMenuItem fmi = Servis.getInstance().getFootMenuItem(foodItemId);
+            FoodMenuItem fmi = ServisFireBase.getInstance().getFootMenuItem(foodItemId);
             newItemName.setText(fmi.getFood());
             price.setText(fmi.getPrice().toString());
 
@@ -93,9 +93,9 @@ public class ActivityAddmenuItem  extends AppCompatActivity {
 
                 if (extras!= null) {//edit user
                     String foodItemId = extras.getString("foodItemId");
-                    Servis.getInstance().updateFoodMenuItem( foodItemId , kategoryString , nameString , priceString );
+                    ServisFireBase.getInstance().updateFoodMenuItem( foodItemId , kategoryString , nameString , priceString );
                 }else {
-                    Servis.getInstance().makeNewFoodItem( kategoryString , nameString , priceString );
+                    ServisFireBase.getInstance().makeNewFoodItem( kategoryString , nameString , priceString );
                 }
 
                 Toast.makeText(getApplicationContext(), " Snimljeno ", Toast.LENGTH_LONG).show();

@@ -68,7 +68,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/email_create_user_button"
                 android:layout_marginLeft="@dimen/activity_small_padding"
                 android:layout_marginRight="@dimen/activity_small_padding"
                 android:layout_marginTop="@dimen/standard_margin"

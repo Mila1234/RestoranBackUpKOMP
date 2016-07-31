@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.marijaradisavljevic.restoran.R;
 import com.example.marijaradisavljevic.restoran.database.UserInfo;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 import com.example.marijaradisavljevic.restoran.spiner.MySpinnerAdapter;
 
 
@@ -55,13 +55,13 @@ public class ActivityAddUser  extends AppCompatActivity implements  AdapterView.
         //toolbar.setNavigationContentDescription(getResources().getString(R.string.nameOfApp));
         // toolbar.setLogo(R.drawable.help);
         toolbar.setTitle(getResources().getString(R.string.Logo_description));
-        toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+        toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
 
 ////////////////////spinner//////////////////////////
         type = (Spinner) findViewById(R.id.typeSpiner);
         // value = getResources().getStringArray(R.array.kategory_array);
         final ArrayAdapter<String> adapter_type = new MySpinnerAdapter(false,getBaseContext(),
-                android.R.layout.simple_spinner_item,Servis.getInstance().strignListTypeOFUsers() );
+                android.R.layout.simple_spinner_item, ServisFireBase.getInstance().strignListTypeOFUsers() );
 
         // Specify the layout to use when the list of choices appears
         adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -83,13 +83,13 @@ public class ActivityAddUser  extends AppCompatActivity implements  AdapterView.
         if (extras!= null) {//edit user
             String usernameString = extras.getString("username");
             String passordSrting = extras.getString("password");
-            UserInfo ui = Servis.getInstance().getUserInfofromList(usernameString, passordSrting);
+            UserInfo ui = ServisFireBase.getInstance().getUserInfofromList(usernameString, passordSrting);
             username.setText(ui.getUsername());
             name.setText(ui.getName());
             surname.setText(ui.getSurname());
             number.setText(ui.getNumber());
             email.setText(ui.getEmail());
-            password.setText(ui.getPassword());
+         //   password.setText(ui.getPassword());
             int position = adapter_type.getPosition(ui.getType());
             type.setSelection(position);
         }
@@ -109,20 +109,20 @@ public class ActivityAddUser  extends AppCompatActivity implements  AdapterView.
                 ui.setSurname(surname.getText().toString());
                 ui.setNumber(number.getText().toString());
                 ui.setEmail(email.getText().toString());
-                ui.setPassword(password.getText().toString());
+              //  ui.setPassword(password.getText().toString());
                 ui.setType((String) type.getSelectedItem());
 
-                if(ui.getUsername().length()==0 || ui.getPassword().length()==0 || type.getSelectedItemPosition()==((MySpinnerAdapter)adapter_type).getStartPosition()){
+               /* if(ui.getUsername().length()==0 || ui.getPassword().length()==0 || type.getSelectedItemPosition()==((MySpinnerAdapter)adapter_type).getStartPosition()){
                     Toast.makeText(getApplicationContext(), getString(R.string.obavezniparametri), Toast.LENGTH_LONG).show();
                     return;
-                }
+                }*/
 
                 if (extras!= null) {//edit user
                     String usernameString = extras.getString("username");
                     String passwordString = extras.getString("password");
-                   Servis.getInstance().updateUserInfoFromList(ui, usernameString,passwordString);
+                   ServisFireBase.getInstance().updateUserInfoFromList(ui, usernameString,passwordString);
                 }else{
-                    Servis.getInstance().makeuserinfoIntoList(ui);
+                    ServisFireBase.getInstance().makeuserinfoIntoList(ui);
                 }
 
 

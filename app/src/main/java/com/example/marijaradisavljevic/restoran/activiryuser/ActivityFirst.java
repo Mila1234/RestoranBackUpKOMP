@@ -12,11 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.marijaradisavljevic.restoran.R;
-import com.example.marijaradisavljevic.restoran.activitylog.ActivityLogout;
+import com.example.marijaradisavljevic.restoran.activitylog.EmailPasswordActivity;
+import com.example.marijaradisavljevic.restoran.firebaseservis.ServisFireBase;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentLogin;
 import com.example.marijaradisavljevic.restoran.fragments.FragmentUserInfo;
 import com.example.marijaradisavljevic.restoran.fragments.FreagmentAddOrder;
-import com.example.marijaradisavljevic.restoran.servis.Servis;
 
 
 /**
@@ -52,12 +52,12 @@ public class ActivityFirst extends AppCompatActivity {
             fragmetnName = extras.getString("name");
             Log.d("BLA",extras.toString());
             if(fragmetnName !=null && fragmetnName.equals("FragmentUserInfo")) {
-                toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+                toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentUserInfo fragmentUserInfo = FragmentUserInfo.getInstance();
                 fm.beginTransaction().replace(R.id.container_menu, fragmentUserInfo).commit();
             }else if(fragmetnName !=null &&  fragmetnName.equals("FreagmentAddOrder")){
-                toolbar.setSubtitle(Servis.getInstance().toolBarTypeNameSurnameString());
+                toolbar.setSubtitle(ServisFireBase.getInstance().toolBarTypeNameSurnameString());
                 String action = extras.getString("action");
                 if (action !=null &&  action.equals("plusbutton")){
                     FragmentManager fm = getSupportFragmentManager();
@@ -122,7 +122,7 @@ public class ActivityFirst extends AppCompatActivity {
                 return true;
             case R.id.action_logout:
                 //call popup win for logout
-                intent = new Intent(getApplicationContext(), ActivityLogout.class);
+                intent = new Intent(getApplicationContext(), EmailPasswordActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
                 return true;
